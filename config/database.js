@@ -1,9 +1,7 @@
 const parse = require("pg-connection-string").parse;
 const config = process.env.DATABASE_URL ? parse(process.env.DATABASE_URL) : {};
 
-const isProduction =
-  process.env.NODE_ENV === "production" ||
-  process.env.NODE_ENV === "deployed-dev";
+const isProduction = true;
 
 console.log("is production?", isProduction);
 
