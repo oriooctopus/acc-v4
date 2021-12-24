@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "multiple_choice_challenges",
+  "info": {
+    "singularName": "multiple-choice-challenge",
+    "pluralName": "multiple-choice-challenges",
+    "displayName": "MultipleChoiceChallenge"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "options": {
+      "displayName": "MultipleChoiceOptions",
+      "type": "component",
+      "repeatable": true,
+      "component": "challenge.multiple-choice-options"
+    },
+    "prompt": {
+      "type": "richtext",
+      "required": true
+    },
+    "internalLabel": {
+      "type": "string",
+      "required": true
+    },
+    "canSelectMultipleOptions": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

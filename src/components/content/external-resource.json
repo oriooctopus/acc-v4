@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_content_external_resources",
+  "info": {
+    "displayName": "ExternalResource",
+    "icon": "archway"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "text",
+        "video",
+        "image"
+      ]
+    }
+  }
+}

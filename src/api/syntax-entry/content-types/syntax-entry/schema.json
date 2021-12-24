@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "syntax_entries",
+  "info": {
+    "singularName": "syntax-entry",
+    "pluralName": "syntax-entries",
+    "displayName": "SyntaxEntry"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "internalNotes": {
+      "type": "text"
+    },
+    "maxWidth": {
+      "type": "integer",
+      "default": 450
+    },
+    "sublesson": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::sublesson.sublesson",
+      "inversedBy": "syntaxEntry"
+    },
+    "lesson": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::lesson.lesson",
+      "inversedBy": "syntaxEntry"
+    }
+  }
+}

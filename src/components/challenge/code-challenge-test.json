@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_challenge_code_challenge_tests",
+  "info": {
+    "displayName": "CodeChallengeTest",
+    "icon": "at",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "internalTest": {
+      "type": "richtext",
+      "required": true
+    },
+    "furtherExplanation": {
+      "type": "richtext"
+    }
+  }
+}

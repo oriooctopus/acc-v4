@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_misc_module_lessons",
+  "info": {
+    "displayName": "ModuleLesson",
+    "icon": "angle-double-down"
+  },
+  "options": {},
+  "attributes": {
+    "lesson": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::lesson.lesson"
+    }
+  }
+}

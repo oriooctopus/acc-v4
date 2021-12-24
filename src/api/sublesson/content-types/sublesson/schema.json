@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sublessons",
+  "info": {
+    "singularName": "sublesson",
+    "pluralName": "sublessons",
+    "displayName": "Sublesson",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
+    },
+    "internalNotes": {
+      "type": "text",
+      "private": true
+    },
+    "lesson": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::lesson.lesson",
+      "inversedBy": "sublessons"
+    },
+    "challenges": {
+      "displayName": "Challenges",
+      "type": "component",
+      "repeatable": true,
+      "component": "content.challenges"
+    },
+    "syntaxEntry": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::syntax-entry.syntax-entry",
+      "inversedBy": "sublesson"
+    }
+  }
+}

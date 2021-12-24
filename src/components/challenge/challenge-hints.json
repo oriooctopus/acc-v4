@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_challenge_challenge_hints",
+  "info": {
+    "displayName": "ChallengeHints",
+    "icon": "align-center"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "richtext",
+      "required": true
+    },
+    "recommendedTimeBeforeViewing": {
+      "type": "decimal"
+    }
+  }
+}

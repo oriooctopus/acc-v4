@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "code_challenges",
+  "info": {
+    "singularName": "code-challenge",
+    "pluralName": "code-challenges",
+    "displayName": "CodeChallenge",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "startingCode": {
+      "pluginOptions": {},
+      "type": "richtext"
+    },
+    "tests": {
+      "displayName": "CodeChallengeTest",
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {},
+      "component": "challenge.code-challenge-test"
+    },
+    "prompt": {
+      "pluginOptions": {},
+      "type": "richtext",
+      "required": true
+    },
+    "internalLabel": {
+      "pluginOptions": {},
+      "type": "string",
+      "required": true,
+      "private": true
+    },
+    "internalNotes": {
+      "pluginOptions": {},
+      "type": "text",
+      "private": true
+    },
+    "hints": {
+      "displayName": "ChallengeHints",
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {},
+      "component": "challenge.challenge-hints"
+    },
+    "getStartingCodeFromPreviousChallenge": {
+      "pluginOptions": {},
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_challenge_multiple_choice_options",
+  "info": {
+    "displayName": "MultipleChoiceOptions",
+    "icon": "ankh"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "richtext",
+      "required": true
+    },
+    "isCorrect": {
+      "type": "boolean",
+      "default": false
+    },
+    "incorrectChoiceExplanation": {
+      "type": "richtext"
+    }
+  }
+}

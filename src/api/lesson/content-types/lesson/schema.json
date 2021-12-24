@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lessons",
+  "info": {
+    "singularName": "lesson",
+    "pluralName": "lessons",
+    "displayName": "Lesson",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "isHard": {
+      "type": "boolean",
+      "default": false
+    },
+    "internalNotes": {
+      "type": "text"
+    },
+    "externalResources": {
+      "displayName": "ExternalResource",
+      "type": "component",
+      "repeatable": true,
+      "component": "content.external-resource"
+    },
+    "sublessons": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sublesson.sublesson",
+      "mappedBy": "lesson"
+    },
+    "module": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::module.module",
+      "inversedBy": "lessons"
+    },
+    "syntaxEntry": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::syntax-entry.syntax-entry",
+      "inversedBy": "lesson"
+    }
+  }
+}
