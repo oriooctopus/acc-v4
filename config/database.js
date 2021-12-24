@@ -1,9 +1,13 @@
 const parse = require("pg-connection-string").parse;
 const config = process.env.DATABASE_URL ? parse(process.env.DATABASE_URL) : {};
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction =
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "deployed-dev";
 
-const sslConfig = console.log("THIS IS THE CONFIG", config);
+console.log("is production?", isProduction);
+
+console.log("THIS IS THE CONFIG", config);
 console.log("");
 console.log("other process envs", process.env);
 
