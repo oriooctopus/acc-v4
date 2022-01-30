@@ -1,13 +1,11 @@
 const parse = require("pg-connection-string").parse;
 const config = process.env.DATABASE_URL ? parse(process.env.DATABASE_URL) : {};
 
-const isProduction = true;
+const isProduction = false;
 
 console.log("is production?", isProduction);
 
 console.log("THIS IS THE CONFIG", config);
-console.log("");
-console.log("other process envs", process.env);
 
 module.exports = ({ env }) => ({
   connection: {
@@ -17,7 +15,7 @@ module.exports = ({ env }) => ({
       host: config.host || env("DATABASE_HOST", "127.0.0.1"),
       port: config.port || env.int("DATABASE_PORT", 5432),
       database: config.database || env("DATABASE_NAME", "acc-v4"),
-      user: config.user || env("DATABASE_USERNAME", "username"),
+      user: config.user || env("DATABASE_USERNAME", "acc-v4"),
       password: config.password || env("DATABASE_PASSWORD", "password"),
       // ssl: config.sslEnabled || env.bool("DATABASE_SSL", false),
       // ssl: true,
