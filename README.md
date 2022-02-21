@@ -1,16 +1,36 @@
-# Strapi application
+# Setting up Strapi
 
-Setting up Strapi
+### Quickstart
 
-The first thing you do after forking the ACC-repo is to run "npm run build" and "npm run develop" to start the server, but as you will see, its not that easy.
+###### This section only works for mac
 
-To get started with Strapi you need to install PostgreSQL, and for that you need Homebrew. HomeBrew is a package manager that takes care of everything NPM or Yarn doesn´t. Read more about it on https://brew.sh/
+Linux and Windows sections will be added later. For now check out these links to set up:
 
-This is the website that will get you started. Most of the steps here are taken directly from there. https://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/ PS: This is only for mac. Not sure if it works the same way with Linux or Windows.
+- Windows: https://www.microfocus.com/documentation/idol/IDOL_12_0/MediaServer/Guides/html/English/Content/Getting_Started/Configure/_TRN_Set_up_PostgreSQL.htm
+- Linux: https://www.microfocus.com/documentation/idol/IDOL_12_0/MediaServer/Guides/html/English/Content/Getting_Started/Configure/_TRN_Set_up_PostgreSQL_Linux.htm
 
-To install HomeBrew, run this command in your terminal:
+#### Proceedings for Mac users
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+1. Install Homebrew by running command: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`. _(This will ask for you password and confirmation of download)_
+1. Check that homebrew is up to date and healty by running: `brew update` then `brew doctor`
+1. Install Postgres by running: `brew install postgresql`
+1. Start Postgres service by running: `brew services start postgresql`
+1. If you get error: "Error: role 'postgres' does not exist", run command: `/usr/local/opt/postgres/bin/createuser -s postgres`
+
+_Remember to run `npm run build` and `npm run develop` after doing these steps._
+
+_PS: The step “Downloading Command Line Tools for Xcode” can take very long._
+My best suggestion for that is checking out this discussion: https://github.com/Homebrew/discussions/discussions/131
+
+And especially this comment:
+
+Apple's XCode command-line installer is...quite uncommunicative. You have at least two choices: 1. Wait for as long as it takes...or the installer errors out. 2. Go to https://developer.apple.com/download/more/ (you'll need to sign up for an Apple developer account if you don't have one), then download and install the latest Command Line Tools package that your OS supports.
+
+### More info
+
+Most of the steps here are taken directly from this website: https://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/. There is more to learn there.
+
+HomeBrew is a package manager that takes care of everything NPM or Yarn doesn´t. Read more about it on https://brew.sh/
 
 It will ask for your password and to confirm the download.
 
