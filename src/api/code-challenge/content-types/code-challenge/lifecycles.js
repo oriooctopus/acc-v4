@@ -1,70 +1,82 @@
+console.log("OUTSIDE OF THE LIFECYCLE");
 module.exports = {
   beforeCreate(event) {
-    console.log("**** beforeCreate hook is activated! ****");
+    // console.log("**** beforeCreate hook is activated! ****");
     // console.log("This is the JSON event object:", JSON.stringify(event));
-    console.log("This is the event object:", event);
-    console.log("This is the metaTest Object:", event.params.data);
-    console.log("This is the metaTest Object:", event.params.data.MetaTest[0]);
-    console.log("current test id: ", event.params.data.tests[0].id);
+    // console.log("This is the event object:", event);
+    // console.log("This is the event.params.data:", event.params.data);
+    // console.log("These are the Tests: ", event.params.data.tests);
+    // console.log("These are the metaTests:", event.params.data.MetaTest);
 
-    async function runMetaTest() {
-      const internalTest = await getInternalTest();
-      const metaTest = await getMetaTest();
-      console.log(`final result: ${metaTest} ${internalTest}`);
+    (async function runMetaTest() {
+      const tests = await getInternalTests();
+      const metaTests = await getMetaTests();
 
-      // Error is not functioning correctly. See youtube.
-      //   if (true) {
-      //     throw new Error("MetaTest / internalTest behaving incorrectly");
-      //   }
+      tests.forEach((test) =>
+        console.log("final test.internalTest: ", test.internalTest)
+      );
+
+      metaTests.forEach((metaTest) =>
+        console.log("final metaTest caseCode: ", metaTest.caseCode)
+      );
+
       return false;
-    }
+    })();
 
-    runMetaTest();
+    // runMetaTest();
 
-    async function getInternalTest() {
-      // ID of code-challenge Internal Test
-      const currentID = event.params.data.tests[0].id;
-
+    async function getInternalTests() {
       // Original Finding Internal Test
-      const codeChallengeTestComponent = await strapi.db
+      const internalTests = await strapi.db
         .query("challenge.code-challenge-test")
-        .findOne({
+        .findMany({
           select: ["id", "internalTest"],
           where: {
-            id: currentID,
+            id: {
+              $gte: getCurrentTestID(),
+            },
           },
         });
 
       // Database Location of internalTest (code-challenge-test componenet)
-      console.log(codeChallengeTestComponent);
-      return codeChallengeTestComponent.internalTest;
+      console.log("internalTests: ", internalTests);
+      return internalTests;
     }
 
-    // const internalTest = getInternalTest().then((value) =>
-    //   console.log("getInternalTest(): ", value)
-    // );
+    function getCurrentTestID() {
+      let testIDs = [];
+      event.params.data.tests.forEach((test) => {
+        testIDs.push(test.id);
+      });
+      const currentTestID = Math.min(...testIDs);
+      console.log("currentTestID: ", currentTestID);
+      return currentTestID;
+    }
 
-    async function getMetaTest() {
-      // ID of code-challenge Internal Test
-      const currentMetaID = event.params.data.MetaTest[0].id;
-
+    async function getMetaTests() {
       // Original Finding Internal Test
-      const MetaTestComponent = await strapi.db
-        .query("challenge.meta-test")
-        .findOne({
-          select: ["id", "caseCode", "expectedResult"],
-          where: {
-            id: currentMetaID,
+      const MetaTests = await strapi.db.query("challenge.meta-test").findMany({
+        select: ["id", "caseCode", "expectedResult"],
+        where: {
+          id: {
+            $gte: getCurrentMetaID(),
           },
-        });
+        },
+      });
 
       // Database Location of internalTest (code-challenge-test componenet)
-      //   console.log("MetaTestComponent: ", MetaTestComponent);
-      return MetaTestComponent.caseCode;
+      console.log("MetaTests: ", MetaTests);
+      return MetaTests;
     }
 
-    // const metaTest = getMetaTest().then((value) =>
-    //   console.log("getMetaTest(): ", value)
-    // );
+    function getCurrentMetaID() {
+      let metaIDs = [];
+      event.params.data.MetaTest.forEach((metaTest) => {
+        metaIDs.push(metaTest.id);
+      });
+      const currentMetaID = Math.min(...metaIDs);
+      console.log("currentMetaID: ", currentMetaID);
+      return currentMetaID;
+    }
   },
 };
