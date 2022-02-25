@@ -8,7 +8,7 @@ Windows sections will be added later. For now check out these links to set up:
 
 - Windows: https://www.microfocus.com/documentation/idol/IDOL_12_0/MediaServer/Guides/html/English/Content/Getting_Started/Configure/_TRN_Set_up_PostgreSQL.htm
 
-#### Proceedings for Mac users
+#### Setting up database for Mac users
 
 1. Install Homebrew by running command: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`. _(This will ask for you password and confirmation of download)_
 1. Check that homebrew is up to date and healty by running: `brew update` then `brew doctor`
@@ -30,15 +30,15 @@ Apple's XCode command-line installer is...quite uncommunicative. You have at lea
 After setting up strapi, you need to import the database. This is how you do that.
 
 1. First, add the database file to the native layer in your repo. It should be named something like “backup-remote-….-.pgsql”
-1. In your terminal, go into postgres: `psql template0`
-1. Check roles: `\du`
-   1. You will most likely see that you are a "superuser" in some databases, some not. This gives special admin rights to the database, which you will need
-1. Create database for this project, call it "acc-v4": `CREATE DATABASE "acc-v4"`.
-1. Make yourself a superuser: `alter user [username] with superuser`.
-1. Add login permission: `alter role [username] with login`
-1. Exit postgres: `\q`
-1. Import the database: `pg_restore -U [username] -d acc-v4 -1 [name-of-file]`
-1. Run “npm run build” and then “npm run develop”. You should now be set up. Go to http://localhost:1337/admin/ (Or whatever localhost it is running on) and check!
+2. In your terminal, go into postgres: `psql template0`
+3. Check roles: `\du`
+   - You will most likely see that you are a "superuser" in some databases, some not. This gives special admin rights to the database, which you will need
+4. Create database for this project, call it "acc-v4": `CREATE DATABASE "acc-v4"`.
+5. Make yourself a superuser: `alter user [username] with superuser`.
+6. Add login permission: `alter role [username] with login`
+7. Exit postgres: `\q`
+8. Import the database: `pg_restore -U [username] -d acc-v4 -1 [name-of-file]`
+9. Run `npm run build` and then `npm run develop`. You should now be set up. Go to http://localhost:1337/admin/ (Or whatever localhost it is running on) and check!
 
 #### Notes:
 
@@ -77,13 +77,13 @@ Then, run “npm run build” and “npm run develop” again and you should be 
 When you work on this project, you will du that on your own fork. You will make branches for each added feature, push changes and then merge the branches when the feature are reviewed by others. Here is a breakdown of your workflow:
 
 1. Set upstream repo. Olivers repo is our "source of truth": `git remote add git@github.com:oriooctopus/acc-v4.git`
-1. Pull master - make sure you´re up to date: `git pull`
-1. Make a branch for the change you´re about to make: `git checkout -b [name-of-branch]`
-1. Make the changes/Write the code
-1. Add changes with `git add [name-of-file`
-1. Commit changes with `git commit -m "[notes about changes]"`
-1. Push changes: `git push origin HEAD`
-1. Go to github and make a pull request for your changes.
+2. Pull master - make sure you´re up to date: `git pull`
+3. Make a branch for the change you´re about to make: `git checkout -b [name-of-branch]`
+4. Make the changes/Write the code
+5. Add changes with `git add [name-of-file`
+6. Commit changes with `git commit -m "[notes about changes]"`
+7. Push changes: `git push origin HEAD`
+8. Go to github and make a pull request for your changes.
 
 #### Notes
 
