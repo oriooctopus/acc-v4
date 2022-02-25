@@ -71,3 +71,28 @@ To solve that, simply run this in the command line:
 /usr/local/opt/postgres/bin/createuser -s postgres
 
 Then, run “npm run build” and “npm run develop” again and you should be good!
+
+### Useful git commands
+
+When you work on this project, you will du that on your own fork. You will make branches for each added feature, push changes and then merge the branches when the feature are reviewed by others. Here is a breakdown of your workflow:
+
+1. Set upstream repo. Olivers repo is our "source of truth": `git remote add git@github.com:oriooctopus/acc-v4.git`
+1. Pull master - make sure you´re up to date: `git pull`
+1. Make a branch for the change you´re about to make: `git checkout -b [name-of-branch]`
+1. Make the changes/Write the code
+1. Add changes with `git add [name-of-file`
+1. Commit changes with `git commit -m "[notes about changes]"`
+1. Push changes: `git push origin HEAD`
+1. Go to github and make a pull request for your changes.
+
+#### Notes
+
+In general there is some thing you need to learn about working with git. Don´t be afraid to ask. You should also go through this tutorial on git branching, it is very helpful: https://learngitbranching.js.org/
+
+- Git Lens is a very helpful VSCode extension: Go install it. (Add picture etc.)
+- When you have made your branch, you can check your branches by entering this command: `git branch`. It will also tell you which branch you are on.
+- When you have made a pull request on a branch and make more changes. Don´t make another pull request, it will update when you push the new changes.
+- When you type git rebase -I HEAD~[num] you, for some fucking unknown reason, enter this vim fuckery. Without a fucking course you will also be stuck there and god forbid the changes you want to make will actually be made. So, here is a little guide for how to deal with this godforsaken dickcheese of a feature.
+  - :q - no changes were made
+  - :q! - trash all changes
+  - :wq - save the changes and quit
