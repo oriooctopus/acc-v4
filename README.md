@@ -2,12 +2,11 @@
 
 ### Quickstart
 
-###### This section only works for mac
+###### This section only works for mac and linux
 
-Linux and Windows sections will be added later. For now check out these links to set up:
+Windows sections will be added later. For now check out these links to set up:
 
 - Windows: https://www.microfocus.com/documentation/idol/IDOL_12_0/MediaServer/Guides/html/English/Content/Getting_Started/Configure/_TRN_Set_up_PostgreSQL.htm
-- Linux: https://www.microfocus.com/documentation/idol/IDOL_12_0/MediaServer/Guides/html/English/Content/Getting_Started/Configure/_TRN_Set_up_PostgreSQL_Linux.htm
 
 #### Proceedings for Mac users
 
