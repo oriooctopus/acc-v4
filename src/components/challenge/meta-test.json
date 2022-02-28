@@ -10,11 +10,11 @@
     "caseCode": {
       "type": "richtext"
     },
-    "expectedResult": {
-      "type": "string"
-    },
     "label": {
       "type": "string"
+    },
+    "passes": {
+      "type": "boolean"
     }
   }
 }

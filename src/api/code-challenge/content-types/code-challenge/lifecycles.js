@@ -1,92 +1,81 @@
 module.exports = {
   beforeCreate(event) {
     console.log("**** beforeCreate hook is activated! ****");
-    const eventData = event.params.data;
-    runMetaTest(eventData);
-  },
-
-  beforeCreateMany(event) {
-    console.log("**** beforeCreateMany hook is activated! ****");
-    const eventData = event.params.data;
-    runMetaTest(eventData);
+    const [eventTests, eventMetaTests] = [
+      event.params.data.tests,
+      event.params.data.MetaTest,
+    ];
+    runMetaTests(eventTests, eventMetaTests);
   },
 
   beforeUpdate(event) {
     console.log("**** beforeUpdate hook is activated! ****");
-    const eventData = event.params.data;
-    runMetaTest(eventData);
-  },
-
-  beforeUpdateMany(event) {
-    console.log("**** beforeUpdateMany hook is activated! ****");
-    const eventData = event.params.data;
-    runMetaTest(eventData);
+    const [eventTests, eventMetaTests] = [
+      event.params.data.tests,
+      event.params.data.MetaTest,
+    ];
+    runMetaTests(eventTests, eventMetaTests);
   },
 };
 
-async function runMetaTest(eventData) {
-  const tests = await getInternalTests(eventData);
-  const metaTests = await getMetaTests(eventData);
+// runMetaTestsNeed more specific name later, maybe use "validateInternalTests"
+async function runMetaTests(eventTests, eventMetaTests) {
+  const [tests, metaTests] = await Promise.all([
+    getInternalTests(eventTests),
+    getMetaTests(eventMetaTests),
+  ]);
 
-  tests.forEach((test) =>
+  tests.map((test) =>
     console.log("final test.internalTest: ", test.internalTest)
   );
 
-  metaTests.forEach((metaTest) =>
+  metaTests.map((metaTest) =>
     console.log("final metaTest caseCode: ", metaTest.caseCode)
   );
 
   return false;
 }
 
-async function getInternalTests(eventData) {
-  // Original Finding Internal Test
+async function getInternalTests(eventTests) {
   const internalTests = await strapi.db
     .query("challenge.code-challenge-test")
     .findMany({
       select: ["id", "internalTest"],
       where: {
-        id: {
-          $gte: getCurrentTestID(eventData),
-        },
+        id: getCurrentTestIDs(eventTests),
       },
     });
 
-  console.log("internalTests: ", internalTests);
+  // console.log("internalTests: ", internalTests);
   return internalTests;
 }
 
-function getCurrentTestID(eventData) {
-  let testIDs = [];
-  eventData.tests.forEach((test) => {
-    testIDs.push(test.id);
+function getCurrentTestIDs(eventTests) {
+  let currentTestIDs = [];
+  eventTests.map((test) => {
+    currentTestIDs.push(test.id);
   });
-  const currentTestID = Math.min(...testIDs);
-  console.log("currentTestID: ", currentTestID);
-  return currentTestID;
+  // console.log("currentTestIDs: ", currentTestIDs);
+  return currentTestIDs;
 }
 
-async function getMetaTests(eventData) {
-  // Original Finding Internal Test
+async function getMetaTests(eventMetaTests) {
   const MetaTests = await strapi.db.query("challenge.meta-test").findMany({
-    select: ["id", "caseCode", "expectedResult"],
+    select: ["id", "caseCode", "passes"],
     where: {
-      id: {
-        $gte: getCurrentMetaID(eventData),
-      },
+      id: getCurrentMetaIDs(eventMetaTests),
     },
   });
 
-  console.log("MetaTests: ", MetaTests);
+  // console.log("MetaTests: ", MetaTests);
   return MetaTests;
 }
 
-function getCurrentMetaID(eventData) {
+function getCurrentMetaIDs(eventMetaTests) {
   let metaIDs = [];
-  eventData.MetaTest.forEach((metaTest) => {
+  eventMetaTests.map((metaTest) => {
     metaIDs.push(metaTest.id);
   });
-  const currentMetaID = Math.min(...metaIDs);
-  console.log("currentMetaID: ", currentMetaID);
-  return currentMetaID;
+  // console.log("metaIDs: ", metaIDs);
+  return metaIDs;
 }
