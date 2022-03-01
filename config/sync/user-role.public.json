@@ -1,0 +1,205 @@
+{
+  "name": "Public",
+  "description": "Default role given to unauthenticated user.",
+  "type": "public",
+  "permissions": [
+    {
+      "action": "api::code-challenge.code-challenge.create"
+    },
+    {
+      "action": "api::code-challenge.code-challenge.delete"
+    },
+    {
+      "action": "api::code-challenge.code-challenge.find"
+    },
+    {
+      "action": "api::code-challenge.code-challenge.findOne"
+    },
+    {
+      "action": "api::code-challenge.code-challenge.update"
+    },
+    {
+      "action": "api::course.course.create"
+    },
+    {
+      "action": "api::course.course.delete"
+    },
+    {
+      "action": "api::course.course.find"
+    },
+    {
+      "action": "api::course.course.findOne"
+    },
+    {
+      "action": "api::course.course.update"
+    },
+    {
+      "action": "api::lesson.lesson.create"
+    },
+    {
+      "action": "api::lesson.lesson.delete"
+    },
+    {
+      "action": "api::lesson.lesson.find"
+    },
+    {
+      "action": "api::lesson.lesson.findOne"
+    },
+    {
+      "action": "api::lesson.lesson.update"
+    },
+    {
+      "action": "api::module.module.create"
+    },
+    {
+      "action": "api::module.module.delete"
+    },
+    {
+      "action": "api::module.module.find"
+    },
+    {
+      "action": "api::module.module.findOne"
+    },
+    {
+      "action": "api::module.module.update"
+    },
+    {
+      "action": "api::multiple-choice-challenge.multiple-choice-challenge.create"
+    },
+    {
+      "action": "api::multiple-choice-challenge.multiple-choice-challenge.delete"
+    },
+    {
+      "action": "api::multiple-choice-challenge.multiple-choice-challenge.find"
+    },
+    {
+      "action": "api::multiple-choice-challenge.multiple-choice-challenge.findOne"
+    },
+    {
+      "action": "api::multiple-choice-challenge.multiple-choice-challenge.update"
+    },
+    {
+      "action": "api::sublesson.sublesson.create"
+    },
+    {
+      "action": "api::sublesson.sublesson.delete"
+    },
+    {
+      "action": "api::sublesson.sublesson.find"
+    },
+    {
+      "action": "api::sublesson.sublesson.findOne"
+    },
+    {
+      "action": "api::sublesson.sublesson.update"
+    },
+    {
+      "action": "api::syntax-entry.syntax-entry.create"
+    },
+    {
+      "action": "api::syntax-entry.syntax-entry.delete"
+    },
+    {
+      "action": "api::syntax-entry.syntax-entry.find"
+    },
+    {
+      "action": "api::syntax-entry.syntax-entry.findOne"
+    },
+    {
+      "action": "api::syntax-entry.syntax-entry.update"
+    },
+    {
+      "action": "plugin::content-type-builder.components.getComponent"
+    },
+    {
+      "action": "plugin::content-type-builder.components.getComponents"
+    },
+    {
+      "action": "plugin::content-type-builder.content-types.getContentType"
+    },
+    {
+      "action": "plugin::content-type-builder.content-types.getContentTypes"
+    },
+    {
+      "action": "plugin::email.email.send"
+    },
+    {
+      "action": "plugin::i18n.locales.listLocales"
+    },
+    {
+      "action": "plugin::upload.content-api.count"
+    },
+    {
+      "action": "plugin::upload.content-api.destroy"
+    },
+    {
+      "action": "plugin::upload.content-api.find"
+    },
+    {
+      "action": "plugin::upload.content-api.findOne"
+    },
+    {
+      "action": "plugin::upload.content-api.upload"
+    },
+    {
+      "action": "plugin::users-permissions.auth.callback"
+    },
+    {
+      "action": "plugin::users-permissions.auth.connect"
+    },
+    {
+      "action": "plugin::users-permissions.auth.emailConfirmation"
+    },
+    {
+      "action": "plugin::users-permissions.auth.forgotPassword"
+    },
+    {
+      "action": "plugin::users-permissions.auth.register"
+    },
+    {
+      "action": "plugin::users-permissions.auth.resetPassword"
+    },
+    {
+      "action": "plugin::users-permissions.auth.sendEmailConfirmation"
+    },
+    {
+      "action": "plugin::users-permissions.permissions.getPermissions"
+    },
+    {
+      "action": "plugin::users-permissions.role.createRole"
+    },
+    {
+      "action": "plugin::users-permissions.role.deleteRole"
+    },
+    {
+      "action": "plugin::users-permissions.role.getRole"
+    },
+    {
+      "action": "plugin::users-permissions.role.getRoles"
+    },
+    {
+      "action": "plugin::users-permissions.role.updateRole"
+    },
+    {
+      "action": "plugin::users-permissions.user.count"
+    },
+    {
+      "action": "plugin::users-permissions.user.create"
+    },
+    {
+      "action": "plugin::users-permissions.user.destroy"
+    },
+    {
+      "action": "plugin::users-permissions.user.find"
+    },
+    {
+      "action": "plugin::users-permissions.user.findOne"
+    },
+    {
+      "action": "plugin::users-permissions.user.me"
+    },
+    {
+      "action": "plugin::users-permissions.user.update"
+    }
+  ]
+}

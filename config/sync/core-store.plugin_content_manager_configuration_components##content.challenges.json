@@ -1,0 +1,101 @@
+{
+  "key": "plugin_content_manager_configuration_components::content.challenges",
+  "value": {
+    "uid": "content.challenges",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "id",
+      "defaultSortBy": "id",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "Id",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "codeChallenge": {
+        "edit": {
+          "label": "CodeChallenge",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "internalLabel"
+        },
+        "list": {
+          "label": "CodeChallenge",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "multipleChoiceChallenge": {
+        "edit": {
+          "label": "MultipleChoiceChallenge",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "internalLabel"
+        },
+        "list": {
+          "label": "MultipleChoiceChallenge",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "playground": {
+        "edit": {
+          "label": "Playground",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "internalLabel"
+        },
+        "list": {
+          "label": "Playground",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "codeChallenge",
+        "multipleChoiceChallenge",
+        "playground"
+      ],
+      "edit": [
+        [
+          {
+            "name": "codeChallenge",
+            "size": 6
+          },
+          {
+            "name": "multipleChoiceChallenge",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "playground",
+            "size": 6
+          }
+        ]
+      ],
+      "editRelations": []
+    },
+    "isComponent": true
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

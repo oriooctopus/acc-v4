@@ -1,0 +1,125 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::playground.playground",
+  "value": {
+    "uid": "api::playground.playground",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "internalLabel",
+      "defaultSortBy": "internalLabel",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "Id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "internalLabel": {
+        "edit": {
+          "label": "InternalLabel",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "InternalLabel",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "internalNotes": {
+        "edit": {
+          "label": "InternalNotes",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "InternalNotes",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "prompt": {
+        "edit": {
+          "label": "Prompt",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "Prompt",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "CreatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "CreatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "UpdatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "UpdatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "internalLabel",
+        "internalNotes",
+        "createdAt"
+      ],
+      "editRelations": [],
+      "edit": [
+        [
+          {
+            "name": "internalLabel",
+            "size": 6
+          },
+          {
+            "name": "internalNotes",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "prompt",
+            "size": 12
+          }
+        ]
+      ]
+    }
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}
