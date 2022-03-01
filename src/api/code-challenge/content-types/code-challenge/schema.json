@@ -50,6 +50,11 @@
       "pluginOptions": {},
       "type": "boolean",
       "default": false
+    },
+    "MetaTest": {
+      "type": "component",
+      "repeatable": true,
+      "component": "challenge.meta-test"
     }
   }
 }
