@@ -1,38 +1,24 @@
 module.exports = {
   beforeCreate(event) {
-    console.log("**** beforeCreate hook is activated! ****");
-    const [eventTests, eventMetaTests] = [
-      event.params.data.tests,
-      event.params.data.MetaTest,
-    ];
-    runMetaTests(eventTests, eventMetaTests);
+    runMetaTests(event.params.data.tests, event.params.data.MetaTest);
   },
 
   beforeUpdate(event) {
-    console.log("**** beforeUpdate hook is activated! ****");
-    const [eventTests, eventMetaTests] = [
-      event.params.data.tests,
-      event.params.data.MetaTest,
-    ];
-    runMetaTests(eventTests, eventMetaTests);
+    runMetaTests(event.params.data.tests, event.params.data.MetaTest);
   },
 };
 
 // runMetaTestsNeed more specific name later, maybe use "validateInternalTests"
 async function runMetaTests(eventTests, eventMetaTests) {
-  const [tests, metaTests] = await Promise.all([
+  const [internalTests, metaTests] = await Promise.all([
     getInternalTests(eventTests),
     getMetaTests(eventMetaTests),
   ]);
 
-  tests.map((test) =>
-    console.log("final test.internalTest: ", test.internalTest)
-  );
+  // console.log("final internalTests: ", internalTests);
+  // console.log("final metaTests: ", metaTests);
 
-  metaTests.map((metaTest) =>
-    console.log("final metaTest caseCode: ", metaTest.caseCode)
-  );
-
+  // For next part of feature: return some type of eval using internalTests & metaTests
   return false;
 }
 
@@ -42,40 +28,18 @@ async function getInternalTests(eventTests) {
     .findMany({
       select: ["id", "internalTest"],
       where: {
-        id: getCurrentTestIDs(eventTests),
+        id: eventTests.map(({ id: testId }) => testId),
       },
     });
-
-  // console.log("internalTests: ", internalTests);
   return internalTests;
 }
 
-function getCurrentTestIDs(eventTests) {
-  let currentTestIDs = [];
-  eventTests.map((test) => {
-    currentTestIDs.push(test.id);
-  });
-  // console.log("currentTestIDs: ", currentTestIDs);
-  return currentTestIDs;
-}
-
 async function getMetaTests(eventMetaTests) {
-  const MetaTests = await strapi.db.query("challenge.meta-test").findMany({
+  const metaTests = await strapi.db.query("challenge.meta-test").findMany({
     select: ["id", "caseCode", "passes"],
     where: {
-      id: getCurrentMetaIDs(eventMetaTests),
+      id: eventMetaTests.map(({ id: metaId }) => metaId),
     },
   });
-
-  // console.log("MetaTests: ", MetaTests);
-  return MetaTests;
-}
-
-function getCurrentMetaIDs(eventMetaTests) {
-  let metaIDs = [];
-  eventMetaTests.map((metaTest) => {
-    metaIDs.push(metaTest.id);
-  });
-  // console.log("metaIDs: ", metaIDs);
-  return metaIDs;
+  return metaTests;
 }
