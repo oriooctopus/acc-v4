@@ -55,6 +55,11 @@
       "type": "component",
       "repeatable": true,
       "component": "challenge.meta-test"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::sublesson.sublesson"
     }
   }
 }

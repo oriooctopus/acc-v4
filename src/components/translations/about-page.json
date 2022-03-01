@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_translations_about_pages",
+  "info": {
+    "displayName": "aboutPage",
+    "icon": "align-right",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "text"
+    }
+  }
+}
