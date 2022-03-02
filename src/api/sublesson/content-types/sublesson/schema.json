@@ -41,6 +41,12 @@
       "relation": "oneToOne",
       "target": "api::syntax-entry.syntax-entry",
       "inversedBy": "sublesson"
+    },
+    "steps": {
+      "displayName": "steps",
+      "type": "component",
+      "repeatable": true,
+      "component": "content.steps"
     }
   }
 }
