@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "playgrounds",
+  "info": {
+    "singularName": "playground",
+    "pluralName": "playgrounds",
+    "displayName": "Playground"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "internalLabel": {
+      "type": "string",
+      "required": true
+    },
+    "internalNotes": {
+      "type": "text"
+    },
+    "prompt": {
+      "type": "richtext"
+    }
+  }
+}
