@@ -81,7 +81,7 @@ Then, run "yarn build” and "yarn develop” again and you should be good!
 
 When you work on this project, you will du that on your own fork. You will make branches for each added feature, push changes and then merge the branches when the feature are reviewed by others. Here is a breakdown of your workflow:
 
-1. Set upstream repo. Olivers repo is our "source of truth": `git remote add git@github.com:oriooctopus/acc-v4.git`
+1. Set upstream repo. Olivers repo is our "source of truth": `git remote add upstream git@github.com:oriooctopus/acc-v4.git`
 2. Pull master - make sure you´re up to date: `git pull`
 3. Make a branch for the change you´re about to make: `git checkout -b [name-of-branch]`
 4. Make the changes/Write the code
