@@ -22,39 +22,24 @@
       },
       "conditions": [
         "admin::is-creator"
-      ]
-    },
+      ],
+          "getStartingCodeFromPreviousChallenge":
+          "MetaTest.caseCode",
+          "MetaTest.label":
+          "MetaTest.passes",
+          "category"
+        :
+      },
+      "conditions", ["admin::is-creator"]
+    ,
     {
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::code-challenge.code-challenge",
       "properties": {},
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.read",
-      "subject": "api::code-challenge.code-challenge",
-      "properties": {
-        "fields": [
-          "startingCode",
-          "tests.label",
-          "tests.internalTest",
-          "tests.furtherExplanation",
-          "prompt",
-          "internalLabel",
-          "internalNotes",
-          "hints.text",
-          "hints.recommendedTimeBeforeViewing",
-          "getStartingCodeFromPreviousChallenge"
-        ]
-      },
-      "conditions": [
-        "admin::is-creator"
-      ]
-    },
-    {
-      "action": "plugin::content-manager.explorer.update",
       "subject": "api::code-challenge.code-challenge",
       "properties": {
         "fields": [
@@ -67,34 +52,51 @@
           "internalNotes",
           "hints.text",
           "hints.recommendedTimeBeforeViewing",
-          "getStartingCodeFromPreviousChallenge"
+          "getStartingCodeFromPreviousChallenge",
+          "MetaTest.caseCode",
+          "MetaTest.label",
+          "MetaTest.passes",
+          "category"
         ]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::code-challenge.code-challenge",
+      "properties": {
+        "fields": [
+          "startingCode",
+          "tests.label",
+          "tests.internalTest",
+          "tests.furtherExplanation",
+          "prompt",
+          "internalLabel",
+          "internalNotes",
+          "hints.text",
+          "hints.recommendedTimeBeforeViewing",
+          "getStartingCodeFromPreviousChallenge",
+          "MetaTest.caseCode",
+          "MetaTest.label",
+          "MetaTest.passes",
+          "category"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::course.course",
       "properties": {
-        "fields": [
-          "name",
-          "slug",
-          "modules"
-        ]
+        "fields": ["name", "slug", "modules"]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::course.course",
       "properties": {},
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.read",
@@ -141,17 +143,13 @@
           "syntaxEntry"
         ]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::lesson.lesson",
       "properties": {},
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.read",
@@ -170,9 +168,7 @@
           "syntaxEntry"
         ]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.update",
@@ -191,59 +187,37 @@
           "syntaxEntry"
         ]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::module.module",
       "properties": {
-        "fields": [
-          "name",
-          "lessons",
-          "moduleLessons.lesson"
-        ]
+        "fields": ["name", "lessons", "moduleLessons.lesson"]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::module.module",
       "properties": {},
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::module.module",
       "properties": {
-        "fields": [
-          "name",
-          "lessons",
-          "moduleLessons.lesson"
-        ]
+        "fields": ["name", "lessons", "moduleLessons.lesson"]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::module.module",
       "properties": {
-        "fields": [
-          "name",
-          "lessons",
-          "moduleLessons.lesson"
-        ]
+        "fields": ["name", "lessons", "moduleLessons.lesson"]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.create",
@@ -255,20 +229,17 @@
           "options.incorrectChoiceExplanation",
           "prompt",
           "internalLabel",
-          "canSelectMultipleOptions"
+          "canSelectMultipleOptions",
+          "optionsInitiallyHidden"
         ]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::multiple-choice-challenge.multiple-choice-challenge",
       "properties": {},
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.read",
@@ -280,12 +251,11 @@
           "options.incorrectChoiceExplanation",
           "prompt",
           "internalLabel",
-          "canSelectMultipleOptions"
+          "canSelectMultipleOptions",
+          "optionsInitiallyHidden"
         ]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.update",
@@ -297,12 +267,41 @@
           "options.incorrectChoiceExplanation",
           "prompt",
           "internalLabel",
-          "canSelectMultipleOptions"
+          "canSelectMultipleOptions",
+          "optionsInitiallyHidden"
         ]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::playground.playground",
+      "properties": {
+        "fields": ["internalLabel", "internalNotes", "prompt"]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::playground.playground",
+      "properties": {},
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::playground.playground",
+      "properties": {
+        "fields": ["internalLabel", "internalNotes", "prompt"]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::playground.playground",
+      "properties": {
+        "fields": ["internalLabel", "internalNotes", "prompt"]
+      },
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.create",
@@ -315,20 +314,20 @@
           "lesson",
           "challenges.codeChallenge",
           "challenges.multipleChoiceChallenge",
-          "syntaxEntry"
+          "challenges.playground",
+          "syntaxEntry",
+          "steps.codeChallenge",
+          "steps.multipleChoiceChallenge",
+          "steps.playground"
         ]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::sublesson.sublesson",
       "properties": {},
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.read",
@@ -341,12 +340,14 @@
           "lesson",
           "challenges.codeChallenge",
           "challenges.multipleChoiceChallenge",
-          "syntaxEntry"
+          "challenges.playground",
+          "syntaxEntry",
+          "steps.codeChallenge",
+          "steps.multipleChoiceChallenge",
+          "steps.playground"
         ]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.update",
@@ -359,12 +360,14 @@
           "lesson",
           "challenges.codeChallenge",
           "challenges.multipleChoiceChallenge",
-          "syntaxEntry"
+          "challenges.playground",
+          "syntaxEntry",
+          "steps.codeChallenge",
+          "steps.multipleChoiceChallenge",
+          "steps.playground"
         ]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.create",
@@ -379,17 +382,13 @@
           "lesson"
         ]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::syntax-entry.syntax-entry",
       "properties": {},
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.read",
@@ -404,9 +403,7 @@
           "lesson"
         ]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::content-manager.explorer.update",
@@ -421,9 +418,52 @@
           "lesson"
         ]
       },
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::translation-group.translation-group",
+      "properties": {
+        "fields": [
+          "aboutPage.title",
+          "coreComponents.backButton",
+          "coreComponents.nextButton",
+          "coreComponents.wefwe"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::translation-group.translation-group",
+      "properties": {},
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::translation-group.translation-group",
+      "properties": {
+        "fields": [
+          "aboutPage.title",
+          "coreComponents.backButton",
+          "coreComponents.nextButton",
+          "coreComponents.wefwe"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::translation-group.translation-group",
+      "properties": {
+        "fields": [
+          "aboutPage.title",
+          "coreComponents.backButton",
+          "coreComponents.nextButton",
+          "coreComponents.wefwe"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::upload.assets.copy-link",
@@ -447,17 +487,13 @@
       "action": "plugin::upload.assets.update",
       "subject": null,
       "properties": {},
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     },
     {
       "action": "plugin::upload.read",
       "subject": null,
       "properties": {},
-      "conditions": [
-        "admin::is-creator"
-      ]
+      "conditions": ["admin::is-creator"]
     }
   ]
 }

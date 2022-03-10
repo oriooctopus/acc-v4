@@ -4,7 +4,8 @@
   "info": {
     "singularName": "multiple-choice-challenge",
     "pluralName": "multiple-choice-challenges",
-    "displayName": "MultipleChoiceChallenge"
+    "displayName": "MultipleChoiceChallenge",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -28,6 +29,10 @@
     "canSelectMultipleOptions": {
       "type": "boolean",
       "default": false
+    },
+    "optionsInitiallyHidden": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

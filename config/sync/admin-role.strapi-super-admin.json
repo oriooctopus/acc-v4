@@ -21,8 +21,7 @@
           "MetaTest.caseCode",
           "MetaTest.label",
           "MetaTest.passes",
-          "category",
-          "editorMeta.context"
+          "category"
         ]
       },
       "conditions": []
@@ -57,8 +56,7 @@
           "MetaTest.caseCode",
           "MetaTest.label",
           "MetaTest.passes",
-          "category",
-          "editorMeta.context"
+          "category"
         ]
       },
       "conditions": []
@@ -81,8 +79,7 @@
           "MetaTest.caseCode",
           "MetaTest.label",
           "MetaTest.passes",
-          "category",
-          "editorMeta.context"
+          "category"
         ]
       },
       "conditions": []
@@ -91,11 +88,7 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::course.course",
       "properties": {
-        "fields": [
-          "name",
-          "slug",
-          "modules"
-        ]
+        "fields": ["name", "slug", "modules"]
       },
       "conditions": []
     },
@@ -115,11 +108,7 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::course.course",
       "properties": {
-        "fields": [
-          "name",
-          "slug",
-          "modules"
-        ]
+        "fields": ["name", "slug", "modules"]
       },
       "conditions": []
     },
@@ -127,11 +116,7 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::course.course",
       "properties": {
-        "fields": [
-          "name",
-          "slug",
-          "modules"
-        ]
+        "fields": ["name", "slug", "modules"]
       },
       "conditions": []
     },
@@ -208,11 +193,7 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::module.module",
       "properties": {
-        "fields": [
-          "name",
-          "lessons",
-          "moduleLessons.lesson"
-        ]
+        "fields": ["name", "lessons", "moduleLessons.lesson"]
       },
       "conditions": []
     },
@@ -232,11 +213,7 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::module.module",
       "properties": {
-        "fields": [
-          "name",
-          "lessons",
-          "moduleLessons.lesson"
-        ]
+        "fields": ["name", "lessons", "moduleLessons.lesson"]
       },
       "conditions": []
     },
@@ -244,11 +221,7 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::module.module",
       "properties": {
-        "fields": [
-          "name",
-          "lessons",
-          "moduleLessons.lesson"
-        ]
+        "fields": ["name", "lessons", "moduleLessons.lesson"]
       },
       "conditions": []
     },
@@ -262,7 +235,8 @@
           "options.incorrectChoiceExplanation",
           "prompt",
           "internalLabel",
-          "canSelectMultipleOptions"
+          "canSelectMultipleOptions",
+          "optionsInitiallyHidden"
         ]
       },
       "conditions": []
@@ -289,7 +263,8 @@
           "options.incorrectChoiceExplanation",
           "prompt",
           "internalLabel",
-          "canSelectMultipleOptions"
+          "canSelectMultipleOptions",
+          "optionsInitiallyHidden"
         ]
       },
       "conditions": []
@@ -304,7 +279,8 @@
           "options.incorrectChoiceExplanation",
           "prompt",
           "internalLabel",
-          "canSelectMultipleOptions"
+          "canSelectMultipleOptions",
+          "optionsInitiallyHidden"
         ]
       },
       "conditions": []
@@ -313,11 +289,7 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::playground.playground",
       "properties": {
-        "fields": [
-          "internalLabel",
-          "internalNotes",
-          "prompt"
-        ]
+        "fields": ["internalLabel", "internalNotes", "prompt"]
       },
       "conditions": []
     },
@@ -337,11 +309,7 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::playground.playground",
       "properties": {
-        "fields": [
-          "internalLabel",
-          "internalNotes",
-          "prompt"
-        ]
+        "fields": ["internalLabel", "internalNotes", "prompt"]
       },
       "conditions": []
     },
@@ -349,11 +317,7 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::playground.playground",
       "properties": {
-        "fields": [
-          "internalLabel",
-          "internalNotes",
-          "prompt"
-        ]
+        "fields": ["internalLabel", "internalNotes", "prompt"]
       },
       "conditions": []
     },

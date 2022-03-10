@@ -6,7 +6,7 @@
       "bulkable": true,
       "filterable": true,
       "searchable": true,
-      "pageSize": 100,
+      "pageSize": 10,
       "mainField": "internalLabel",
       "defaultSortBy": "internalLabel",
       "defaultSortOrder": "ASC"
@@ -170,7 +170,7 @@
           "editable": true
         },
         "list": {
-          "label": "Created_at",
+          "label": "CreatedAt",
           "searchable": true,
           "sortable": true
         }
@@ -192,11 +192,12 @@
     },
     "layouts": {
       "list": [
+        "id",
         "internalLabel",
-        "createdAt",
         "internalNotes",
-        "category"
+        "getStartingCodeFromPreviousChallenge"
       ],
+      "editRelations": ["category"],
       "edit": [
         [
           {
@@ -204,8 +205,14 @@
             "size": 6
           },
           {
-            "name": "internalNotes",
-            "size": 6
+            "name": "startingCode",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "tests",
+            "size": 12
           }
         ],
         [
@@ -216,14 +223,12 @@
         ],
         [
           {
-            "name": "startingCode",
-            "size": 12
-          }
-        ],
-        [
+            "name": "internalLabel",
+            "size": 6
+          },
           {
-            "name": "tests",
-            "size": 12
+            "name": "internalNotes",
+            "size": 6
           }
         ],
         [
@@ -243,16 +248,7 @@
             "name": "MetaTest",
             "size": 12
           }
-        ],
-        [
-          {
-            "name": "editorMeta",
-            "size": 12
-          }
         ]
-      ],
-      "editRelations": [
-        "category"
       ]
     }
   },

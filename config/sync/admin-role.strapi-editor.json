@@ -17,7 +17,11 @@
           "internalNotes",
           "hints.text",
           "hints.recommendedTimeBeforeViewing",
-          "getStartingCodeFromPreviousChallenge"
+          "getStartingCodeFromPreviousChallenge",
+          "MetaTest.caseCode",
+          "MetaTest.label",
+          "MetaTest.passes",
+          "category"
         ]
       },
       "conditions": []
@@ -48,7 +52,11 @@
           "internalNotes",
           "hints.text",
           "hints.recommendedTimeBeforeViewing",
-          "getStartingCodeFromPreviousChallenge"
+          "getStartingCodeFromPreviousChallenge",
+          "MetaTest.caseCode",
+          "MetaTest.label",
+          "MetaTest.passes",
+          "category"
         ]
       },
       "conditions": []
@@ -67,7 +75,11 @@
           "internalNotes",
           "hints.text",
           "hints.recommendedTimeBeforeViewing",
-          "getStartingCodeFromPreviousChallenge"
+          "getStartingCodeFromPreviousChallenge",
+          "MetaTest.caseCode",
+          "MetaTest.label",
+          "MetaTest.passes",
+          "category"
         ]
       },
       "conditions": []
@@ -76,11 +88,7 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::course.course",
       "properties": {
-        "fields": [
-          "name",
-          "slug",
-          "modules"
-        ]
+        "fields": ["name", "slug", "modules"]
       },
       "conditions": []
     },
@@ -100,11 +108,7 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::course.course",
       "properties": {
-        "fields": [
-          "name",
-          "slug",
-          "modules"
-        ]
+        "fields": ["name", "slug", "modules"]
       },
       "conditions": []
     },
@@ -112,11 +116,7 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::course.course",
       "properties": {
-        "fields": [
-          "name",
-          "slug",
-          "modules"
-        ]
+        "fields": ["name", "slug", "modules"]
       },
       "conditions": []
     },
@@ -193,11 +193,7 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::module.module",
       "properties": {
-        "fields": [
-          "name",
-          "lessons",
-          "moduleLessons.lesson"
-        ]
+        "fields": ["name", "lessons", "moduleLessons.lesson"]
       },
       "conditions": []
     },
@@ -217,11 +213,7 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::module.module",
       "properties": {
-        "fields": [
-          "name",
-          "lessons",
-          "moduleLessons.lesson"
-        ]
+        "fields": ["name", "lessons", "moduleLessons.lesson"]
       },
       "conditions": []
     },
@@ -229,11 +221,7 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::module.module",
       "properties": {
-        "fields": [
-          "name",
-          "lessons",
-          "moduleLessons.lesson"
-        ]
+        "fields": ["name", "lessons", "moduleLessons.lesson"]
       },
       "conditions": []
     },
@@ -247,7 +235,8 @@
           "options.incorrectChoiceExplanation",
           "prompt",
           "internalLabel",
-          "canSelectMultipleOptions"
+          "canSelectMultipleOptions",
+          "optionsInitiallyHidden"
         ]
       },
       "conditions": []
@@ -274,7 +263,8 @@
           "options.incorrectChoiceExplanation",
           "prompt",
           "internalLabel",
-          "canSelectMultipleOptions"
+          "canSelectMultipleOptions",
+          "optionsInitiallyHidden"
         ]
       },
       "conditions": []
@@ -289,8 +279,45 @@
           "options.incorrectChoiceExplanation",
           "prompt",
           "internalLabel",
-          "canSelectMultipleOptions"
+          "canSelectMultipleOptions",
+          "optionsInitiallyHidden"
         ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::playground.playground",
+      "properties": {
+        "fields": ["internalLabel", "internalNotes", "prompt"]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::playground.playground",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "subject": "api::playground.playground",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::playground.playground",
+      "properties": {
+        "fields": ["internalLabel", "internalNotes", "prompt"]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::playground.playground",
+      "properties": {
+        "fields": ["internalLabel", "internalNotes", "prompt"]
       },
       "conditions": []
     },
@@ -305,7 +332,11 @@
           "lesson",
           "challenges.codeChallenge",
           "challenges.multipleChoiceChallenge",
-          "syntaxEntry"
+          "challenges.playground",
+          "syntaxEntry",
+          "steps.codeChallenge",
+          "steps.multipleChoiceChallenge",
+          "steps.playground"
         ]
       },
       "conditions": []
@@ -333,7 +364,11 @@
           "lesson",
           "challenges.codeChallenge",
           "challenges.multipleChoiceChallenge",
-          "syntaxEntry"
+          "challenges.playground",
+          "syntaxEntry",
+          "steps.codeChallenge",
+          "steps.multipleChoiceChallenge",
+          "steps.playground"
         ]
       },
       "conditions": []
@@ -349,7 +384,11 @@
           "lesson",
           "challenges.codeChallenge",
           "challenges.multipleChoiceChallenge",
-          "syntaxEntry"
+          "challenges.playground",
+          "syntaxEntry",
+          "steps.codeChallenge",
+          "steps.multipleChoiceChallenge",
+          "steps.playground"
         ]
       },
       "conditions": []
@@ -407,6 +446,57 @@
           "maxWidth",
           "sublesson",
           "lesson"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::translation-group.translation-group",
+      "properties": {
+        "fields": [
+          "aboutPage.title",
+          "coreComponents.backButton",
+          "coreComponents.nextButton",
+          "coreComponents.wefwe"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::translation-group.translation-group",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "subject": "api::translation-group.translation-group",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::translation-group.translation-group",
+      "properties": {
+        "fields": [
+          "aboutPage.title",
+          "coreComponents.backButton",
+          "coreComponents.nextButton",
+          "coreComponents.wefwe"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::translation-group.translation-group",
+      "properties": {
+        "fields": [
+          "aboutPage.title",
+          "coreComponents.backButton",
+          "coreComponents.nextButton",
+          "coreComponents.wefwe"
         ]
       },
       "conditions": []
