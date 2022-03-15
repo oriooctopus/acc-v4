@@ -66,6 +66,8 @@ const executeTests = async (code, tests) => {
       internalTest,
       code,
     });
+    console.log("***pass***", pass);
+    console.log("***error***", error);
 
     if (!pass) {
       // @ts-expect-error will fix later
@@ -75,7 +77,7 @@ const executeTests = async (code, tests) => {
       newTest.error = message + "\n" + stack;
       newTest.stack = stack;
     }
-
+    console.log("***newTest***", newTest);
     return newTest;
   });
 };
@@ -87,13 +89,13 @@ async function runTests(eventTests, eventMetaTests, challengeLabel) {
     getMetaTests(eventMetaTests),
   ]);
   console.log("code-challenge: ", challengeLabel);
-  console.log("internalTests: ", internalTests);
+  console.log("CLEAN & SORTED internalTests: ", internalTests);
   console.log("metaTests: ", metaTests);
 
   let results;
   for (let i = 0; i < metaTests.length; i++) {
     results = await executeTests([metaTests[i].caseCode], internalTests);
-    // console.log("results = await executeTests()", results);
+    console.log("results = await executeTests()", results);
 
     results.map(({ error, pass }, index) => {
       console.log("wahhhh!");
@@ -119,10 +121,10 @@ async function runTests(eventTests, eventMetaTests, challengeLabel) {
             .toString()
             .toUpperCase()} but received: ${elem.pass.toString().toUpperCase()}`
         );
-        console.log(`metaTest code: `, metaTests[i].caseCode);
-        console.log(`test "${elem.label}"`);
-        console.log(`internalTest "${elem.internalTest}"`);
-        console.log("results = await executeTests()", results);
+        // console.log(`metaTest code: `, metaTests[i].caseCode);
+        // console.log(`test "${elem.label}"`);
+        // console.log(`internalTest "${elem.internalTest}"`);
+        // console.log("results = await executeTests()", results);
       }
     });
   }
@@ -133,12 +135,15 @@ async function getInternalTests(eventTests) {
   // console.log("eventTests:", eventTests);
   const internalTests = await strapi.db
     .query("challenge.code-challenge-test")
-    .findMany({
-      select: ["id", "internalTest", "label"],
-      where: {
-        id: eventTests.map(({ id: testId }) => testId),
-      },
-    });
+    .findMany(
+      // {}
+      {
+        select: ["id", "internalTest", "label"],
+        where: {
+          id: eventTests.map(({ id: testId }) => testId),
+        },
+      }
+    );
   // console.log("FRESH N RAW INTERNAL TESTS: ", internalTests);
   return internalTests.sort(compareIds);
 }

@@ -24,8 +24,14 @@ export const runTestEvaluator = async ({
 
   const logs = [] as Array<unknown>;
   // This is logging to console just fine
-  // logs.push("test this");
-  // console.log("***logs", logs);
+  console.log("***formattedCode", formattedCode);
+  console.log("***evaluationError", evaluationError);
+
+  logs.push("test this");
+  console.log("***logs", logs);
+  console.log("***code***", code);
+  console.log("***internalTest***", internalTest);
+  console.log("***removeComments***", removeComments);
 
   overrideConsoleLog((args) => {
     // Doesn't work!
@@ -39,7 +45,8 @@ export const runTestEvaluator = async ({
     // @ts-expect-error will fix later
     const context = getEvaluationContext(formattedCode, logs);
     // Not showing up in terminal...???
-    console.log("CONTEXT: ", JSON.stringify(context));
+    // comment
+    // console.log("CONTEXT: ", JSON.stringify(context));
     const result = evaluateWithContext(
       `${formattedCode};
       ${internalTest};`,
@@ -50,6 +57,7 @@ export const runTestEvaluator = async ({
     }
   } catch (err) {
     userPassed = false;
+    // Commented out for debugging
     evaluationError = err;
   }
 

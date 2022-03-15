@@ -18,8 +18,13 @@ const runTestEvaluator = ({ code, internalTest, removeComments, }) => __awaiter(
     const formattedCode = (0, utils_1.getCode)(code, removeComments);
     const logs = [];
     // This is logging to console just fine
-    // logs.push("test this");
-    // console.log("***logs", logs);
+    console.log("***formattedCode", formattedCode);
+    console.log("***evaluationError", evaluationError);
+    logs.push("test this");
+    console.log("***logs", logs);
+    console.log("***code***", code);
+    console.log("***internalTest***", internalTest);
+    console.log("***removeComments***", removeComments);
     (0, utils_1.overrideConsoleLog)((args) => {
         // Doesn't work!
         console.log("---overrideConsoleLog running-----");
@@ -31,7 +36,8 @@ const runTestEvaluator = ({ code, internalTest, removeComments, }) => __awaiter(
         // @ts-expect-error will fix later
         const context = (0, utils_1.getEvaluationContext)(formattedCode, logs);
         // Not showing up in terminal...???
-        console.log("CONTEXT: ", JSON.stringify(context));
+        // comment
+        // console.log("CONTEXT: ", JSON.stringify(context));
         const result = (0, utils_1.evaluateWithContext)(`${formattedCode};
       ${internalTest};`, context);
         if (!result) {
@@ -40,6 +46,7 @@ const runTestEvaluator = ({ code, internalTest, removeComments, }) => __awaiter(
     }
     catch (err) {
         userPassed = false;
+        // Commented out for debugging
         evaluationError = err;
     }
     (0, utils_1.restoreConsoleLog)();
