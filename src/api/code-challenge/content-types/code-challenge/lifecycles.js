@@ -55,7 +55,7 @@ async function runMetaTests(eventTests, eventMetaTests) {
   return false;
 }
 
-const executeTests = async (code, tests) => {
+const executeTests = async (code, tests, expectPasses = true) => {
   return pMap(tests?.filter(removeEmpty) || [], async (test) => {
     const { label, internalTest } = test;
     // console.log("test name: ", test);
@@ -65,6 +65,7 @@ const executeTests = async (code, tests) => {
     const { pass, error } = await runTestEvaluator({
       internalTest,
       code,
+      expectPasses,
     });
     // test passes, then fails..? Time for debugger
     // metaTest "Passing Example" SUCCESS. Expected: true and received: true
@@ -78,16 +79,18 @@ const executeTests = async (code, tests) => {
     // We should suppress this deeper??
     console.log("***error***", error);
 
-    if (!pass) {
+    if (!pass && pass !== expectPasses) {
       // @ts-expect-error will fix later
       const { message, stack } = error;
 
       newTest.pass = false;
       newTest.error = message + "\n" + stack;
       newTest.stack = stack;
+    } else if (!pass && pass === expectPasses) {
+      newTest.pass = false;
     }
     // show metaTest + InternalTest Results
-    // console.log("***newTest***", newTest);
+    console.log("***newTest***", newTest);
     return newTest;
   });
 };
@@ -104,7 +107,11 @@ async function runTests(eventTests, eventMetaTests, challengeLabel) {
 
   let results;
   for (let i = 0; i < metaTests.length; i++) {
-    results = await executeTests([metaTests[i].caseCode], internalTests);
+    results = await executeTests(
+      [metaTests[i].caseCode],
+      internalTests,
+      metaTests[i].passes
+    );
 
     // Errors on MetaTests.pass === false are OKAY! Need to be suppressed earlier...?
     // console.log(

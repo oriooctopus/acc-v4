@@ -10,12 +10,14 @@ type runTestEvaluatorProps = {
   code: string;
   internalTest: string;
   removeComments?: boolean;
+  expectPasses?: boolean;
 };
 
 export const runTestEvaluator = async ({
   code,
   internalTest,
   removeComments,
+  expectPasses = true,
 }: runTestEvaluatorProps) => {
   let userPassed = true;
   let evaluationError;
@@ -26,7 +28,7 @@ export const runTestEvaluator = async ({
   // This is logging to console just fine
   // console.log("***formattedCode", formattedCode);
   // console.log("***evaluationError", evaluationError);
-
+  console.log("---expectPasses: ", expectPasses);
   // logs.push("test this");
   // console.log("***logs", logs);
   // console.log("***code***", code);
@@ -40,32 +42,54 @@ export const runTestEvaluator = async ({
     // @ts-expect-error will fix later
     console.standardLog("args", ...args);
   });
-
+  let result;
   try {
     // @ts-expect-error will fix later
     const context = getEvaluationContext(formattedCode, logs);
 
     // Error: Max Call Stack Exceeded! Why...? Override Console?
     // console.log("CONTEXT: ", JSON.stringify(context));
+    // gdfgd;
 
-    const result = evaluateWithContext(
+    result = evaluateWithContext(
       `${formattedCode};
       ${internalTest};`,
       context
     );
-
+    // if Error, catch is run...
+    console.log("%%%%test-evaluator.ts result", result);
+    // if (result === expectPasses) {
+    //   console.log(
+    //     "\n\n**result === expectPasses**\n\n",
+    //     result === expectPasses
+    //   );
+    //   result = true;
+    // }
     // This part is not running for metaTest2...
-    console.log("-------result = evaluateWithContext()-------", result);
+    console.log("result = evaluateWithContext()", result);
     console.log("formattedCode", formattedCode);
     console.log("internalTest", internalTest);
 
-    if (!result) {
-      throw new Error("did not pass");
-    }
+    // this code will never run due to catch block
+    // if (!result) {
+    //   throw new Error("did not pass");
+    // }
   } catch (err) {
-    userPassed = false;
-    // Commented out for debugging
-    evaluationError = err;
+    if (expectPasses === false) {
+      console.log("CATCH FUNCTIONING");
+      userPassed = false;
+      // evaluationError = undefined;
+    } else if (expectPasses === true) {
+      userPassed = false;
+      evaluationError = err;
+    }
+
+    console.log("\n\n ----CATCH BLOCK");
+    console.log("---expectPasses: ", expectPasses);
+    console.log("%%%%test-evaluator.ts result", result);
+    console.log("-------result = evaluateWithContext()-------", result);
+    console.log("formattedCode", formattedCode);
+    console.log("internalTest", internalTest);
   }
 
   restoreConsoleLog();
