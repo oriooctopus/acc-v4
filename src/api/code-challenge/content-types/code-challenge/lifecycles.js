@@ -77,20 +77,18 @@ const executeTests = async (code, tests, expectPasses = true) => {
     console.log("***code***", code);
     console.log("***pass***", pass);
     // We should suppress this deeper??
-    console.log("***error***", error);
+    // console.log("***error***", error);
 
-    if (!pass && pass !== expectPasses) {
+    if (!pass) {
       // @ts-expect-error will fix later
       const { message, stack } = error;
 
       newTest.pass = false;
       newTest.error = message + "\n" + stack;
       newTest.stack = stack;
-    } else if (!pass && pass === expectPasses) {
-      newTest.pass = false;
     }
     // show metaTest + InternalTest Results
-    console.log("***newTest***", newTest);
+    // console.log("***newTest***", newTest);
     return newTest;
   });
 };
@@ -128,16 +126,14 @@ async function runTests(eventTests, eventMetaTests, challengeLabel) {
     results.map((result) => {
       console.log(`\nmetaTest (${i + 1}), internalTest ${testCounter++},`);
 
-      if (result.pass === metaTests[i].passes) {
-        // the "easy fix" pros: don't need to edit test-evaluator, cons: create error, then suppress it.
-        // result.error = undefined;
+      if (
+        result.pass === metaTests[i].passes &&
+        typeof result.error === "string"
+      ) {
         console.log(
-          `metaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`
+          `metaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`,
+          `\nFailing Example triggered: \n"${result.error.substring(0, 120)}"`
         );
-        console.log("result.error: ", typeof result.error, result.error);
-        // console.log(`metaTest code: `, metaTests[i].caseCode);
-        // console.log(`test "${result.label}"`);
-        // console.log(`internalTest "${result.internalTest}"`);
       } else if (result.pass !== metaTests[i].passes) {
         console.log(
           `metaTest "${metaTests[i].label}" FAILED. Expected: ${metaTests[
@@ -148,12 +144,19 @@ async function runTests(eventTests, eventMetaTests, challengeLabel) {
             .toString()
             .toUpperCase()}`
         );
+
         console.log("result.error: ", typeof result.error, result.error);
 
         // console.log(`metaTest code: `, metaTests[i].caseCode);
         // console.log(`test "${result.label}"`);
         // console.log(`internalTest "${result.internalTest}"`);
         // console.log("results = await executeTests()", results);
+      } else if (result.pass === metaTests[i].passes) {
+        // the "easy fix" pros: don't need to edit test-evaluator, cons: create error, then suppress it.
+        // result.error = undefined;
+        console.log(
+          `metaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`
+        );
       }
     });
   }

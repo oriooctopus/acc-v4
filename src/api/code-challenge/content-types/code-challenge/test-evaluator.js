@@ -61,15 +61,16 @@ const runTestEvaluator = ({ code, internalTest, removeComments, expectPasses = t
         // }
     }
     catch (err) {
-        if (expectPasses === false) {
-            console.log("CATCH FUNCTIONING");
-            userPassed = false;
-            // evaluationError = undefined;
-        }
-        else if (expectPasses === true) {
-            userPassed = false;
-            evaluationError = err;
-        }
+        // if (expectPasses === false) {
+        //   console.log("CATCH FUNCTIONING");
+        //   userPassed = false;
+        //   // evaluationError = undefined;
+        // } else if (expectPasses === true) {
+        //   userPassed = false;
+        //   evaluationError = err;
+        // }
+        userPassed = false;
+        evaluationError = err;
         console.log("\n\n ----CATCH BLOCK");
         console.log("---expectPasses: ", expectPasses);
         console.log("%%%%test-evaluator.ts result", result);
