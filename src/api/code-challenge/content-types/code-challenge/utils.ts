@@ -110,12 +110,14 @@ export const getConsoleLogsFromCodeEvaluation = (
 
   const context = getEvaluationContext(code);
   const logs = [] as Array<string>;
+  // Disabled for debugging test-evaluator
 
-  overrideConsoleLog((...args) => {
-    logs.push(args.toString());
-    // @ts-expect-error will fix later
-    console.standardLog("args", ...args);
-  });
+  // overrideConsoleLog((...args) => {
+  //   logs.push(args.toString());
+  //   // @ts-expect-error will fix later
+  //   console.standardLog("args", ...args);
+  // });
+
   try {
     evaluateWithContext(
       `
@@ -126,8 +128,9 @@ export const getConsoleLogsFromCodeEvaluation = (
   } catch (e) {
     logs.push(getErrorMessage(e));
   }
+  // Disabled for debugging test-evaluator
 
-  restoreConsoleLog();
+  // restoreConsoleLog();
   return logs;
 };
 
@@ -146,16 +149,16 @@ export const evaluateWithContext = (code: string, context = {}) => {
 
     const evalString = `${contextDef}${code}`;
     // console.log(
-    //   "---evalString:!! ",
     //   "contextDef",
     //   contextDef,
     //   "code",
     //   code,
+    //   "---evalString:!! ",
     //   JSON.stringify(evalString),
     //   "\n\n"
     // );
     const result = eval(evalString);
-    // return true;
+    return true;
 
     // console.log("---result: ", result, "\n\n");
 

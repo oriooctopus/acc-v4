@@ -66,7 +66,16 @@ const executeTests = async (code, tests) => {
       internalTest,
       code,
     });
+    // test passes, then fails..? Time for debugger
+    // metaTest "Passing Example" SUCCESS. Expected: true and received: true
+    // elem.error:  undefined undefined
+    // ***error*** ReferenceError: lovesPizza is not defined
+
+    console.log("***label***", label);
+    console.log("***internalTest***", internalTest);
+    console.log("***code***", code);
     console.log("***pass***", pass);
+    // We should suppress this deeper??
     console.log("***error***", error);
 
     if (!pass) {
@@ -77,7 +86,8 @@ const executeTests = async (code, tests) => {
       newTest.error = message + "\n" + stack;
       newTest.stack = stack;
     }
-    console.log("***newTest***", newTest);
+    // show metaTest + InternalTest Results
+    // console.log("***newTest***", newTest);
     return newTest;
   });
 };
@@ -95,7 +105,12 @@ async function runTests(eventTests, eventMetaTests, challengeLabel) {
   let results;
   for (let i = 0; i < metaTests.length; i++) {
     results = await executeTests([metaTests[i].caseCode], internalTests);
-    console.log("results = await executeTests()", results);
+
+    // Errors on MetaTests.pass === false are OKAY! Need to be suppressed earlier...?
+    // console.log(
+    //   "results = await executeTests() == [{newTest1}, {newTest2}]",
+    //   results
+    // );
 
     results.map(({ error, pass }, index) => {
       console.log("wahhhh!");
@@ -103,27 +118,34 @@ async function runTests(eventTests, eventMetaTests, challengeLabel) {
     });
     let testCounter = 1;
 
-    results.map((elem) => {
+    results.map((result) => {
       console.log(`\nmetaTest (${i + 1}), internalTest ${testCounter++},`);
 
-      if (elem.pass === metaTests[i].passes) {
+      if (result.pass === metaTests[i].passes) {
+        // the "easy fix" pros: don't need to edit test-evaluator, cons: create error, then suppress it.
+        // result.error = undefined;
         console.log(
-          `metaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${elem.pass}`
+          `metaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`
         );
+        console.log("result.error: ", typeof result.error, result.error);
         // console.log(`metaTest code: `, metaTests[i].caseCode);
-        // console.log(`test "${elem.label}"`);
-        // console.log(`internalTest "${elem.internalTest}"`);
-      } else if (elem.pass !== metaTests[i].passes) {
+        // console.log(`test "${result.label}"`);
+        // console.log(`internalTest "${result.internalTest}"`);
+      } else if (result.pass !== metaTests[i].passes) {
         console.log(
           `metaTest "${metaTests[i].label}" FAILED. Expected: ${metaTests[
             i
           ].passes
             .toString()
-            .toUpperCase()} but received: ${elem.pass.toString().toUpperCase()}`
+            .toUpperCase()} but received: ${result.pass
+            .toString()
+            .toUpperCase()}`
         );
+        console.log("result.error: ", typeof result.error, result.error);
+
         // console.log(`metaTest code: `, metaTests[i].caseCode);
-        // console.log(`test "${elem.label}"`);
-        // console.log(`internalTest "${elem.internalTest}"`);
+        // console.log(`test "${result.label}"`);
+        // console.log(`internalTest "${result.internalTest}"`);
         // console.log("results = await executeTests()", results);
       }
     });

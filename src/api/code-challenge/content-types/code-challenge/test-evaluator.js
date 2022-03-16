@@ -18,16 +18,16 @@ const runTestEvaluator = ({ code, internalTest, removeComments, }) => __awaiter(
     const formattedCode = (0, utils_1.getCode)(code, removeComments);
     const logs = [];
     // This is logging to console just fine
-    console.log("***formattedCode", formattedCode);
-    console.log("***evaluationError", evaluationError);
-    logs.push("test this");
-    console.log("***logs", logs);
-    console.log("***code***", code);
-    console.log("***internalTest***", internalTest);
-    console.log("***removeComments***", removeComments);
+    // console.log("***formattedCode", formattedCode);
+    // console.log("***evaluationError", evaluationError);
+    // logs.push("test this");
+    // console.log("***logs", logs);
+    // console.log("***code***", code);
+    // console.log("***internalTest***", internalTest);
+    // console.log("***removeComments***", removeComments);
     (0, utils_1.overrideConsoleLog)((args) => {
         // Doesn't work!
-        console.log("---overrideConsoleLog running-----");
+        // console.log("---overrideConsoleLog running-----");
         logs.push(args);
         // @ts-expect-error will fix later
         console.standardLog("args", ...args);
@@ -35,11 +35,14 @@ const runTestEvaluator = ({ code, internalTest, removeComments, }) => __awaiter(
     try {
         // @ts-expect-error will fix later
         const context = (0, utils_1.getEvaluationContext)(formattedCode, logs);
-        // Not showing up in terminal...???
-        // comment
+        // Error: Max Call Stack Exceeded! Why...? Override Console?
         // console.log("CONTEXT: ", JSON.stringify(context));
         const result = (0, utils_1.evaluateWithContext)(`${formattedCode};
       ${internalTest};`, context);
+        // This part is not running for metaTest2...
+        console.log("-------result = evaluateWithContext()-------", result);
+        console.log("formattedCode", formattedCode);
+        console.log("internalTest", internalTest);
         if (!result) {
             throw new Error("did not pass");
         }

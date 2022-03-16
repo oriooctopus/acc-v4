@@ -24,18 +24,18 @@ export const runTestEvaluator = async ({
 
   const logs = [] as Array<unknown>;
   // This is logging to console just fine
-  console.log("***formattedCode", formattedCode);
-  console.log("***evaluationError", evaluationError);
+  // console.log("***formattedCode", formattedCode);
+  // console.log("***evaluationError", evaluationError);
 
-  logs.push("test this");
-  console.log("***logs", logs);
-  console.log("***code***", code);
-  console.log("***internalTest***", internalTest);
-  console.log("***removeComments***", removeComments);
+  // logs.push("test this");
+  // console.log("***logs", logs);
+  // console.log("***code***", code);
+  // console.log("***internalTest***", internalTest);
+  // console.log("***removeComments***", removeComments);
 
   overrideConsoleLog((args) => {
     // Doesn't work!
-    console.log("---overrideConsoleLog running-----");
+    // console.log("---overrideConsoleLog running-----");
     logs.push(args);
     // @ts-expect-error will fix later
     console.standardLog("args", ...args);
@@ -44,14 +44,21 @@ export const runTestEvaluator = async ({
   try {
     // @ts-expect-error will fix later
     const context = getEvaluationContext(formattedCode, logs);
-    // Not showing up in terminal...???
-    // comment
+
+    // Error: Max Call Stack Exceeded! Why...? Override Console?
     // console.log("CONTEXT: ", JSON.stringify(context));
+
     const result = evaluateWithContext(
       `${formattedCode};
       ${internalTest};`,
       context
     );
+
+    // This part is not running for metaTest2...
+    console.log("-------result = evaluateWithContext()-------", result);
+    console.log("formattedCode", formattedCode);
+    console.log("internalTest", internalTest);
+
     if (!result) {
       throw new Error("did not pass");
     }
