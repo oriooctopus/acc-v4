@@ -17,18 +17,16 @@ const runTestEvaluator = ({ code, internalTest, removeComments, expectPasses = t
     // console.log("original code", code);
     const formattedCode = (0, utils_1.getCode)(code, removeComments);
     const logs = [];
-    // This is logging to console just fine
+    // Checking Params
     // console.log("***formattedCode", formattedCode);
     // console.log("***evaluationError", evaluationError);
-    console.log("---expectPasses: ", expectPasses);
+    // console.log("---expectPasses: ", expectPasses);
     // logs.push("test this");
     // console.log("***logs", logs);
     // console.log("***code***", code);
     // console.log("***internalTest***", internalTest);
     // console.log("***removeComments***", removeComments);
     (0, utils_1.overrideConsoleLog)((args) => {
-        // Doesn't work!
-        // console.log("---overrideConsoleLog running-----");
         logs.push(args);
         // @ts-expect-error will fix later
         console.standardLog("args", ...args);
@@ -39,11 +37,10 @@ const runTestEvaluator = ({ code, internalTest, removeComments, expectPasses = t
         const context = (0, utils_1.getEvaluationContext)(formattedCode, logs);
         // Error: Max Call Stack Exceeded! Why...? Override Console?
         // console.log("CONTEXT: ", JSON.stringify(context));
-        // gdfgd;
         result = (0, utils_1.evaluateWithContext)(`${formattedCode};
       ${internalTest};`, context);
         // if Error, catch is run...
-        console.log("%%%%test-evaluator.ts result", result);
+        console.log("\n\n", "<test-evaluator.ts TRY BLOCK RESULT>".toUpperCase(), result, "\n\n ------------------------");
         // if (result === expectPasses) {
         //   console.log(
         //     "\n\n**result === expectPasses**\n\n",
@@ -51,14 +48,9 @@ const runTestEvaluator = ({ code, internalTest, removeComments, expectPasses = t
         //   );
         //   result = true;
         // }
-        // This part is not running for metaTest2...
-        console.log("result = evaluateWithContext()", result);
-        console.log("formattedCode", formattedCode);
-        console.log("internalTest", internalTest);
         // this code will never run due to catch block
-        // if (!result) {
-        //   throw new Error("did not pass");
-        // }
+        // *Needs to be in a finally block.
+        //
     }
     catch (err) {
         // if (expectPasses === false) {
@@ -71,12 +63,24 @@ const runTestEvaluator = ({ code, internalTest, removeComments, expectPasses = t
         // }
         userPassed = false;
         evaluationError = err;
-        console.log("\n\n ----CATCH BLOCK");
-        console.log("---expectPasses: ", expectPasses);
-        console.log("%%%%test-evaluator.ts result", result);
-        console.log("-------result = evaluateWithContext()-------", result);
-        console.log("formattedCode", formattedCode);
-        console.log("internalTest", internalTest);
+    }
+    finally {
+        // console.log("---expectPasses: ", expectPasses);
+        console.log("\n\n<FINALLY RESULT>", result);
+        console.log("<FINAL TYPE>", typeof result, "\n\n");
+        console.log("<formattedCode>", formattedCode);
+        console.log("<internalTest>", internalTest);
+        if (typeof result !== "boolean") {
+            // throw new Error(
+            //   "result type MUST be a boolean (src/api/code-challenge/content-types/code-challenge/test-evaluator.ts)"
+            // );
+            console.log("\n\n<FINAL TYPE>", typeof result);
+            console.log(`"<RESULT TYPE INCORRECT> MUST be a boolean (src/api/code-challenge/content-types/code-challenge/test-evaluator.ts)"\n\n`);
+        }
+        else if (result === false) {
+            // throw new Error("did not pass");
+            console.log(`original: 'did not pass'`);
+        }
     }
     (0, utils_1.restoreConsoleLog)();
     return {

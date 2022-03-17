@@ -119,17 +119,12 @@ const evaluateWithContext = (code, context = {}) => {
         const contextDef = contextStr ? `let ${contextStr};` : "";
         // console.log("---contextDef: ", contextDef, "\n\n");
         const evalString = `${contextDef}${code}`;
-        // console.log(
-        //   "contextDef",
-        //   contextDef,
-        //   "code",
-        //   code,
-        //   "---evalString:!! ",
-        //   JSON.stringify(evalString),
-        //   "\n\n"
-        // );
+        console.log("\n\n", "UTILS.JS evaluateWithContext()", "\n\n", "<UTILS.JS contextDef> ", contextDef, "\n\n", "<UTILS.JS code> ", code, "\n\n", "<UTILS.JS evalString> ", 
+        // JSON.stringify(evalString),
+        evalString, "\n\n");
         const result = eval(evalString);
-        return true;
+        console.log("\n\n", "<EARLY RESULT>", result, "\n\n", "-------------");
+        // return true;
         // console.log("---result: ", result, "\n\n");
         return result;
     }.call(context);

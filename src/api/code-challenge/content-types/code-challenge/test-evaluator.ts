@@ -25,10 +25,11 @@ export const runTestEvaluator = async ({
   const formattedCode = getCode(code, removeComments);
 
   const logs = [] as Array<unknown>;
-  // This is logging to console just fine
+  // Checking Params
+
   // console.log("***formattedCode", formattedCode);
   // console.log("***evaluationError", evaluationError);
-  console.log("---expectPasses: ", expectPasses);
+  // console.log("---expectPasses: ", expectPasses);
   // logs.push("test this");
   // console.log("***logs", logs);
   // console.log("***code***", code);
@@ -36,8 +37,6 @@ export const runTestEvaluator = async ({
   // console.log("***removeComments***", removeComments);
 
   overrideConsoleLog((args) => {
-    // Doesn't work!
-    // console.log("---overrideConsoleLog running-----");
     logs.push(args);
     // @ts-expect-error will fix later
     console.standardLog("args", ...args);
@@ -49,7 +48,6 @@ export const runTestEvaluator = async ({
 
     // Error: Max Call Stack Exceeded! Why...? Override Console?
     // console.log("CONTEXT: ", JSON.stringify(context));
-    // gdfgd;
 
     result = evaluateWithContext(
       `${formattedCode};
@@ -57,7 +55,12 @@ export const runTestEvaluator = async ({
       context
     );
     // if Error, catch is run...
-    console.log("%%%%test-evaluator.ts result", result);
+    console.log(
+      "\n\n",
+      "<test-evaluator.ts TRY BLOCK RESULT>".toUpperCase(),
+      result,
+      "\n\n ------------------------"
+    );
     // if (result === expectPasses) {
     //   console.log(
     //     "\n\n**result === expectPasses**\n\n",
@@ -65,15 +68,10 @@ export const runTestEvaluator = async ({
     //   );
     //   result = true;
     // }
-    // This part is not running for metaTest2...
-    console.log("result = evaluateWithContext()", result);
-    console.log("formattedCode", formattedCode);
-    console.log("internalTest", internalTest);
 
     // this code will never run due to catch block
-    // if (!result) {
-    //   throw new Error("did not pass");
-    // }
+    // *Needs to be in a finally block.
+    //
   } catch (err) {
     // if (expectPasses === false) {
     //   console.log("CATCH FUNCTIONING");
@@ -85,12 +83,25 @@ export const runTestEvaluator = async ({
     // }
     userPassed = false;
     evaluationError = err;
-    console.log("\n\n ----CATCH BLOCK");
-    console.log("---expectPasses: ", expectPasses);
-    console.log("%%%%test-evaluator.ts result", result);
-    console.log("-------result = evaluateWithContext()-------", result);
-    console.log("formattedCode", formattedCode);
-    console.log("internalTest", internalTest);
+  } finally {
+    // console.log("---expectPasses: ", expectPasses);
+    console.log("\n\n<FINALLY RESULT>", result);
+    console.log("<FINAL TYPE>", typeof result, "\n\n");
+    console.log("<formattedCode>", formattedCode);
+    console.log("<internalTest>", internalTest);
+
+    if (typeof result !== "boolean") {
+      // throw new Error(
+      //   "result type MUST be a boolean (src/api/code-challenge/content-types/code-challenge/test-evaluator.ts)"
+      // );
+      console.log("\n\n<FINAL TYPE>", typeof result);
+      console.log(
+        `"<RESULT TYPE INCORRECT> MUST be a boolean (src/api/code-challenge/content-types/code-challenge/test-evaluator.ts)"\n\n`
+      );
+    } else if (result === false) {
+      // throw new Error("did not pass");
+      console.log(`original: 'did not pass'`);
+    }
   }
 
   restoreConsoleLog();
