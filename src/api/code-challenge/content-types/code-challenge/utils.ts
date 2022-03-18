@@ -149,7 +149,6 @@ export const evaluateWithContext = (code: string, context = {}) => {
 
     const evalString = `${contextDef}${code}`;
     console.log(
-      "\n\n",
       "UTILS.JS evaluateWithContext()",
       "\n\n",
       "<UTILS.JS contextDef> ",
@@ -157,14 +156,14 @@ export const evaluateWithContext = (code: string, context = {}) => {
       "\n\n",
       "<UTILS.JS code> ",
       code,
-      "\n\n",
+      "\n",
       "<UTILS.JS evalString> ",
       // JSON.stringify(evalString),
       evalString,
-      "\n\n"
+      "\n------------------"
     );
     const result = eval(evalString);
-    console.log("\n\n", "<EARLY RESULT>", result, "\n\n", "-------------");
+    console.log("\n", "<UTILS.JS EARLY RESULT>", result, "\n", "-------------");
     // return true;
 
     // console.log("---result: ", result, "\n\n");

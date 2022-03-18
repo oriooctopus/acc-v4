@@ -8,7 +8,7 @@ import {
 
 type runTestEvaluatorProps = {
   code: string;
-  internalTest: string;
+  internalTestCode: string;
   removeComments?: boolean;
   metaLabel?: string;
   test?: string;
@@ -17,7 +17,7 @@ type runTestEvaluatorProps = {
 
 export const runTestEvaluator = async ({
   code,
-  internalTest,
+  internalTestCode,
   removeComments,
   metaLabel,
   test,
@@ -27,7 +27,11 @@ export const runTestEvaluator = async ({
   let evaluationError;
   // console.log("original code", code);
   const formattedCode = getCode(code, removeComments);
-
+  console.log(
+    `-----\n<debug test-evaluator.ts TEST PARAM> ${JSON.stringify(
+      test
+    )}\n-------`
+  );
   const logs = [] as Array<unknown>;
   // Checking Params in Finally Block too
 
@@ -47,55 +51,35 @@ export const runTestEvaluator = async ({
 
     result = evaluateWithContext(
       `${formattedCode};
-      ${internalTest};`,
+      ${internalTestCode};`,
       context
     );
     // if Error, catch is run...
     console.log(
-      "\n\n",
-      "<test-evaluator.ts TRY BLOCK RESULT>".toUpperCase(),
+      "\n",
+      "<TEST-EVAL.TS TRY RESULT>",
       result,
-      "\n\n ------------------------"
+      "\n ------------------------"
     );
-    // if (result === expectPasses) {
-    //   console.log(
-    //     "\n\n**result === expectPasses**\n\n",
-    //     result === expectPasses
-    //   );
-    //   result = true;
-    // }
-
-    // this code will never run due to catch block
-    // *Needs to be in a finally block.
-    //
   } catch (err) {
-    // if (expectPasses === false) {
-    //   console.log("CATCH FUNCTIONING");
-    //   userPassed = false;
-    //   // evaluationError = undefined;
-    // } else if (expectPasses === true) {
-    //   userPassed = false;
-    //   evaluationError = err;
-    // }
     userPassed = false;
     evaluationError = err;
   } finally {
     // console.log("---expectPasses: ", expectPasses);
-    console.log("\n\n<FINALLY RESULT>", result);
-    console.log("<FINAL TYPE>", typeof result, "\n\n");
+    console.log("\n<FINALLY RESULT>", result);
+    console.log("<FINAL TYPE>", typeof result, "\n");
     console.log("\n<challengeLabel>", challengeLabel);
     console.log("<metaLabel>", metaLabel);
     // Error on vsCode, but ok in run...??? Because object isn't fetched til RUNTIME
-    console.log("<testLabel>", test.label, "\n\n");
+    console.log("<testLabel>", test.label, "\n");
 
     console.log("<formattedCode>", formattedCode);
-    console.log("<internalTest>", internalTest);
+    console.log("<internalTestCode>", internalTestCode);
+    console.log("-----FINALLY END----------------");
 
     if (typeof result !== "boolean") {
-      // throw new Error(
-      //   "result type MUST be a boolean (src/api/code-challenge/content-types/code-challenge/test-evaluator.ts)"
-      // );
       console.log("\n\n<FINAL TYPE>", typeof result);
+      // Change to error later
       console.log(
         `"<RESULT TYPE INCORRECT> MUST be a boolean (src/api/code-challenge/content-types/code-challenge/test-evaluator.ts)"\n\n`
       );
@@ -109,7 +93,7 @@ export const runTestEvaluator = async ({
 
   return {
     error: evaluationError,
-    test: internalTest,
+    test: internalTestCode,
     pass: userPassed,
   };
 };
