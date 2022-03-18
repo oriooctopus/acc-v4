@@ -26,48 +26,51 @@ const executeTests = async (
   metaLabel,
   challengeLabel
 ) => {
-  return pMap(internalTests?.filter(removeEmpty) || [], async (test) => {
-    const label = test.label;
-    const internalTestCode = test.internalTestCode;
-    console.log("<test pMap> ", test);
-    console.log("<test type> ", typeof test);
-    console.log("<internalTests pMap> ", internalTests);
-    console.log("<internalTests pMap> ", typeof internalTests);
-    console.log("<test label> ", label);
+  return pMap(
+    internalTests?.filter(removeEmpty) || [],
+    async (internalTest) => {
+      const label = internalTest.label;
+      const internalTestCode = internalTest.internalTestCode;
+      console.log("<internalTest pMap> ", internalTest);
+      console.log("<internalTest type> ", typeof internalTest);
+      console.log("<internalTests pMap> ", internalTests);
+      console.log("<internalTests pMap> ", typeof internalTests);
+      console.log("<internalTest label> ", label);
 
-    const newTest = { pass: true, label, internalTestCode };
-    // console.log("newTest name: ", newTest);
+      const newTest = { pass: true, label, internalTestCode };
+      // console.log("newTest name: ", newTest);
 
-    const { pass, error } = await runTestEvaluator({
-      internalTestCode,
-      metaCaseCode,
-      metaLabel,
-      test,
-      challengeLabel,
-    });
+      const { pass, error } = await runTestEvaluator({
+        internalTestCode,
+        metaCaseCode,
+        metaLabel,
+        internalTest,
+        challengeLabel,
+      });
 
-    // console.log("***label***", label);
-    console.log("<internalTestCode>", internalTestCode);
+      // console.log("***label***", label);
+      console.log("<internalTestCode>", internalTestCode);
 
-    if (!pass) {
-      // @ts-expect-error will fix later
-      const { message, stack } = error;
+      if (!pass) {
+        // @ts-expect-error will fix later
+        const { message, stack } = error;
 
-      newTest.pass = false;
-      newTest.error = message + "\n" + stack;
-      newTest.stack = stack;
-    }
-    // show metaTest + InternalTest Results
-    console.log(
-      `---------------
+        newTest.pass = false;
+        newTest.error = message + "\n" + stack;
+        newTest.stack = stack;
+      }
+      // show metaTest + InternalTest Results
+      console.log(
+        `---------------
       \n<newTest.pass> ${newTest.pass},
       \n <label> ${newTest.label},
       \n <internalTestCode> ${newTest.internalTestCode},
       \n <error type> ${typeof newTest.error}
       \n--------------`
-    );
-    return newTest;
-  });
+      );
+      return newTest;
+    }
+  );
 };
 
 async function runTests(eventTests, eventMetaTests, challengeLabel) {

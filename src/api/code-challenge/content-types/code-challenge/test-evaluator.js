@@ -11,15 +11,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.runTestEvaluator = void 0;
 const utils_1 = require("../code-challenge/utils");
-const runTestEvaluator = ({ code, internalTestCode, removeComments, metaLabel, test, challengeLabel, }) => __awaiter(void 0, void 0, void 0, function* () {
+const runTestEvaluator = ({ code, internalTestCode, removeComments, metaLabel, internalTest, challengeLabel, }) => __awaiter(void 0, void 0, void 0, function* () {
     let userPassed = true;
     let evaluationError;
     // console.log("original code", code);
     const formattedCode = (0, utils_1.getCode)(code, removeComments);
     console.log(`-----
-    \n<debug test-evaluator.ts>  
-    \n PARAM TYPE: <${typeof test}>,
-    \n <TEST PARAM>${JSON.stringify(test)} 
+    \n<debug internalTest-evaluator.ts>  
+    \n PARAM TYPE: <${typeof internalTest}>,
+    \n <TEST PARAM>${JSON.stringify(internalTest)} 
     \n-------`);
     const logs = [];
     // Checking Params in Finally Block too
@@ -51,14 +51,14 @@ const runTestEvaluator = ({ code, internalTestCode, removeComments, metaLabel, t
         console.log("\n<challengeLabel>", challengeLabel);
         console.log("<metaLabel>", metaLabel);
         // Error on vsCode, but ok in run...??? Because object isn't fetched til RUNTIME
-        console.log("<testLabel>", test.label, "\n");
+        console.log("<testLabel>", internalTest.label, "\n");
         console.log("<formattedCode>", formattedCode);
         console.log("<internalTestCode>", internalTestCode);
         console.log("-----FINALLY END----------------");
         if (typeof result !== "boolean") {
             console.log("\n\n<FINAL TYPE>", typeof result);
             // Change to error later
-            console.log(`"<RESULT TYPE INCORRECT> MUST be a boolean (src/api/code-challenge/content-types/code-challenge/test-evaluator.ts)"\n\n`);
+            console.log(`"<RESULT TYPE INCORRECT> MUST be a boolean (src/api/code-challenge/content-types/code-challenge/internalTest-evaluator.ts)"\n\n`);
         }
         else if (result === false) {
             // throw new Error("did not pass");
@@ -68,7 +68,7 @@ const runTestEvaluator = ({ code, internalTestCode, removeComments, metaLabel, t
     (0, utils_1.restoreConsoleLog)();
     return {
         error: evaluationError,
-        test: internalTestCode,
+        internalTest: internalTestCode,
         pass: userPassed,
     };
 });

@@ -20,7 +20,7 @@ export const runTestEvaluator = async ({
   internalTestCode,
   removeComments,
   metaLabel,
-  test,
+  internalTest,
   challengeLabel,
 }: runTestEvaluatorProps) => {
   let userPassed = true;
@@ -29,9 +29,9 @@ export const runTestEvaluator = async ({
   const formattedCode = getCode(code, removeComments);
   console.log(
     `-----
-    \n<debug test-evaluator.ts>  
-    \n PARAM TYPE: <${typeof test}>,
-    \n <TEST PARAM>${JSON.stringify(test)} 
+    \n<debug internalTest-evaluator.ts>  
+    \n PARAM TYPE: <${typeof internalTest}>,
+    \n <TEST PARAM>${JSON.stringify(internalTest)} 
     \n-------`
   );
   const logs = [] as Array<unknown>;
@@ -73,7 +73,7 @@ export const runTestEvaluator = async ({
     console.log("\n<challengeLabel>", challengeLabel);
     console.log("<metaLabel>", metaLabel);
     // Error on vsCode, but ok in run...??? Because object isn't fetched til RUNTIME
-    console.log("<testLabel>", test.label, "\n");
+    console.log("<testLabel>", internalTest.label, "\n");
 
     console.log("<formattedCode>", formattedCode);
     console.log("<internalTestCode>", internalTestCode);
@@ -83,7 +83,7 @@ export const runTestEvaluator = async ({
       console.log("\n\n<FINAL TYPE>", typeof result);
       // Change to error later
       console.log(
-        `"<RESULT TYPE INCORRECT> MUST be a boolean (src/api/code-challenge/content-types/code-challenge/test-evaluator.ts)"\n\n`
+        `"<RESULT TYPE INCORRECT> MUST be a boolean (src/api/code-challenge/content-types/code-challenge/internalTest-evaluator.ts)"\n\n`
       );
     } else if (result === false) {
       // throw new Error("did not pass");
@@ -95,7 +95,7 @@ export const runTestEvaluator = async ({
 
   return {
     error: evaluationError,
-    test: internalTestCode,
+    internalTest: internalTestCode,
     pass: userPassed,
   };
 };
