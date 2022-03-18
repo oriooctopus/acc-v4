@@ -1,0 +1,242 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::code-challenge.code-challenge",
+  "value": {
+    "uid": "api::code-challenge.code-challenge",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 100,
+      "mainField": "internalLabel",
+      "defaultSortBy": "internalLabel",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "Id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "startingCode": {
+        "edit": {
+          "label": "StartingCode",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "StartingCode",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "tests": {
+        "edit": {
+          "label": "Tests",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "Tests",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "prompt": {
+        "edit": {
+          "label": "Prompt",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "Prompt",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "internalLabel": {
+        "edit": {
+          "label": "InternalLabel",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "InternalLabel",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "internalNotes": {
+        "edit": {
+          "label": "InternalNotes",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "InternalNotes",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "hints": {
+        "edit": {
+          "label": "Hints",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "Hints",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "getStartingCodeFromPreviousChallenge": {
+        "edit": {
+          "label": "GetStartingCodeFromPreviousChallenge",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "GetStartingCodeFromPreviousChallenge",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "MetaTest": {
+        "edit": {
+          "label": "MetaTest",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "MetaTest",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "category": {
+        "edit": {
+          "label": "Category",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "Category",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "CreatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "Created_at",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "UpdatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "UpdatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "edit": [
+        [
+          {
+            "name": "internalLabel",
+            "size": 6
+          },
+          {
+            "name": "internalNotes",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "prompt",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "startingCode",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "tests",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "hints",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "getStartingCodeFromPreviousChallenge",
+            "size": 4
+          }
+        ],
+        [
+          {
+            "name": "MetaTest",
+            "size": 12
+          }
+        ]
+      ],
+      "editRelations": [
+        "category"
+      ],
+      "list": [
+        "internalLabel",
+        "createdAt",
+        "internalNotes",
+        "category"
+      ]
+    }
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}
