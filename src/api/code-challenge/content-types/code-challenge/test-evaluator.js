@@ -11,25 +11,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.runTestEvaluator = void 0;
 const utils_1 = require("../code-challenge/utils");
-const runTestEvaluator = ({ code, internalTest, removeComments, expectPasses = true, }) => __awaiter(void 0, void 0, void 0, function* () {
+const runTestEvaluator = ({ code, internalTest, removeComments, metaLabel, test, challengeLabel, }) => __awaiter(void 0, void 0, void 0, function* () {
     let userPassed = true;
     let evaluationError;
     // console.log("original code", code);
     const formattedCode = (0, utils_1.getCode)(code, removeComments);
     const logs = [];
-    // Checking Params
-    // console.log("***formattedCode", formattedCode);
-    // console.log("***evaluationError", evaluationError);
-    // console.log("---expectPasses: ", expectPasses);
-    // logs.push("test this");
-    // console.log("***logs", logs);
-    // console.log("***code***", code);
-    // console.log("***internalTest***", internalTest);
-    // console.log("***removeComments***", removeComments);
+    // Checking Params in Finally Block too
     (0, utils_1.overrideConsoleLog)((args) => {
-        logs.push(args);
+        // Disabled for easier console reading
+        // logs.push(args);
         // @ts-expect-error will fix later
-        console.standardLog("args", ...args);
+        // console.standardLog("args", ...args);
     });
     let result;
     try {
@@ -68,6 +61,10 @@ const runTestEvaluator = ({ code, internalTest, removeComments, expectPasses = t
         // console.log("---expectPasses: ", expectPasses);
         console.log("\n\n<FINALLY RESULT>", result);
         console.log("<FINAL TYPE>", typeof result, "\n\n");
+        console.log("\n<challengeLabel>", challengeLabel);
+        console.log("<metaLabel>", metaLabel);
+        // Error on vsCode, but ok in run...??? Because object isn't fetched til RUNTIME
+        console.log("<testLabel>", test.label, "\n\n");
         console.log("<formattedCode>", formattedCode);
         console.log("<internalTest>", internalTest);
         if (typeof result !== "boolean") {

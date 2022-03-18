@@ -10,14 +10,18 @@ type runTestEvaluatorProps = {
   code: string;
   internalTest: string;
   removeComments?: boolean;
-  expectPasses?: boolean;
+  metaLabel?: string;
+  test?: string;
+  challengeLabel?: string;
 };
 
 export const runTestEvaluator = async ({
   code,
   internalTest,
   removeComments,
-  expectPasses = true,
+  metaLabel,
+  test,
+  challengeLabel,
 }: runTestEvaluatorProps) => {
   let userPassed = true;
   let evaluationError;
@@ -25,21 +29,13 @@ export const runTestEvaluator = async ({
   const formattedCode = getCode(code, removeComments);
 
   const logs = [] as Array<unknown>;
-  // Checking Params
-
-  // console.log("***formattedCode", formattedCode);
-  // console.log("***evaluationError", evaluationError);
-  // console.log("---expectPasses: ", expectPasses);
-  // logs.push("test this");
-  // console.log("***logs", logs);
-  // console.log("***code***", code);
-  // console.log("***internalTest***", internalTest);
-  // console.log("***removeComments***", removeComments);
+  // Checking Params in Finally Block too
 
   overrideConsoleLog((args) => {
-    logs.push(args);
+    // Disabled for easier console reading
+    // logs.push(args);
     // @ts-expect-error will fix later
-    console.standardLog("args", ...args);
+    // console.standardLog("args", ...args);
   });
   let result;
   try {
@@ -87,6 +83,11 @@ export const runTestEvaluator = async ({
     // console.log("---expectPasses: ", expectPasses);
     console.log("\n\n<FINALLY RESULT>", result);
     console.log("<FINAL TYPE>", typeof result, "\n\n");
+    console.log("\n<challengeLabel>", challengeLabel);
+    console.log("<metaLabel>", metaLabel);
+    // Error on vsCode, but ok in run...??? Because object isn't fetched til RUNTIME
+    console.log("<testLabel>", test.label, "\n\n");
+
     console.log("<formattedCode>", formattedCode);
     console.log("<internalTest>", internalTest);
 

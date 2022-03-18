@@ -23,49 +23,53 @@ module.exports = {
 };
 
 // runMetaTestsNeed more specific name later, maybe use "validateInternalTests"
-async function runMetaTests(eventTests, eventMetaTests) {
-  console.log("---runMetaTests: ----");
-  const [internalTests, metaTests] = await Promise.all([
-    getInternalTests(eventTests),
-    getMetaTests(eventMetaTests),
-  ]);
+// async function runMetaTests(eventTests, eventMetaTests) {
+//   console.log("---runMetaTests: ----");
+//   const [internalTests, metaTests] = await Promise.all([
+//     getInternalTests(eventTests),
+//     getMetaTests(eventMetaTests),
+//   ]);
 
-  console.log("final internalTests: ", internalTests);
-  console.log("final metaTests: ", metaTests);
+//   console.log("final internalTests: ", internalTests);
+//   console.log("final metaTests: ", metaTests);
 
-  // console.log("m1: ", metaTests[0].caseCode);
-  // console.log("m1 passes: ", metaTests[0].passes);
-  // console.log("test1: ", internalTests[0].internalTest);
+//   // console.log("m1: ", metaTests[0].caseCode);
+//   // console.log("m1 passes: ", metaTests[0].passes);
+//   // console.log("test1: ", internalTests[0].internalTest);
 
-  for (let i = 0; i < metaTests.length; i++) {
-    for (let j = 0; j < internalTests.length; j++) {
-      const result = eval(
-        metaTests[i].caseCode + internalTests[j].internalTest
-      );
-      console.log(result);
-      if (result === metaTests[i].passes) {
-        console.log(`meta${i + 1} test${j + 1} Success: "true" ${result}`);
-      } else if (result !== metaTests[i].passes) {
-        console.log(`meta${i + 1} test${j + 1} Error: "false" ${result}`);
-      }
-    }
-  }
+//   for (let i = 0; i < metaTests.length; i++) {
+//     for (let j = 0; j < internalTests.length; j++) {
+//       const result = eval(
+//         metaTests[i].caseCode + internalTests[j].internalTest
+//       );
+//       console.log(result);
+//       if (result === metaTests[i].passes) {
+//         console.log(`meta${i + 1} test${j + 1} Success: "true" ${result}`);
+//       } else if (result !== metaTests[i].passes) {
+//         console.log(`meta${i + 1} test${j + 1} Error: "false" ${result}`);
+//       }
+//     }
+//   }
 
-  // For next part of feature: return some type of eval using internalTests & metaTests
-  return false;
-}
+//   // For next part of feature: return some type of eval using internalTests & metaTests
+//   return false;
+// }
 
-const executeTests = async (code, tests, expectPasses = true) => {
+const executeTests = async (metaCaseCode, tests, metaLabel, challengeLabel) => {
   return pMap(tests?.filter(removeEmpty) || [], async (test) => {
     const { label, internalTest } = test;
-    // console.log("test name: ", test);
+    console.log("<tests pMap> ", test);
+    console.log("<test label> ", test.label);
+
     const newTest = { pass: true, label, internalTest };
     // console.log("newTest name: ", newTest);
 
     const { pass, error } = await runTestEvaluator({
       internalTest,
-      code,
-      expectPasses,
+      metaCaseCode,
+      metaLabel,
+      test,
+      challengeLabel,
     });
     // test passes, then fails..? Time for debugger
     // metaTest "Passing Example" SUCCESS. Expected: true and received: true
@@ -74,7 +78,6 @@ const executeTests = async (code, tests, expectPasses = true) => {
 
     // console.log("***label***", label);
     // console.log("***internalTest***", internalTest);
-    // console.log("***code***", code);
     // console.log("***pass***", pass);
 
     // We should suppress this deeper??
@@ -101,16 +104,19 @@ async function runTests(eventTests, eventMetaTests, challengeLabel) {
     getMetaTests(eventMetaTests),
   ]);
 
-  console.log("code-challenge: ", challengeLabel);
-  console.log("CLEAN & SORTED internalTests: ", internalTests);
-  console.log("metaTests: ", metaTests);
+  console.log("<code-challenge>", challengeLabel);
+  console.log("<internalTests>: ", internalTests);
+  console.log("<metaTests>", metaTests);
 
   let results;
   for (let i = 0; i < metaTests.length; i++) {
     results = await executeTests(
       [metaTests[i].caseCode],
       internalTests,
-      metaTests[i].passes
+      // Loop follows only metaTests
+      metaTests[i].label,
+      // not the internalTests
+      challengeLabel
     );
 
     // Errors on MetaTests.pass === false are OKAY! Need to be suppressed earlier...?
@@ -134,7 +140,7 @@ async function runTests(eventTests, eventMetaTests, challengeLabel) {
       ) {
         console.log(
           `\nmetaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`,
-          `\nFailing Example triggered: \n"${result.error.substring(0, 120)}"`
+          `\nFailing Example triggered: \n"${result.error.substring(0, 200)}"`
         );
         // Passing & Failing Example FAIL --Redundant?
       } else if (result.pass !== metaTests[i].passes) {
@@ -148,9 +154,16 @@ async function runTests(eventTests, eventMetaTests, challengeLabel) {
             .toUpperCase()}`
         );
 
-        console.log(`\nFAIL triggered by: \n"${result.error}"`);
-
-        console.log("result.error: ", typeof result.error, result.error);
+        try {
+          console.log(
+            `\n<${typeof result.error}> FAIL triggered by: \n"${result.error.substring(
+              0,
+              200
+            )}"`
+          );
+        } catch {
+          console.log("<result.error> ", typeof result.error, result.error);
+        }
 
         // console.log(`metaTest code: `, metaTests[i].caseCode);
         // console.log(`test "${result.label}"`);
