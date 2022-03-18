@@ -16,7 +16,11 @@ const runTestEvaluator = ({ code, internalTestCode, removeComments, metaLabel, t
     let evaluationError;
     // console.log("original code", code);
     const formattedCode = (0, utils_1.getCode)(code, removeComments);
-    console.log(`-----\n<debug test-evaluator.ts TEST PARAM> ${JSON.stringify(test)}\n-------`);
+    console.log(`-----
+    \n<debug test-evaluator.ts>  
+    \n PARAM TYPE: <${typeof test}>,
+    \n <TEST PARAM>${JSON.stringify(test)} 
+    \n-------`);
     const logs = [];
     // Checking Params in Finally Block too
     (0, utils_1.overrideConsoleLog)((args) => {

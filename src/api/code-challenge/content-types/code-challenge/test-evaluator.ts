@@ -28,9 +28,11 @@ export const runTestEvaluator = async ({
   // console.log("original code", code);
   const formattedCode = getCode(code, removeComments);
   console.log(
-    `-----\n<debug test-evaluator.ts TEST PARAM> ${JSON.stringify(
-      test
-    )}\n-------`
+    `-----
+    \n<debug test-evaluator.ts>  
+    \n PARAM TYPE: <${typeof test}>,
+    \n <TEST PARAM>${JSON.stringify(test)} 
+    \n-------`
   );
   const logs = [] as Array<unknown>;
   // Checking Params in Finally Block too

@@ -20,12 +20,20 @@ module.exports = {
   },
 };
 
-const executeTests = async (metaCaseCode, tests, metaLabel, challengeLabel) => {
-  return pMap(tests?.filter(removeEmpty) || [], async (test) => {
+const executeTests = async (
+  metaCaseCode,
+  internalTests,
+  metaLabel,
+  challengeLabel
+) => {
+  return pMap(internalTests?.filter(removeEmpty) || [], async (test) => {
     const label = test.label;
-    const internalTestCode = test.internalTest;
-    // console.log("<tests pMap> ", test);
-    // console.log("<test label> ", test.label);
+    const internalTestCode = test.internalTestCode;
+    console.log("<test pMap> ", test);
+    console.log("<test type> ", typeof test);
+    console.log("<internalTests pMap> ", internalTests);
+    console.log("<internalTests pMap> ", typeof internalTests);
+    console.log("<test label> ", label);
 
     const newTest = { pass: true, label, internalTestCode };
     // console.log("newTest name: ", newTest);
@@ -145,6 +153,12 @@ async function getInternalTests(eventTests) {
       }
     );
   // console.log("FRESH N RAW INTERNAL TESTS: ", internalTests);
+  // Rename internalTest to internalTestCode
+  internalTests.map((internalTestPackage) => {
+    internalTestPackage.internalTestCode = internalTestPackage.internalTest;
+    delete internalTestPackage.internalTest;
+  });
+  // console.log("RENAMED INTERNAL TESTS: ", internalTests);
   return internalTests.sort(compareIds);
 }
 
