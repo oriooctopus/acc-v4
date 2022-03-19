@@ -60,6 +60,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::sublesson.sublesson"
+    },
+    "editorMeta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "misc.editor-meta"
     }
   }
 }
