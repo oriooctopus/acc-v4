@@ -1,8 +1,9 @@
 {
   "collectionName": "components_challenge_challenge_hints",
   "info": {
-    "displayName": "ChallengeHints",
-    "icon": "align-center"
+    "displayName": "hints",
+    "icon": "align-center",
+    "description": ""
   },
   "options": {},
   "attributes": {

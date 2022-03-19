@@ -44,7 +44,7 @@
       "type": "component",
       "repeatable": true,
       "pluginOptions": {},
-      "component": "challenge.challenge-hints"
+      "component": "content.challenge-hints"
     },
     "getStartingCodeFromPreviousChallenge": {
       "pluginOptions": {},
