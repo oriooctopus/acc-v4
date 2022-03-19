@@ -1,7 +1,7 @@
 {
-  "key": "plugin_content_manager_configuration_components::translations.about-page",
+  "key": "plugin_content_manager_configuration_components::content.challenge-hints",
   "value": {
-    "uid": "translations.about-page",
+    "uid": "content.challenge-hints",
     "settings": {
       "bulkable": true,
       "filterable": true,
@@ -20,16 +20,30 @@
           "sortable": false
         }
       },
-      "title": {
+      "text": {
         "edit": {
-          "label": "Title",
+          "label": "Text",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "Title",
+          "label": "Text",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "recommendedTimeBeforeViewing": {
+        "edit": {
+          "label": "RecommendedTimeBeforeViewing",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "RecommendedTimeBeforeViewing",
           "searchable": true,
           "sortable": true
         }
@@ -38,13 +52,19 @@
     "layouts": {
       "list": [
         "id",
-        "title"
+        "recommendedTimeBeforeViewing"
       ],
       "edit": [
         [
           {
-            "name": "title",
-            "size": 6
+            "name": "text",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "recommendedTimeBeforeViewing",
+            "size": 4
           }
         ]
       ],

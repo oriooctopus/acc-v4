@@ -1,7 +1,7 @@
 {
-  "key": "plugin_content_manager_configuration_components::challenge.challenge-hints",
+  "key": "plugin_content_manager_configuration_components::project.project-steps",
   "value": {
-    "uid": "challenge.challenge-hints",
+    "uid": "project.project-steps",
     "settings": {
       "bulkable": true,
       "filterable": true,
@@ -34,25 +34,38 @@
           "sortable": false
         }
       },
-      "recommendedTimeBeforeViewing": {
+      "hints": {
         "edit": {
-          "label": "RecommendedTimeBeforeViewing",
+          "label": "Hints",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "RecommendedTimeBeforeViewing",
-          "searchable": true,
-          "sortable": true
+          "label": "Hints",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "exampleSolution": {
+        "edit": {
+          "label": "ExampleSolution",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "ExampleSolution",
+          "searchable": false,
+          "sortable": false
         }
       }
     },
     "layouts": {
       "list": [
-        "id",
-        "recommendedTimeBeforeViewing"
+        "id"
       ],
       "edit": [
         [
@@ -63,8 +76,14 @@
         ],
         [
           {
-            "name": "recommendedTimeBeforeViewing",
-            "size": 4
+            "name": "hints",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "exampleSolution",
+            "size": 12
           }
         ]
       ],

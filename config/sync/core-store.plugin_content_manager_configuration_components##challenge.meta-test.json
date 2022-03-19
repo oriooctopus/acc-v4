@@ -16,8 +16,8 @@
         "edit": {},
         "list": {
           "label": "Id",
-          "searchable": true,
-          "sortable": true
+          "searchable": false,
+          "sortable": false
         }
       },
       "caseCode": {
@@ -69,7 +69,6 @@
         "label",
         "passes"
       ],
-      "editRelations": [],
       "edit": [
         [
           {
@@ -87,7 +86,8 @@
             "size": 4
           }
         ]
-      ]
+      ],
+      "editRelations": []
     },
     "isComponent": true
   },

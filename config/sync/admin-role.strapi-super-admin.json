@@ -21,7 +21,8 @@
           "MetaTest.caseCode",
           "MetaTest.label",
           "MetaTest.passes",
-          "category"
+          "category",
+          "editorMeta.context"
         ]
       },
       "conditions": []
@@ -56,7 +57,8 @@
           "MetaTest.caseCode",
           "MetaTest.label",
           "MetaTest.passes",
-          "category"
+          "category",
+          "editorMeta.context"
         ]
       },
       "conditions": []
@@ -79,7 +81,8 @@
           "MetaTest.caseCode",
           "MetaTest.label",
           "MetaTest.passes",
-          "category"
+          "category",
+          "editorMeta.context"
         ]
       },
       "conditions": []
@@ -350,6 +353,66 @@
           "internalLabel",
           "internalNotes",
           "prompt"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::project.project",
+      "properties": {
+        "fields": [
+          "editorMeta.context",
+          "steps.text",
+          "steps.hints.text",
+          "steps.hints.recommendedTimeBeforeViewing",
+          "steps.exampleSolution",
+          "title",
+          "slug"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::project.project",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "subject": "api::project.project",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::project.project",
+      "properties": {
+        "fields": [
+          "editorMeta.context",
+          "steps.text",
+          "steps.hints.text",
+          "steps.hints.recommendedTimeBeforeViewing",
+          "steps.exampleSolution",
+          "title",
+          "slug"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::project.project",
+      "properties": {
+        "fields": [
+          "editorMeta.context",
+          "steps.text",
+          "steps.hints.text",
+          "steps.hints.recommendedTimeBeforeViewing",
+          "steps.exampleSolution",
+          "title",
+          "slug"
         ]
       },
       "conditions": []

@@ -16,8 +16,8 @@
         "edit": {},
         "list": {
           "label": "Id",
-          "searchable": true,
-          "sortable": true
+          "searchable": false,
+          "sortable": false
         }
       },
       "codeChallenge": {
@@ -73,7 +73,6 @@
         "multipleChoiceChallenge",
         "playground"
       ],
-      "editRelations": [],
       "edit": [
         [
           {
@@ -91,7 +90,8 @@
             "size": 6
           }
         ]
-      ]
+      ],
+      "editRelations": []
     },
     "isComponent": true
   },

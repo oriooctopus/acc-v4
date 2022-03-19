@@ -16,8 +16,8 @@
         "edit": {},
         "list": {
           "label": "Id",
-          "searchable": true,
-          "sortable": true
+          "searchable": false,
+          "sortable": false
         }
       }
     },
@@ -25,8 +25,8 @@
       "list": [
         "id"
       ],
-      "editRelations": [],
-      "edit": []
+      "edit": [],
+      "editRelations": []
     },
     "isComponent": true
   },

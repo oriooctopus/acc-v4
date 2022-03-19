@@ -147,6 +147,20 @@
           "sortable": true
         }
       },
+      "editorMeta": {
+        "edit": {
+          "label": "EditorMeta",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "EditorMeta",
+          "searchable": false,
+          "sortable": false
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "CreatedAt",
@@ -177,6 +191,12 @@
       }
     },
     "layouts": {
+      "list": [
+        "internalLabel",
+        "createdAt",
+        "internalNotes",
+        "category"
+      ],
       "edit": [
         [
           {
@@ -223,15 +243,15 @@
             "name": "MetaTest",
             "size": 12
           }
+        ],
+        [
+          {
+            "name": "editorMeta",
+            "size": 12
+          }
         ]
       ],
       "editRelations": [
-        "category"
-      ],
-      "list": [
-        "internalLabel",
-        "createdAt",
-        "internalNotes",
         "category"
       ]
     }

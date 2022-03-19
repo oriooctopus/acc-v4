@@ -1393,7 +1393,7 @@
           "type": "component",
           "repeatable": true,
           "pluginOptions": {},
-          "component": "challenge.challenge-hints"
+          "component": "content.challenge-hints"
         },
         "getStartingCodeFromPreviousChallenge": {
           "pluginOptions": {},
@@ -1409,6 +1409,11 @@
           "type": "relation",
           "relation": "oneToOne",
           "target": "api::sublesson.sublesson"
+        },
+        "editorMeta": {
+          "type": "component",
+          "repeatable": false,
+          "component": "misc.editor-meta"
         },
         "createdAt": {
           "type": "datetime"
@@ -1488,7 +1493,7 @@
             "type": "component",
             "repeatable": true,
             "pluginOptions": {},
-            "component": "challenge.challenge-hints"
+            "component": "content.challenge-hints"
           },
           "getStartingCodeFromPreviousChallenge": {
             "pluginOptions": {},
@@ -1504,6 +1509,11 @@
             "type": "relation",
             "relation": "oneToOne",
             "target": "api::sublesson.sublesson"
+          },
+          "editorMeta": {
+            "type": "component",
+            "repeatable": false,
+            "component": "misc.editor-meta"
           }
         },
         "kind": "collectionType"
@@ -2068,6 +2078,118 @@
       "uid": "api::playground.playground",
       "apiName": "playground",
       "globalId": "Playground",
+      "actions": {},
+      "lifecycles": {}
+    },
+    "api::project.project": {
+      "kind": "collectionType",
+      "collectionName": "projects",
+      "info": {
+        "singularName": "project",
+        "pluralName": "projects",
+        "displayName": "Project",
+        "description": ""
+      },
+      "options": {
+        "draftAndPublish": true
+      },
+      "pluginOptions": {},
+      "attributes": {
+        "editorMeta": {
+          "type": "component",
+          "repeatable": false,
+          "component": "misc.editor-meta"
+        },
+        "steps": {
+          "displayName": "projectSteps",
+          "type": "component",
+          "repeatable": true,
+          "component": "project.project-steps",
+          "required": true
+        },
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "slug": {
+          "type": "string",
+          "required": true
+        },
+        "createdAt": {
+          "type": "datetime"
+        },
+        "updatedAt": {
+          "type": "datetime"
+        },
+        "publishedAt": {
+          "type": "datetime",
+          "configurable": false,
+          "writable": true,
+          "visible": false
+        },
+        "createdBy": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "admin::user",
+          "configurable": false,
+          "writable": false,
+          "visible": false,
+          "useJoinTable": false,
+          "private": true
+        },
+        "updatedBy": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "admin::user",
+          "configurable": false,
+          "writable": false,
+          "visible": false,
+          "useJoinTable": false,
+          "private": true
+        }
+      },
+      "__schema__": {
+        "collectionName": "projects",
+        "info": {
+          "singularName": "project",
+          "pluralName": "projects",
+          "displayName": "Project",
+          "description": ""
+        },
+        "options": {
+          "draftAndPublish": true
+        },
+        "pluginOptions": {},
+        "attributes": {
+          "editorMeta": {
+            "type": "component",
+            "repeatable": false,
+            "component": "misc.editor-meta"
+          },
+          "steps": {
+            "displayName": "projectSteps",
+            "type": "component",
+            "repeatable": true,
+            "component": "project.project-steps",
+            "required": true
+          },
+          "title": {
+            "type": "string",
+            "required": true
+          },
+          "slug": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "kind": "collectionType"
+      },
+      "modelType": "contentType",
+      "modelName": "project",
+      "connection": "default",
+      "uid": "api::project.project",
+      "apiName": "project",
+      "globalId": "Project",
       "actions": {},
       "lifecycles": {}
     },
