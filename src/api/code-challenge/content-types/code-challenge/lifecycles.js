@@ -12,12 +12,24 @@ module.exports = {
   },
 
   beforeUpdate(event) {
-    runTests(
+    // GOAL FOR TUESDAY 22: Call runTests 2x based on length of metaTests
+    iterateMetaTests(
       event.params.data.tests,
       event.params.data.MetaTest,
       event.params.data.internalLabel
     );
   },
+};
+
+const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
+  const [internalTests, metaTests] = await Promise.all([
+    getInternalTests(eventTests),
+    getMetaTests(eventMetaTests),
+  ]);
+  console.log("<metaTests.length>", metaTests.length);
+  console.log("<metaTests>", metaTests);
+
+  runTests(internalTests, eventMetaTests, challengeLabel);
 };
 
 const executeTests = async (
@@ -31,11 +43,11 @@ const executeTests = async (
     async (internalTest) => {
       const label = internalTest.label;
       const internalTestCode = internalTest.internalTestCode;
-      console.log("<internalTest pMap> ", internalTest);
-      console.log("<internalTest type> ", typeof internalTest);
-      console.log("<internalTests pMap> ", internalTests);
-      console.log("<internalTests pMap> ", typeof internalTests);
-      console.log("<internalTest label> ", label);
+      // console.log("<internalTest pMap> ", internalTest);
+      // console.log("<internalTest type> ", typeof internalTest);
+      // console.log("<internalTests pMap> ", internalTests);
+      // console.log("<internalTests pMap> ", typeof internalTests);
+      // console.log("<internalTest label> ", label);
 
       const newTest = { pass: true, label, internalTestCode };
       // console.log("newTest name: ", newTest);
@@ -60,25 +72,21 @@ const executeTests = async (
         newTest.stack = stack;
       }
       // show metaTest + InternalTest Results
-      console.log(
-        `---------------
-      \n<newTest.pass> ${newTest.pass},
-      \n <label> ${newTest.label},
-      \n <internalTestCode> ${newTest.internalTestCode},
-      \n <error type> ${typeof newTest.error}
-      \n--------------`
-      );
+      // console.log(
+      //   `---------------
+      // \n<newTest.pass> ${newTest.pass},
+      // \n <label> ${newTest.label},
+      // \n <internalTestCode> ${newTest.internalTestCode},
+      // \n <error type> ${typeof newTest.error}
+      // \n--------------`
+      // );
       return newTest;
     }
   );
 };
 
-async function runTests(eventTests, eventMetaTests, challengeLabel) {
+async function runTests(internalTests, metaTests, challengeLabel) {
   console.log("---runTests: ----");
-  const [internalTests, metaTests] = await Promise.all([
-    getInternalTests(eventTests),
-    getMetaTests(eventMetaTests),
-  ]);
 
   console.log("<code-challenge>", challengeLabel);
   console.log("<internalTests>: ", internalTests);
@@ -96,48 +104,47 @@ async function runTests(eventTests, eventMetaTests, challengeLabel) {
     );
 
     let testCounter = 1;
+    // results.map((result) => {
+    //   console.log(`\nmetaTest (${i + 1}), internalTest ${testCounter++},`);
+    //   // Failing Example SUCCESS with Short Error
+    //   if (
+    //     result.pass === metaTests[i].passes &&
+    //     typeof result.error === "string"
+    //   ) {
+    //     console.log(
+    //       `\nmetaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`,
+    //       `\nFailing Example triggered: \n"${result.error.substring(0, 200)}"`
+    //     );
+    //     // Passing & Failing Example FAIL --Redundant?
+    //   } else if (result.pass !== metaTests[i].passes) {
+    //     console.log(
+    //       `\nmetaTest "${metaTests[i].label}" FAILED. Expected: ${metaTests[
+    //         i
+    //       ].passes
+    //         .toString()
+    //         .toUpperCase()} but received: ${result.pass
+    //         .toString()
+    //         .toUpperCase()}`
+    //     );
 
-    results.map((result) => {
-      console.log(`\nmetaTest (${i + 1}), internalTest ${testCounter++},`);
-      // Failing Example SUCCESS with Short Error
-      if (
-        result.pass === metaTests[i].passes &&
-        typeof result.error === "string"
-      ) {
-        console.log(
-          `\nmetaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`,
-          `\nFailing Example triggered: \n"${result.error.substring(0, 200)}"`
-        );
-        // Passing & Failing Example FAIL --Redundant?
-      } else if (result.pass !== metaTests[i].passes) {
-        console.log(
-          `\nmetaTest "${metaTests[i].label}" FAILED. Expected: ${metaTests[
-            i
-          ].passes
-            .toString()
-            .toUpperCase()} but received: ${result.pass
-            .toString()
-            .toUpperCase()}`
-        );
+    //     try {
+    //       console.log(
+    //         `\n<${typeof result.error}> FAIL triggered by: \n"${result.error.substring(
+    //           0,
+    //           200
+    //         )}"`
+    //       );
+    //     } catch {
+    //       console.log("<result.error> ", typeof result.error, result.error);
+    //     }
 
-        try {
-          console.log(
-            `\n<${typeof result.error}> FAIL triggered by: \n"${result.error.substring(
-              0,
-              200
-            )}"`
-          );
-        } catch {
-          console.log("<result.error> ", typeof result.error, result.error);
-        }
-
-        // Passing Example SUCCESS
-      } else if (result.pass === metaTests[i].passes) {
-        console.log(
-          `\nmetaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`
-        );
-      }
-    });
+    //     // Passing Example SUCCESS
+    //   } else if (result.pass === metaTests[i].passes) {
+    //     console.log(
+    //       `\nmetaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`
+    //     );
+    //   }
+    // });
   }
   return results;
 }
