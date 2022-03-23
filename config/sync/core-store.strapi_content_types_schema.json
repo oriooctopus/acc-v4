@@ -529,10 +529,7 @@
         },
         "type": {
           "type": "enumeration",
-          "enum": [
-            "read-only",
-            "full-access"
-          ],
+          "enum": ["read-only", "full-access"],
           "configurable": false,
           "required": false,
           "default": "read-only"
@@ -605,10 +602,7 @@
           },
           "type": {
             "type": "enumeration",
-            "enum": [
-              "read-only",
-              "full-access"
-            ],
+            "enum": ["read-only", "full-access"],
             "configurable": false,
             "required": false,
             "default": "read-only"
@@ -1393,7 +1387,7 @@
           "type": "component",
           "repeatable": true,
           "pluginOptions": {},
-          "component": "content.challenge-hints"
+          "component": "challenge.challenge-hints"
         },
         "getStartingCodeFromPreviousChallenge": {
           "pluginOptions": {},
@@ -1493,7 +1487,7 @@
             "type": "component",
             "repeatable": true,
             "pluginOptions": {},
-            "component": "content.challenge-hints"
+            "component": "challenge.challenge-hints"
           },
           "getStartingCodeFromPreviousChallenge": {
             "pluginOptions": {},
@@ -1891,7 +1885,8 @@
       "info": {
         "singularName": "multiple-choice-challenge",
         "pluralName": "multiple-choice-challenges",
-        "displayName": "MultipleChoiceChallenge"
+        "displayName": "MultipleChoiceChallenge",
+        "description": ""
       },
       "options": {
         "draftAndPublish": true
@@ -1915,6 +1910,10 @@
         "canSelectMultipleOptions": {
           "type": "boolean",
           "default": false
+        },
+        "optionsInitiallyHidden": {
+          "type": "boolean",
+          "default": true
         },
         "createdAt": {
           "type": "datetime"
@@ -1954,7 +1953,8 @@
         "info": {
           "singularName": "multiple-choice-challenge",
           "pluralName": "multiple-choice-challenges",
-          "displayName": "MultipleChoiceChallenge"
+          "displayName": "MultipleChoiceChallenge",
+          "description": ""
         },
         "options": {
           "draftAndPublish": true
@@ -1978,6 +1978,10 @@
           "canSelectMultipleOptions": {
             "type": "boolean",
             "default": false
+          },
+          "optionsInitiallyHidden": {
+            "type": "boolean",
+            "default": true
           }
         },
         "kind": "collectionType"

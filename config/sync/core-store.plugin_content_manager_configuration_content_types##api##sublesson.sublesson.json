@@ -150,6 +150,8 @@
       }
     },
     "layouts": {
+      "list": ["id", "name", "internalNotes", "lesson"],
+      "editRelations": ["lesson", "syntaxEntry"],
       "edit": [
         [
           {
@@ -181,16 +183,6 @@
             "size": 12
           }
         ]
-      ],
-      "editRelations": [
-        "lesson",
-        "syntaxEntry"
-      ],
-      "list": [
-        "id",
-        "name",
-        "lesson",
-        "internalNotes"
       ]
     }
   },

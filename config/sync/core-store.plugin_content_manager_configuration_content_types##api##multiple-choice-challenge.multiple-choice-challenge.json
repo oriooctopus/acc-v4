@@ -76,6 +76,20 @@
           "sortable": true
         }
       },
+      "optionsInitiallyHidden": {
+        "edit": {
+          "label": "OptionsInitiallyHidden",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "OptionsInitiallyHidden",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "CreatedAt",
@@ -106,6 +120,13 @@
       }
     },
     "layouts": {
+      "list": [
+        "id",
+        "internalLabel",
+        "canSelectMultipleOptions",
+        "optionsInitiallyHidden"
+      ],
+      "editRelations": [],
       "edit": [
         [
           {
@@ -128,14 +149,13 @@
             "name": "canSelectMultipleOptions",
             "size": 4
           }
+        ],
+        [
+          {
+            "name": "optionsInitiallyHidden",
+            "size": 4
+          }
         ]
-      ],
-      "editRelations": [],
-      "list": [
-        "id",
-        "internalLabel",
-        "canSelectMultipleOptions",
-        "createdAt"
       ]
     }
   },
