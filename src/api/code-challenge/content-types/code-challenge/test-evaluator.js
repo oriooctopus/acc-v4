@@ -11,12 +11,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.runTestEvaluator = void 0;
 const utils_1 = require("../code-challenge/utils");
-const runTestEvaluator = ({ code, internalTestCode, metaLabel, challengeLabel, internalTest, removeComments, }) => __awaiter(void 0, void 0, void 0, function* () {
+const runTestEvaluator = ({ metaCaseCode, internalTestCode, metaLabel, challengeLabel, internalTest, removeComments, }) => __awaiter(void 0, void 0, void 0, function* () {
     let userPassed = true;
     let evaluationError;
     // code & formattedCode coming up undefined???
-    console.log("\n\n<<METATEST CODE>>", code);
-    const formattedCode = (0, utils_1.getCode)(code, removeComments);
+    console.log("\n\n<<METATEST CODE>>", metaCaseCode);
+    const formattedCode = (0, utils_1.getCode)(metaCaseCode, removeComments);
     console.log(`-----
     \n<debug internalTest-evaluator.ts>  
     \n PARAM TYPE: <${typeof internalTest}>,
@@ -69,7 +69,7 @@ const runTestEvaluator = ({ code, internalTestCode, metaLabel, challengeLabel, i
     (0, utils_1.restoreConsoleLog)();
     return {
         error: evaluationError,
-        metaTestCode: code,
+        metaCaseCode: metaCaseCode,
         internalTest: internalTestCode,
         pass: userPassed,
     };

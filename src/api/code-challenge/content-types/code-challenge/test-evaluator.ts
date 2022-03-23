@@ -7,7 +7,7 @@ import {
 } from "../code-challenge/utils";
 
 type runTestEvaluatorProps = {
-  code: string;
+  metaCaseCode: string;
   internalTestCode: string;
   metaLabel: string;
   challengeLabel: string;
@@ -16,7 +16,7 @@ type runTestEvaluatorProps = {
 };
 
 export const runTestEvaluator = async ({
-  code,
+  metaCaseCode,
   internalTestCode,
   metaLabel,
   challengeLabel,
@@ -27,8 +27,8 @@ export const runTestEvaluator = async ({
   let evaluationError;
 
   // code & formattedCode coming up undefined???
-  console.log("\n\n<<METATEST CODE>>", code);
-  const formattedCode = getCode(code, removeComments);
+  console.log("\n\n<<METATEST CODE>>", metaCaseCode);
+  const formattedCode = getCode(metaCaseCode, removeComments);
   console.log(
     `-----
     \n<debug internalTest-evaluator.ts>  
@@ -97,7 +97,7 @@ export const runTestEvaluator = async ({
 
   return {
     error: evaluationError,
-    metaTestCode: code,
+    metaCaseCode: metaCaseCode,
     internalTest: internalTestCode,
     pass: userPassed,
   };

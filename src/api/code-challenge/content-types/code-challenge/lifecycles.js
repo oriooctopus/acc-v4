@@ -54,25 +54,17 @@ const executeTests = async (
       const internalTestCode = internalTest.internalTestCode;
       const internalTestId = internalTest.id;
       // console.log("<internalTest pMap> ", internalTest);
-      // console.log("<internalTest type> ", typeof internalTest);
-      // console.log("<internalTests pMap> ", internalTests);
-      // console.log("<internalTests pMap> ", typeof internalTests);
-      // console.log("<internalTest label> ", label);
 
       const newTest = {
         pass: true,
         metaTestId,
         internalTestId,
+        metaLabel,
         internalTestLabel,
         metaCaseCode,
         internalTestCode,
       };
       // console.log("newTest name: ", newTest);
-      // Reassign metaCaseCode to own var
-
-      // metaCaseCode = metaCaseCode[0];
-
-      // metaCaseCode not passing correctly into runTestEvaluator
 
       const { pass, error } = await runTestEvaluator({
         metaCaseCode,
@@ -83,7 +75,7 @@ const executeTests = async (
       });
 
       // console.log("***label***", label);
-      console.log("<internalTestCode>", internalTestCode);
+      // console.log("<internalTestCode>", internalTestCode);
 
       if (!pass) {
         // @ts-expect-error will fix later
@@ -109,13 +101,13 @@ const executeTests = async (
 
 async function runInternalTests(
   internalTests,
-  metaTestCode,
+  metaCaseCode,
   challengeLabel,
   metaTestLabel,
   metaTestId
 ) {
   let results = await executeTests(
-    metaTestCode,
+    metaCaseCode,
     internalTests,
     metaTestLabel,
     challengeLabel,
