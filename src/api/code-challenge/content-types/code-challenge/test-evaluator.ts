@@ -9,23 +9,25 @@ import {
 type runTestEvaluatorProps = {
   code: string;
   internalTestCode: string;
+  metaLabel: string;
+  challengeLabel: string;
+  internalTest?: object;
   removeComments?: boolean;
-  metaLabel?: string;
-  test?: string;
-  challengeLabel?: string;
 };
 
 export const runTestEvaluator = async ({
   code,
   internalTestCode,
-  removeComments,
   metaLabel,
-  internalTest,
   challengeLabel,
+  internalTest,
+  removeComments,
 }: runTestEvaluatorProps) => {
   let userPassed = true;
   let evaluationError;
-  // console.log("original code", code);
+
+  // code & formattedCode coming up undefined???
+  console.log("\n\n<<METATEST CODE>>", code);
   const formattedCode = getCode(code, removeComments);
   console.log(
     `-----
@@ -95,6 +97,7 @@ export const runTestEvaluator = async ({
 
   return {
     error: evaluationError,
+    metaTestCode: code,
     internalTest: internalTestCode,
     pass: userPassed,
   };

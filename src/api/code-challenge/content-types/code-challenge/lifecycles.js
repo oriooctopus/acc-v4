@@ -12,7 +12,6 @@ module.exports = {
   },
 
   beforeUpdate(event) {
-    // GOAL FOR TUESDAY 22: Call runTests 2x based on length of metaTests
     iterateMetaTests(
       event.params.data.tests,
       event.params.data.MetaTest,
@@ -28,36 +27,59 @@ const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
   ]);
   console.log("<metaTests.length>", metaTests.length);
   console.log("<metaTests>", metaTests);
-
-  runTests(internalTests, eventMetaTests, challengeLabel);
+  console.log("<code-challenge>", challengeLabel);
+  console.log("<internalTests>: ", internalTests);
+  for (let i = 0; i < metaTests.length; i++) {
+    runInternalTests(
+      internalTests,
+      metaTests[i].caseCode,
+      challengeLabel,
+      metaTests[i].label,
+      metaTests[i].id
+    );
+  }
 };
 
 const executeTests = async (
   metaCaseCode,
   internalTests,
   metaLabel,
-  challengeLabel
+  challengeLabel,
+  metaTestId
 ) => {
   return pMap(
     internalTests?.filter(removeEmpty) || [],
     async (internalTest) => {
-      const label = internalTest.label;
+      const internalTestLabel = internalTest.label;
       const internalTestCode = internalTest.internalTestCode;
+      const internalTestId = internalTest.id;
       // console.log("<internalTest pMap> ", internalTest);
       // console.log("<internalTest type> ", typeof internalTest);
       // console.log("<internalTests pMap> ", internalTests);
       // console.log("<internalTests pMap> ", typeof internalTests);
       // console.log("<internalTest label> ", label);
 
-      const newTest = { pass: true, label, internalTestCode };
+      const newTest = {
+        pass: true,
+        metaTestId,
+        internalTestId,
+        internalTestLabel,
+        metaCaseCode,
+        internalTestCode,
+      };
       // console.log("newTest name: ", newTest);
+      // Reassign metaCaseCode to own var
+
+      // metaCaseCode = metaCaseCode[0];
+
+      // metaCaseCode not passing correctly into runTestEvaluator
 
       const { pass, error } = await runTestEvaluator({
-        internalTestCode,
         metaCaseCode,
+        internalTestCode,
         metaLabel,
-        internalTest,
         challengeLabel,
+        internalTest,
       });
 
       // console.log("***label***", label);
@@ -85,67 +107,65 @@ const executeTests = async (
   );
 };
 
-async function runTests(internalTests, metaTests, challengeLabel) {
-  console.log("---runTests: ----");
+async function runInternalTests(
+  internalTests,
+  metaTestCode,
+  challengeLabel,
+  metaTestLabel,
+  metaTestId
+) {
+  let results = await executeTests(
+    metaTestCode,
+    internalTests,
+    metaTestLabel,
+    challengeLabel,
+    metaTestId
+  );
 
-  console.log("<code-challenge>", challengeLabel);
-  console.log("<internalTests>: ", internalTests);
-  console.log("<metaTests>", metaTests);
+  console.log("<RESULTS LIFECYCLES.JS>", results);
 
-  let results;
-  for (let i = 0; i < metaTests.length; i++) {
-    results = await executeTests(
-      [metaTests[i].caseCode],
-      internalTests,
-      // Loop follows only metaTests
-      metaTests[i].label,
-      // not the internalTests
-      challengeLabel
-    );
+  let testCounter = 1;
+  // results.map((result) => {
+  //   console.log(`\nmetaTest (${i + 1}), internalTest ${testCounter++},`);
+  //   // Failing Example SUCCESS with Short Error
+  //   if (
+  //     result.pass === metaTests[i].passes &&
+  //     typeof result.error === "string"
+  //   ) {
+  //     console.log(
+  //       `\nmetaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`,
+  //       `\nFailing Example triggered: \n"${result.error.substring(0, 200)}"`
+  //     );
+  //     // Passing & Failing Example FAIL --Redundant?
+  //   } else if (result.pass !== metaTests[i].passes) {
+  //     console.log(
+  //       `\nmetaTest "${metaTests[i].label}" FAILED. Expected: ${metaTests[
+  //         i
+  //       ].passes
+  //         .toString()
+  //         .toUpperCase()} but received: ${result.pass
+  //         .toString()
+  //         .toUpperCase()}`
+  //     );
 
-    let testCounter = 1;
-    // results.map((result) => {
-    //   console.log(`\nmetaTest (${i + 1}), internalTest ${testCounter++},`);
-    //   // Failing Example SUCCESS with Short Error
-    //   if (
-    //     result.pass === metaTests[i].passes &&
-    //     typeof result.error === "string"
-    //   ) {
-    //     console.log(
-    //       `\nmetaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`,
-    //       `\nFailing Example triggered: \n"${result.error.substring(0, 200)}"`
-    //     );
-    //     // Passing & Failing Example FAIL --Redundant?
-    //   } else if (result.pass !== metaTests[i].passes) {
-    //     console.log(
-    //       `\nmetaTest "${metaTests[i].label}" FAILED. Expected: ${metaTests[
-    //         i
-    //       ].passes
-    //         .toString()
-    //         .toUpperCase()} but received: ${result.pass
-    //         .toString()
-    //         .toUpperCase()}`
-    //     );
+  //     try {
+  //       console.log(
+  //         `\n<${typeof result.error}> FAIL triggered by: \n"${result.error.substring(
+  //           0,
+  //           200
+  //         )}"`
+  //       );
+  //     } catch {
+  //       console.log("<result.error> ", typeof result.error, result.error);
+  //     }
 
-    //     try {
-    //       console.log(
-    //         `\n<${typeof result.error}> FAIL triggered by: \n"${result.error.substring(
-    //           0,
-    //           200
-    //         )}"`
-    //       );
-    //     } catch {
-    //       console.log("<result.error> ", typeof result.error, result.error);
-    //     }
-
-    //     // Passing Example SUCCESS
-    //   } else if (result.pass === metaTests[i].passes) {
-    //     console.log(
-    //       `\nmetaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`
-    //     );
-    //   }
-    // });
-  }
+  //     // Passing Example SUCCESS
+  //   } else if (result.pass === metaTests[i].passes) {
+  //     console.log(
+  //       `\nmetaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`
+  //     );
+  //   }
+  // });
   return results;
 }
 
