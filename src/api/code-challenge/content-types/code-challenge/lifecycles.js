@@ -35,7 +35,8 @@ const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
       metaTests[i].caseCode,
       challengeLabel,
       metaTests[i].label,
-      metaTests[i].id
+      metaTests[i].id,
+      metaTests[i].passes
     );
   }
 };
@@ -45,7 +46,8 @@ const executeTests = async (
   internalTests,
   metaLabel,
   challengeLabel,
-  metaTestId
+  metaTestId,
+  metaTestExpectPasses
 ) => {
   return pMap(
     internalTests?.filter(removeEmpty) || [],
@@ -57,32 +59,35 @@ const executeTests = async (
 
       const newTest = {
         pass: true,
+        metaTestExpectPasses,
         metaTestId,
         internalTestId,
         metaLabel,
         internalTestLabel,
         metaCaseCode,
         internalTestCode,
+        description: null,
       };
       // console.log("newTest name: ", newTest);
 
-      const { pass, error } = await runTestEvaluator({
+      const { pass, error, description } = await runTestEvaluator({
         metaCaseCode,
         internalTestCode,
         metaLabel,
         challengeLabel,
+        metaTestId,
         internalTest,
+        metaTestExpectPasses,
       });
-
-      // console.log("***label***", label);
-      // console.log("<internalTestCode>", internalTestCode);
+      newTest.description = description;
 
       if (!pass) {
         // @ts-expect-error will fix later
         const { message, stack } = error;
-
+        // newTest.message = error.message;
+        // newTest.stack = error.stack;
         newTest.pass = false;
-        newTest.error = message + "\n" + stack;
+        newTest.error = message;
         newTest.stack = stack;
       }
       // show metaTest + InternalTest Results
@@ -104,14 +109,16 @@ async function runInternalTests(
   metaCaseCode,
   challengeLabel,
   metaTestLabel,
-  metaTestId
+  metaTestId,
+  metaTestExpectPasses
 ) {
   let results = await executeTests(
     metaCaseCode,
     internalTests,
     metaTestLabel,
     challengeLabel,
-    metaTestId
+    metaTestId,
+    metaTestExpectPasses
   );
 
   console.log("<RESULTS LIFECYCLES.JS>", results);

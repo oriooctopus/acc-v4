@@ -136,7 +136,7 @@ export const getConsoleLogsFromCodeEvaluation = (
 
 // TODO: type context
 export const evaluateWithContext = (code: string, context = {}) => {
-  // console.log("code: ", code);
+  console.log("<COMBINED Code:> ", code);
   // console.log("Object.keys(context): ", Object.keys(context));
   return function evaluateEval() {
     const contextStr = Object.keys(context)
@@ -151,16 +151,16 @@ export const evaluateWithContext = (code: string, context = {}) => {
     console.log(
       "UTILS.JS evaluateWithContext()",
       "\n\n",
-      "<UTILS.JS contextDef> ",
+      "<UTILS.JS contextDef>\n\n ",
       contextDef,
       "\n\n",
-      "<UTILS.JS code> ",
+      "<UTILS.JS code>\n\n ",
       code,
-      "\n",
-      "<UTILS.JS evalString> ",
+      "\n\n",
+      "<UTILS.JS evalString>\n\n ",
       // JSON.stringify(evalString),
       evalString,
-      "\n------------------"
+      "\n\n------------------"
     );
     const result = eval(evalString);
     console.log("\n", "<UTILS.JS EARLY RESULT>", result, "\n", "-------------");
