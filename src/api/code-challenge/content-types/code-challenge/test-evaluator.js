@@ -87,6 +87,7 @@ const runTestEvaluator = ({ metaCaseCode, internalTestCode, metaLabel, challenge
         // internalTest: internalTestCode,
         pass: userPassed,
         description: descriptionMessage,
+        resultType: typeof result,
     };
 });
 exports.runTestEvaluator = runTestEvaluator;

@@ -113,6 +113,7 @@ export const runTestEvaluator = async ({
     // internalTest: internalTestCode,
     pass: userPassed,
     description: descriptionMessage,
+    resultType: typeof result,
   };
 };
 

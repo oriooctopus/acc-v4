@@ -67,10 +67,11 @@ const executeTests = async (
         metaCaseCode,
         internalTestCode,
         description: null,
+        resultType: null,
       };
       // console.log("newTest name: ", newTest);
 
-      const { pass, error, description } = await runTestEvaluator({
+      const { pass, error, description, resultType } = await runTestEvaluator({
         metaCaseCode,
         internalTestCode,
         metaLabel,
@@ -80,6 +81,7 @@ const executeTests = async (
         metaTestExpectPasses,
       });
       newTest.description = description;
+      newTest.resultType = resultType;
 
       if (!pass) {
         // @ts-expect-error will fix later
