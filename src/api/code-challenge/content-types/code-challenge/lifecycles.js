@@ -60,14 +60,14 @@ const executeTests = async (
       const newTest = {
         pass: true,
         metaTestExpectPasses,
+        description: null,
+        resultType: null,
         metaTestId,
         internalTestId,
         metaLabel,
         internalTestLabel,
         metaCaseCode,
         internalTestCode,
-        description: null,
-        resultType: null,
       };
       // console.log("newTest name: ", newTest);
 
