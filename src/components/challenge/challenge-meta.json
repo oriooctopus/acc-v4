@@ -16,6 +16,14 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::lesson.lesson"
+    },
+    "difficulty": {
+      "type": "enumeration",
+      "enum": [
+        "easy",
+        "medium",
+        "hard"
+      ]
     }
   }
 }
