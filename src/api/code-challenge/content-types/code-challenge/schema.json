@@ -65,6 +65,11 @@
       "type": "component",
       "repeatable": false,
       "component": "misc.editor-meta"
+    },
+    "challengeMeta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "challenge.challenge-meta"
     }
   }
 }

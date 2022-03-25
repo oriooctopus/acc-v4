@@ -1,0 +1,78 @@
+{
+  "key": "plugin_content_manager_configuration_components::challenge.challenge-meta",
+  "value": {
+    "uid": "challenge.challenge-meta",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "id",
+      "defaultSortBy": "id",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "Id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "isDebuggingChallenge": {
+        "edit": {
+          "label": "IsDebuggingChallenge",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "IsDebuggingChallenge",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "lesson": {
+        "edit": {
+          "label": "Lesson",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "Lesson",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "isDebuggingChallenge",
+        "lesson"
+      ],
+      "editRelations": [],
+      "edit": [
+        [
+          {
+            "name": "isDebuggingChallenge",
+            "size": 4
+          },
+          {
+            "name": "lesson",
+            "size": 6
+          }
+        ]
+      ]
+    },
+    "isComponent": true
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

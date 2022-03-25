@@ -161,6 +161,20 @@
           "sortable": false
         }
       },
+      "challengeMeta": {
+        "edit": {
+          "label": "ChallengeMeta",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "ChallengeMeta",
+          "searchable": false,
+          "sortable": false
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "CreatedAt",
@@ -246,6 +260,18 @@
         [
           {
             "name": "MetaTest",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "editorMeta",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "challengeMeta",
             "size": 12
           }
         ]
