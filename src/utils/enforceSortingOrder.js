@@ -21,7 +21,7 @@ const createNewChildEntity = async (row, entityTableName) => {
       if (value instanceof Date || temporaryDataFix.includes(field)) {
         return "now()::timestamp";
       } else if (typeof value === "string") {
-        return `'${value.replace(/'/g, "''")}'`;
+        return `'${value.replace(/'/g, "''").replace(/\?/, "\\?")}'`;
       } else if (value === undefined || value === null) {
         return "null";
       }
