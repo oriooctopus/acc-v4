@@ -51,6 +51,10 @@ module.exports = async ({
   // Array of the new 'sort' order for the child relations
   orderedEntityIds,
 }) => {
+  if (!orderedEntityIds || !orderedEntityIds.length) {
+    return;
+  }
+
   const { rows: orderedChildEntities } = await strapi.db.connection.raw(`
     SELECT *
     FROM ${entityTableName} child
