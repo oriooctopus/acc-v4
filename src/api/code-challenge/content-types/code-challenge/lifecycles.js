@@ -1,9 +1,39 @@
+const getInternalLabel = async (event) => {
+  const {
+    data: { challengeMeta, name },
+  } = event.params;
+
+  const defaultName = `Unassigned - ${name}`;
+  const challengeMetaId = challengeMeta ? challengeMeta.id : undefined;
+
+  if (!challengeMetaId) {
+    return defaultName;
+  }
+
+  const { lesson } = await strapi.db.query("challenge.challenge-meta").findOne({
+    where: {
+      id: challengeMetaId,
+    },
+    populate: ["challengeMeta", "lesson"],
+  });
+
+  if (!lesson) {
+    return defaultName;
+  }
+
+  return `${lesson.name} -- name`;
+};
+
 module.exports = {
-  beforeCreate(event) {
+  async beforeCreate(event) {
+    const internalLabel = await getInternalLabel(event);
+    event.params.data.internalLabel = internalLabel;
     runMetaTests(event.params.data.tests, event.params.data.MetaTest);
   },
 
-  beforeUpdate(event) {
+  async beforeUpdate(event) {
+    const internalLabel = await getInternalLabel(event);
+    event.params.data.internalLabel = internalLabel;
     runMetaTests(event.params.data.tests, event.params.data.MetaTest);
   },
 };

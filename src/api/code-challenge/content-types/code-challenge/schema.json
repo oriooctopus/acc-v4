@@ -31,7 +31,7 @@
     "internalLabel": {
       "pluginOptions": {},
       "type": "string",
-      "required": true,
+      "required": false,
       "private": true
     },
     "internalNotes": {
@@ -70,6 +70,10 @@
       "type": "component",
       "repeatable": false,
       "component": "challenge.challenge-meta"
+    },
+    "name": {
+      "type": "string",
+      "required": true
     }
   }
 }
