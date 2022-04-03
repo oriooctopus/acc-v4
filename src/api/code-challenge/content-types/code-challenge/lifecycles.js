@@ -24,20 +24,6 @@ const getInternalLabel = async (event) => {
   return `${lesson.name} -- name`;
 };
 
-module.exports = {
-  async beforeCreate(event) {
-    const internalLabel = await getInternalLabel(event);
-    event.params.data.internalLabel = internalLabel;
-    runMetaTests(event.params.data.tests, event.params.data.MetaTest);
-  },
-
-  async beforeUpdate(event) {
-    const internalLabel = await getInternalLabel(event);
-    event.params.data.internalLabel = internalLabel;
-    runMetaTests(event.params.data.tests, event.params.data.MetaTest);
-  },
-};
-
 // runMetaTestsNeed more specific name later, maybe use "validateInternalTests"
 async function runMetaTests(eventTests, eventMetaTests) {
   const [internalTests, metaTests] = await Promise.all([
@@ -73,3 +59,19 @@ async function getMetaTests(eventMetaTests) {
   });
   return metaTests;
 }
+
+const beforeCreateOrUpdate = async (event) => {
+  const internalLabel = await getInternalLabel(event);
+  event.params.data.internalLabel = internalLabel;
+  runMetaTests(event.params.data.tests, event.params.data.MetaTest);
+};
+
+module.exports = {
+  async beforeCreate(event) {
+    await beforeCreateOrUpdate(event);
+  },
+
+  async beforeUpdate(event) {
+    await beforeCreateOrUpdate(event);
+  },
+};
