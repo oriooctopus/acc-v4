@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_project_project_steps",
+  "info": {
+    "displayName": "projectSteps",
+    "icon": "arrow-down",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "richtext",
+      "required": true
+    },
+    "hints": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.challenge-hints"
+    },
+    "exampleSolution": {
+      "type": "richtext"
+    }
+  }
+}

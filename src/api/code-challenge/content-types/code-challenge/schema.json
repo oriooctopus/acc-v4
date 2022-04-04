@@ -31,7 +31,7 @@
     "internalLabel": {
       "pluginOptions": {},
       "type": "string",
-      "required": true,
+      "required": false,
       "private": true
     },
     "internalNotes": {
@@ -44,7 +44,7 @@
       "type": "component",
       "repeatable": true,
       "pluginOptions": {},
-      "component": "challenge.challenge-hints"
+      "component": "content.challenge-hints"
     },
     "getStartingCodeFromPreviousChallenge": {
       "pluginOptions": {},
@@ -60,6 +60,20 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::sublesson.sublesson"
+    },
+    "editorMeta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "misc.editor-meta"
+    },
+    "challengeMeta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "challenge.challenge-meta"
+    },
+    "name": {
+      "type": "string",
+      "required": true
     }
   }
 }

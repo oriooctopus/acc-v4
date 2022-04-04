@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_challenge_challenge_metas",
+  "info": {
+    "displayName": "challengeMeta",
+    "icon": "arrow-right",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "isDebuggingChallenge": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "lesson": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::lesson.lesson"
+    },
+    "difficulty": {
+      "type": "enumeration",
+      "enum": [
+        "easy",
+        "medium",
+        "hard"
+      ]
+    }
+  }
+}

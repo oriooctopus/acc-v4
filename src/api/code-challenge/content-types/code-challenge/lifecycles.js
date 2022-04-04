@@ -2,22 +2,30 @@ const pMap = require("p-map");
 const { removeEmpty } = require("../code-challenge/general");
 const { runTestEvaluator } = require("../code-challenge/test-evaluator");
 
-module.exports = {
-  beforeCreate(event) {
-    runTests(
-      event.params.data.tests,
-      event.params.data.MetaTest,
-      event.params.data.internalLabel
-    );
-  },
+const getInternalLabel = async (event) => {
+  const {
+    data: { challengeMeta, name },
+  } = event.params;
 
-  beforeUpdate(event) {
-    iterateMetaTests(
-      event.params.data.tests,
-      event.params.data.MetaTest,
-      event.params.data.internalLabel
-    );
-  },
+  const defaultName = `Unassigned - ${name}`;
+  const challengeMetaId = challengeMeta ? challengeMeta.id : undefined;
+
+  if (!challengeMetaId) {
+    return defaultName;
+  }
+
+  const { lesson } = await strapi.db.query("challenge.challenge-meta").findOne({
+    where: {
+      id: challengeMetaId,
+    },
+    populate: ["challengeMeta", "lesson"],
+  });
+
+  if (!lesson) {
+    return defaultName;
+  }
+
+  return `${lesson.name} -- name`;
 };
 
 const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
@@ -212,3 +220,19 @@ function compareIds(a, b) {
   }
   return 0;
 }
+
+const beforeCreateOrUpdate = async (event) => {
+  const internalLabel = await getInternalLabel(event);
+  event.params.data.internalLabel = internalLabel;
+  iterateMetaTests(event.params.data.tests, event.params.data.MetaTest);
+};
+
+module.exports = {
+  async beforeCreate(event) {
+    await beforeCreateOrUpdate(event);
+  },
+
+  async beforeUpdate(event) {
+    await beforeCreateOrUpdate(event);
+  },
+};
