@@ -62,7 +62,7 @@ async function getMetaTests(eventMetaTests) {
 
 const beforeCreateOrUpdate = async (event) => {
   const internalLabel = await getInternalLabel(event);
-  event.params.data.internalLabel = internalLabel;
+  // event.params.data.internalLabel = internalLabel;
   runMetaTests(event.params.data.tests, event.params.data.MetaTest);
 };
 
