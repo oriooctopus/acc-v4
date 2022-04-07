@@ -73,17 +73,22 @@ export const runTestEvaluator = async ({
 
     if (typeof result === "boolean" && result === metaTestExpectPasses) {
       evaluationError = { message: null, stack: null };
-      descriptionMessage = `metaTest ${metaTestId} & internalTest ${internalTest.id} are SUCCESSFULLY ${metaTestExpectPasses}, as EXPECTED`;
-    } else if (typeof result === "boolean" && result !== metaTestExpectPasses) {
-      userPassed = false;
-      descriptionMessage = `metaTest ${metaTestId} & internalTest ${internalTest.id} are FALSELY ${metaTestExpectPasses}, which is UNEXPECTED`;
-      evaluationError = { message: null, stack: null };
+      descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${metaTestExpectPasses}, as EXPECTED`;
     }
 
     // if Error, catch is run...
   } catch (err) {
+    if (typeof result !== "boolean") {
+      userPassed = false;
+      descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${
+        internalTest.id
+      } are type: ${(typeof result).toUpperCase()}, should be BOOLEAN`;
+    }
     userPassed = false;
-    evaluationError = err;
+    evaluationError = {
+      message: `${err.name}: ${err.message}`,
+      stack: err.stack,
+    };
   } finally {
     // console.log("---expectPasses: ", expectPasses);
     console.log("\n<FINALLY RESULT>", result);
@@ -94,14 +99,22 @@ export const runTestEvaluator = async ({
     // Error on vsCode, but ok in run...??? Because object isn't fetched til RUNTIME
     // console.log("<testLabel>", internalTest.label, "\n");
 
-    if (typeof result !== "boolean") {
-      console.log("\n\n<FINAL TYPE>", typeof result);
-      // Change to error later
-      console.log(
-        `"<RESULT TYPE INCORRECT> MUST be a boolean (src/api/code-challenge/content-types/code-challenge/internalTest-evaluator.ts)"\n\n`
-      );
+    // console.log("<evaluationError>", evaluationError);
+    if (typeof result !== "boolean" && evaluationError === undefined) {
+      userPassed = false;
+      descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${
+        internalTest.id
+      } are type: ${(typeof result).toUpperCase()}, should be BOOLEAN`;
+      evaluationError = { message: null, stack: null };
     }
 
+    if (typeof result === "boolean" && result !== metaTestExpectPasses) {
+      userPassed = false;
+      descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are ${metaTestExpectPasses}, which is UNEXPECTED`;
+      evaluationError = { message: null, stack: null };
+    }
+  }
+  if (typeof result === "undefined") {
     console.log("-----FINALLY END----------------");
   }
 

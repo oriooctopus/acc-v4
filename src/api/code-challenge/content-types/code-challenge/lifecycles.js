@@ -224,7 +224,11 @@ function compareIds(a, b) {
 const beforeCreateOrUpdate = async (event) => {
   const internalLabel = await getInternalLabel(event);
   // event.params.data.internalLabel = internalLabel;
-  runMetaTests(event.params.data.tests, event.params.data.MetaTest);
+  iterateMetaTests(
+    event.params.data.tests,
+    event.params.data.MetaTest,
+    event.params.data.internalLabel
+  );
 };
 
 module.exports = {
