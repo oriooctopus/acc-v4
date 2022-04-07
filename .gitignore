@@ -103,6 +103,15 @@ testApp
 coverage
 
 ############################
+# Meta Tests
+############################
+
+src/api/code-challenge/content-types/code-challenge/curriculum-helpers.js
+src/api/code-challenge/content-types/code-challenge/general.js
+src/api/code-challenge/content-types/code-challenge/test-evaluator.js
+src/api/code-challenge/content-types/code-challenge/utils.js
+
+############################
 # Strapi
 ############################
 
@@ -112,3 +121,4 @@ exports
 *.cache
 build
 .strapi-updater.json
+
