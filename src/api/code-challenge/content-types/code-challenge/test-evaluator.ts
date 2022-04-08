@@ -30,6 +30,7 @@ export const runTestEvaluator = async ({
   let userPassed = true;
   let evaluationError;
   let descriptionMessage;
+  // let tryBlockResult;
   const formattedCode = getCode(metaCaseCode, removeComments);
   // console.log(
   //   `-----
@@ -66,24 +67,29 @@ export const runTestEvaluator = async ({
       context
     );
 
-    if (typeof result === "boolean" && result === false) {
-      userPassed = false;
-      evaluationError = { message: null, stack: null };
-    }
+    //
+    // if (
+    //   typeof result === "boolean" &&
+    //   result !== metaTestExpectPasses &&
+    //   result === true
+    // ) {
+    //   descriptionMessage = `ERROR: metaTest ${metaTestId} & internalTest ${internalTest.id} are UNEXPECTEDLY ${result}`;
+    //   userPassed = false;
+    //   evaluationError = { message: null, stack: null };
+    // }
 
-    if (typeof result === "boolean" && result === metaTestExpectPasses) {
-      evaluationError = { message: null, stack: null };
-      descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${metaTestExpectPasses}, as EXPECTED`;
-    }
+    // AKA if result is correct as expected
 
     // if Error, catch is run...
   } catch (err) {
-    if (typeof result !== "boolean") {
-      userPassed = false;
-      descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${
-        internalTest.id
-      } are type: ${(typeof result).toUpperCase()}, should be BOOLEAN`;
-    }
+    // if (typeof result !== "boolean") {
+    //   userPassed = false;
+    //   descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${
+    //     internalTest.id
+    //   } are type: ${(typeof result).toUpperCase()}, should be BOOLEAN`;
+    // }
+    // if Code fails to compile in try block, this can be normal for some EXPECTED negatives
+    descriptionMessage = `CATCH BLOCK ERROR: TEST EVALUATOR, result = evaluateWithContext`;
     userPassed = false;
     evaluationError = {
       message: `${err.name}: ${err.message}`,
@@ -93,6 +99,7 @@ export const runTestEvaluator = async ({
     // console.log("---expectPasses: ", expectPasses);
     console.log("\n<FINALLY RESULT>", result);
     console.log("<FINAL TYPE>", typeof result, "\n");
+    console.log("<metaTestExpectPasses>", metaTestExpectPasses);
     console.log("<metaTestId>", metaTestId);
     console.log("<internalTest.id>", internalTest.id);
     console.log("<metaLabel>", metaLabel);
@@ -100,33 +107,38 @@ export const runTestEvaluator = async ({
     // console.log("<testLabel>", internalTest.label, "\n");
 
     // console.log("<evaluationError>", evaluationError);
-    if (typeof result !== "boolean" && evaluationError === undefined) {
+    if (typeof result === "boolean" && result === metaTestExpectPasses) {
+      // if result is a boolean, and DOES match EXPECTED example outcome
+      evaluationError = { message: null, stack: null };
+      descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${metaTestExpectPasses}, as EXPECTED`;
+    } else if (typeof result === "boolean" && result !== metaTestExpectPasses) {
+      // if result is a boolean, but does NOT match EXPECTED example outcome
+      userPassed = false;
+      descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are ${metaTestExpectPasses}, which is UNEXPECTED`;
+      evaluationError = { message: null, stack: null };
+    } else if (typeof result !== "boolean" && evaluationError === undefined) {
+      // if result type non-boolean, but no runtime error. Ex: type = string
       userPassed = false;
       descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${
         internalTest.id
       } are type: ${(typeof result).toUpperCase()}, should be BOOLEAN`;
       evaluationError = { message: null, stack: null };
     }
-
-    if (typeof result === "boolean" && result !== metaTestExpectPasses) {
-      userPassed = false;
-      descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are ${metaTestExpectPasses}, which is UNEXPECTED`;
-      evaluationError = { message: null, stack: null };
-    }
   }
-  if (typeof result === "undefined") {
-    console.log("-----FINALLY END----------------");
-  }
+  // if (typeof result === "undefined") {
+  //   console.log("-----FINALLY END----------------");
+  // }
 
   restoreConsoleLog();
-  console.log("<description>", descriptionMessage);
+  // console.log("<description>", descriptionMessage);
   return {
     error: evaluationError,
     // metaCaseCode: metaCaseCode,
     // internalTest: internalTestCode,
-    pass: userPassed,
+    finalPass: userPassed,
     description: descriptionMessage,
     resultType: typeof result,
+    tryBlockResult: result,
   };
 };
 

@@ -66,37 +66,41 @@ const executeTests = async (
       // console.log("<internalTest pMap> ", internalTest);
 
       const newTest = {
-        pass: true,
+        challengeLabel,
+        metaLabel,
+        finalPass: true,
+        tryBlockResult: null,
         metaTestExpectPasses,
         description: null,
         resultType: null,
         metaTestId,
         internalTestId,
-        metaLabel,
         internalTestLabel,
         metaCaseCode,
         internalTestCode,
       };
       // console.log("newTest name: ", newTest);
 
-      const { pass, error, description, resultType } = await runTestEvaluator({
-        metaCaseCode,
-        internalTestCode,
-        metaLabel,
-        challengeLabel,
-        metaTestId,
-        internalTest,
-        metaTestExpectPasses,
-      });
+      const { finalPass, error, description, resultType, tryBlockResult } =
+        await runTestEvaluator({
+          metaCaseCode,
+          internalTestCode,
+          metaLabel,
+          challengeLabel,
+          metaTestId,
+          internalTest,
+          metaTestExpectPasses,
+        });
       newTest.description = description;
       newTest.resultType = resultType;
+      newTest.tryBlockResult = tryBlockResult;
 
-      if (!pass) {
+      if (!finalPass) {
         // @ts-expect-error will fix later
         const { message, stack } = error;
         // newTest.message = error.message;
         // newTest.stack = error.stack;
-        newTest.pass = false;
+        newTest.finalPass = false;
         newTest.error = message;
         newTest.stack = stack;
       }
