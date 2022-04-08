@@ -54,6 +54,28 @@ export const runTestEvaluator = async ({
   console.log("<formattedCode TYPE>", typeof formattedCode);
   console.log("<internalTestCode>", internalTestCode, "\n\n");
   let result;
+
+  // Idea: Figure out programmatically whether metaCode or internalCode throw an error.
+  // Tomorrow: make a bool for metaCaseCode errors, if true, allow undefined === userPassed
+
+  try {
+    const metaCheck = eval(formattedCode);
+    console.log("<metaCheck>", metaCheck);
+  } catch (err) {
+    console.log("<metaCaseCode ERROR>", err);
+    // if metaError exists, result should be undefined
+    // if no metaError, result should be boolean
+  }
+
+  // Delete Later
+  // try {
+  //   const internalCheck = eval(internalTestCode);
+  //   console.log("<internalCheck>", internalCheck);
+  // } catch (err) {
+  //   console.log("<internalTestCode ERROR>", err);
+  //   // almost every internalTest will be an Error, partial code
+  // }
+
   try {
     // @ts-expect-error will fix later
     const context = getEvaluationContext(formattedCode, logs);
