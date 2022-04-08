@@ -28,7 +28,7 @@ const getLessonName = (challengeMeta) => {
   return "";
 };
 
-const getChallengeData = (url) =>
+const getChallengeData = (url, additionalProps) =>
   fetchAPI(url, {
     populate: {
       challengeMeta: {
@@ -42,31 +42,39 @@ const getChallengeData = (url) =>
         },
       },
     },
-  }).then(({ data }) => data.map(({ attributes }) => attributes));
+  }).then(({ data }) =>
+    data.map(({ id, attributes }) => ({
+      ...attributes,
+      id,
+      ...additionalProps,
+    }))
+  );
+
+const Cell = ({ children, noLink, id, type }) => {
+  const link = `/content-manager/collectionType/api::${type}.${type}/${id}`;
+
+  return (
+    <Td>
+      {noLink ? (
+        <Typography textColor="neutral800">{children}</Typography>
+      ) : (
+        <Link to={link}>
+          <Typography textColor="neutral800">{children}</Typography>
+        </Link>
+      )}
+    </Td>
+  );
+};
 
 const HomePage = () => {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    // fetchAPI("/code-challenges", {
-    //   populate: {
-    //     challengeMeta: {
-    //       populate: {
-    //         sublesson: {
-    //           populate: "*",
-    //         },
-    //         lesson: {
-    //           populate: "*",
-    //         },
-    //       },
-    //     },
-    //   },
-    // }).then((results) =>
-    //   setResults(results.data.map(({ attributes }) => attributes))
-    // );
     Promise.all([
-      getChallengeData("/code-challenges"),
-      getChallengeData("/multiple-choice-challenges"),
+      getChallengeData("/code-challenges", { type: "code-challenge" }),
+      getChallengeData("/multiple-choice-challenges", {
+        type: "multiple-choice-challenge",
+      }),
     ]).then(([codeChallengeData, multipleChoiceChallengeData]) => {
       return setResults([...codeChallengeData, ...multipleChoiceChallengeData]);
     });
@@ -101,7 +109,10 @@ const HomePage = () => {
                 <Typography variant="sigma">ID</Typography>
               </Th>
               <Th>
-                <Typography variant="sigma">Internal Notes</Typography>
+                <Typography variant="sigma">Type</Typography>
+              </Th>
+              <Th>
+                <Typography variant="sigma">Name</Typography>
               </Th>
               <Th>
                 <Typography variant="sigma">Lesson</Typography>
@@ -109,38 +120,48 @@ const HomePage = () => {
               <Th>
                 <Typography variant="sigma">Sublesson</Typography>
               </Th>
+              <Th>
+                <Typography variant="sigma">Internal Notes</Typography>
+              </Th>
             </Tr>
           </Thead>
           <Tbody>
-            {sortedResults.map(({ challengeMeta, internalNotes, name }) => (
-              <Tr>
-                {/**
-                 * Gets rid of first-of-type styling. Eventually we'll put
-                 * a checkbox here
-                 */}
-                <Td />
-                <Td>
-                  <Typography textColor="neutral800">
+            {sortedResults.map(
+              ({ challengeMeta, id, internalNotes, name, type }) => (
+                <Tr key={id} style={{ cursor: "pointer" }}>
+                  {/**
+                   * Gets rid of first-of-type styling. Eventually we'll put
+                   * a checkbox here
+                   */}
+                  <Td />
+                  {/* TODO: make passing in the id unnecessary */}
+                  <Cell id={id} type={type}>
+                    {id}
+                  </Cell>
+                  <Cell id={id} type={type}>
+                    {/**
+                     * Use a utility (maybe lodash has one) to convert the
+                     * kebab case to a title case automatically
+                     */}
+                    {type === "code-challenge"
+                      ? "Code Challenge"
+                      : "Multiple Choice Challenge"}
+                  </Cell>
+                  <Cell id={id} type={type}>
                     {name || "Example Name"}
-                  </Typography>
-                </Td>
-                <Td>
-                  <Typography textColor="neutral800">
-                    {internalNotes}
-                  </Typography>
-                </Td>
-                <Td>
-                  <Typography textColor="neutral800">
+                  </Cell>
+                  <Cell id={id} type={type}>
                     {getLessonName(challengeMeta)}
-                  </Typography>
-                </Td>
-                <Td>
-                  <Typography textColor="neutral800">
+                  </Cell>
+                  <Cell id={id} type={type}>
                     {challengeMeta?.sublesson?.data?.attributes?.name}
-                  </Typography>
-                </Td>
-              </Tr>
-            ))}
+                  </Cell>
+                  <Cell id={id} type={type}>
+                    {internalNotes}
+                  </Cell>
+                </Tr>
+              )
+            )}
           </Tbody>
         </Table>
       </Box>

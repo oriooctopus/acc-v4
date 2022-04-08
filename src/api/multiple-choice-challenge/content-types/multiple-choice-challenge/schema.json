@@ -33,6 +33,11 @@
     "optionsInitiallyHidden": {
       "type": "boolean",
       "default": true
+    },
+    "challengeMeta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "challenge.challenge-meta"
     }
   }
 }
