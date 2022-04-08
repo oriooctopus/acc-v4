@@ -24,6 +24,11 @@
         "medium",
         "hard"
       ]
+    },
+    "sublesson": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::sublesson.sublesson"
     }
   }
 }
