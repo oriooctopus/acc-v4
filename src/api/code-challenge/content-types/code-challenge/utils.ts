@@ -21,7 +21,6 @@ export const restoreConsoleLog = () => {
       "Attempted to restore console.log but it has never been overwritten"
     );
   }
-
   // @ts-expect-error will fix later
   console.log = console.standardLog;
 };
@@ -112,11 +111,11 @@ export const getConsoleLogsFromCodeEvaluation = (
   const logs = [] as Array<string>;
   // Disabled for debugging test-evaluator
 
-  // overrideConsoleLog((...args) => {
-  //   logs.push(args.toString());
-  //   // @ts-expect-error will fix later
-  //   console.standardLog("args", ...args);
-  // });
+  overrideConsoleLog((...args) => {
+    logs.push(args.toString());
+    // @ts-expect-error will fix later
+    console.standardLog("args", ...args);
+  });
 
   try {
     evaluateWithContext(
@@ -130,7 +129,7 @@ export const getConsoleLogsFromCodeEvaluation = (
   }
   // Disabled for debugging test-evaluator
 
-  // restoreConsoleLog();
+  restoreConsoleLog();
   return logs;
 };
 

@@ -71,8 +71,8 @@ const executeTests = async (
         finalPass: true,
         tryBlockResult: null,
         metaTestExpectPasses,
-        description: null,
         resultType: null,
+        description: null,
         metaTestId,
         internalTestId,
         internalTestLabel,
@@ -138,47 +138,6 @@ async function runInternalTests(
   console.log("<RESULTS LIFECYCLES.JS>", results);
 
   let testCounter = 1;
-  // results.map((result) => {
-  //   console.log(`\nmetaTest (${i + 1}), internalTest ${testCounter++},`);
-  //   // Failing Example SUCCESS with Short Error
-  //   if (
-  //     result.pass === metaTests[i].passes &&
-  //     typeof result.error === "string"
-  //   ) {
-  //     console.log(
-  //       `\nmetaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`,
-  //       `\nFailing Example triggered: \n"${result.error.substring(0, 200)}"`
-  //     );
-  //     // Passing & Failing Example FAIL --Redundant?
-  //   } else if (result.pass !== metaTests[i].passes) {
-  //     console.log(
-  //       `\nmetaTest "${metaTests[i].label}" FAILED. Expected: ${metaTests[
-  //         i
-  //       ].passes
-  //         .toString()
-  //         .toUpperCase()} but received: ${result.pass
-  //         .toString()
-  //         .toUpperCase()}`
-  //     );
-
-  //     try {
-  //       console.log(
-  //         `\n<${typeof result.error}> FAIL triggered by: \n"${result.error.substring(
-  //           0,
-  //           200
-  //         )}"`
-  //       );
-  //     } catch {
-  //       console.log("<result.error> ", typeof result.error, result.error);
-  //     }
-
-  //     // Passing Example SUCCESS
-  //   } else if (result.pass === metaTests[i].passes) {
-  //     console.log(
-  //       `\nmetaTest "${metaTests[i].label}" SUCCESS. Expected: ${metaTests[i].passes} and received: ${result.pass}`
-  //     );
-  //   }
-  // });
   return results;
 }
 

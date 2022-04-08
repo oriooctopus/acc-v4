@@ -44,9 +44,9 @@ export const runTestEvaluator = async ({
 
   overrideConsoleLog((args) => {
     // Disabled for easier console reading
-    // logs.push(args);
+    logs.push(args);
     // @ts-expect-error will fix later
-    // console.standardLog("args", ...args);
+    console.standardLog("args", ...args);
   });
   console.log("\n<challengeLabel>", challengeLabel);
   console.log("\n\n<<METATEST CODE>>", metaCaseCode);
@@ -110,11 +110,11 @@ export const runTestEvaluator = async ({
     if (typeof result === "boolean" && result === metaTestExpectPasses) {
       // if result is a boolean, and DOES match EXPECTED example outcome
       evaluationError = { message: null, stack: null };
-      descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${metaTestExpectPasses}, as EXPECTED`;
+      descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
     } else if (typeof result === "boolean" && result !== metaTestExpectPasses) {
       // if result is a boolean, but does NOT match EXPECTED example outcome
       userPassed = false;
-      descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are ${metaTestExpectPasses}, which is UNEXPECTED`;
+      descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, which is UNEXPECTED`;
       evaluationError = { message: null, stack: null };
     } else if (typeof result !== "boolean" && evaluationError === undefined) {
       // if result type non-boolean, but no runtime error. Ex: type = string
