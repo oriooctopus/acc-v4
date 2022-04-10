@@ -74,6 +74,10 @@
     "name": {
       "type": "string",
       "required": true
+    },
+    "namePrivateClarifications": {
+      "type": "string",
+      "private": true
     }
   }
 }
