@@ -68,6 +68,7 @@ const Cell = ({ children, noLink, id, type }) => {
 
 const HomePage = () => {
   const [results, setResults] = useState([]);
+  console.log("process.env!", process.env);
 
   useEffect(() => {
     Promise.all([

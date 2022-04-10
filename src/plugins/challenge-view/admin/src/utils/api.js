@@ -18,7 +18,7 @@ export async function fetchAPI(path, urlParamsObject = {}, options = {}) {
 
   // Build request URL
   const queryString = qs.stringify(urlParamsObject);
-  const requestUrl = `http://localhost:1337${`/api${path}${
+  const requestUrl = `${process.env.STRAPI_ADMIN_BACKEND_URL}/api${`${path}${
     queryString ? `?${queryString}` : ""
   }`}`;
 
