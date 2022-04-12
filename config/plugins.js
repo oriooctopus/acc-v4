@@ -10,4 +10,8 @@ module.exports = {
       defaultLimit: 100,
     },
   },
+  "challenge-view": {
+    enabled: true,
+    resolve: "./src/plugins/challenge-view",
+  },
 };
