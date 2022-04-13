@@ -12,7 +12,7 @@ type runTestEvaluatorProps = {
   metaLabel: string;
   challengeLabel: string;
   metaTestId: number;
-  metaTestExpectPasses: boolean;
+  userShouldPass: boolean;
   internalTest?: object;
   removeComments?: boolean;
 };
@@ -23,7 +23,7 @@ export const runTestEvaluator = async ({
   metaLabel,
   challengeLabel,
   metaTestId,
-  metaTestExpectPasses,
+  userShouldPass,
   internalTest,
   removeComments,
 }: runTestEvaluatorProps) => {
@@ -55,19 +55,27 @@ export const runTestEvaluator = async ({
   console.log("<internalTestCode>", internalTestCode, "\n\n");
   let result;
 
-  // Idea: Figure out programmatically whether metaCode or internalCode throw an error.
+  // Idea: Figure out programmatically whether metaCode will throw an error.
   // Tomorrow: make a bool for metaCaseCode errors, if true, allow undefined === userPassed
+
+  // Apr 12
+  // Logic: if visibleMetaError !== null, set metaError === true, if metaError === true, undefined <FINALLY result> is a userError
+  // logic not yet tested on multiple code-challenges
+  let visibleMetaError = null;
 
   try {
     const metaCheck = eval(formattedCode);
     console.log("<metaCheck>", metaCheck);
   } catch (err) {
-    console.log("<metaCaseCode ERROR>", err);
+    // console.log("<metaCaseCode ERROR>", err);
+    visibleMetaError = err;
     // if metaError exists, result should be undefined
     // if no metaError, result should be boolean
+  } finally {
+    console.log("<metaCaseCode ERROR>", visibleMetaError);
   }
 
-  // Delete Later
+  // Delete Later. Will almost always throw error.
   // try {
   //   const internalCheck = eval(internalTestCode);
   //   console.log("<internalCheck>", internalCheck);
@@ -92,7 +100,7 @@ export const runTestEvaluator = async ({
     //
     // if (
     //   typeof result === "boolean" &&
-    //   result !== metaTestExpectPasses &&
+    //   result !== userShouldPass &&
     //   result === true
     // ) {
     //   descriptionMessage = `ERROR: metaTest ${metaTestId} & internalTest ${internalTest.id} are UNEXPECTEDLY ${result}`;
@@ -121,7 +129,7 @@ export const runTestEvaluator = async ({
     // console.log("---expectPasses: ", expectPasses);
     console.log("\n<FINALLY RESULT>", result);
     console.log("<FINAL TYPE>", typeof result, "\n");
-    console.log("<metaTestExpectPasses>", metaTestExpectPasses);
+    console.log("<userShouldPass>", userShouldPass);
     console.log("<metaTestId>", metaTestId);
     console.log("<internalTest.id>", internalTest.id);
     console.log("<metaLabel>", metaLabel);
@@ -129,11 +137,11 @@ export const runTestEvaluator = async ({
     // console.log("<testLabel>", internalTest.label, "\n");
 
     // console.log("<evaluationError>", evaluationError);
-    if (typeof result === "boolean" && result === metaTestExpectPasses) {
+    if (typeof result === "boolean" && result === userShouldPass) {
       // if result is a boolean, and DOES match EXPECTED example outcome
       evaluationError = { message: null, stack: null };
       descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
-    } else if (typeof result === "boolean" && result !== metaTestExpectPasses) {
+    } else if (typeof result === "boolean" && result !== userShouldPass) {
       // if result is a boolean, but does NOT match EXPECTED example outcome
       userPassed = false;
       descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, which is UNEXPECTED`;

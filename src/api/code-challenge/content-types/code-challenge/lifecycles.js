@@ -55,7 +55,7 @@ const executeTests = async (
   metaLabel,
   challengeLabel,
   metaTestId,
-  metaTestExpectPasses
+  userShouldPass
 ) => {
   return pMap(
     internalTests?.filter(removeEmpty) || [],
@@ -70,7 +70,7 @@ const executeTests = async (
         metaLabel,
         finalPass: true,
         tryBlockResult: null,
-        metaTestExpectPasses,
+        userShouldPass,
         resultType: null,
         description: null,
         metaTestId,
@@ -89,7 +89,7 @@ const executeTests = async (
           challengeLabel,
           metaTestId,
           internalTest,
-          metaTestExpectPasses,
+          userShouldPass,
         });
       newTest.description = description;
       newTest.resultType = resultType;
@@ -124,7 +124,7 @@ async function runInternalTests(
   challengeLabel,
   metaTestLabel,
   metaTestId,
-  metaTestExpectPasses
+  userShouldPass
 ) {
   let results = await executeTests(
     metaCaseCode,
@@ -132,7 +132,7 @@ async function runInternalTests(
     metaTestLabel,
     challengeLabel,
     metaTestId,
-    metaTestExpectPasses
+    userShouldPass
   );
 
   console.log("<RESULTS LIFECYCLES.JS>", results);
