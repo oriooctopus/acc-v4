@@ -193,7 +193,6 @@ export const runTestEvaluator = async ({
     //     break;
     // }
 
-
     if (typeof result !== "boolean") {
       if (typeof result === "undefined") {
         if (!userShouldPass) {
@@ -221,44 +220,42 @@ export const runTestEvaluator = async ({
           stack: null,
         };
       } else {
-        descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id
-          } are type: ${(typeof result).toUpperCase()}, should be BOOLEAN`;
+        descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${
+          internalTest.id
+        } are type: ${(typeof result).toUpperCase()}, should be BOOLEAN`;
         userPassed = false;
         evaluationError = evalErrorContainer;
         evaluationError.stack = evaluationError.stack.substring(0, 200);
       }
     }
 
-    if (typeof result === "boolean") {
-      if (result && userShouldPass) {
-        descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
-        evaluationError = { message: null, stack: null };
-      } else if (!result && !userShouldPass) {
-        descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
-        evaluationError = { message: null, stack: null };
-
-      } else if (result !== userShouldPass) {
-        descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, which is UNEXPECTED`;
-        userPassed = false;
-        evaluationError = evalErrorContainer;
-        evaluationError.stack = evaluationError.stack.substring(0, 200);
-      }
+    if (typeof result === "boolean" && result && userShouldPass) {
+      descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
+      evaluationError = { message: null, stack: null };
+    } else if (typeof result === "boolean" && !result && !userShouldPass) {
+      descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
+      evaluationError = { message: null, stack: null };
+    } else if (typeof result === "boolean" && result !== userShouldPass) {
+      descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, which is UNEXPECTED`;
+      userPassed = false;
+      evaluationError = evalErrorContainer;
+      evaluationError.stack = evaluationError.stack.substring(0, 200);
     }
-
-
-    restoreConsoleLog();
-    // console.log("<description>", descriptionMessage);
-    return {
-      error: evaluationError,
-      // metaCaseCode: metaCaseCode,
-      // internalTest: internalTestCode,
-      internalTestIsErrorFree: userPassed,
-      description: descriptionMessage,
-      resultType: typeof result,
-      evalResult: result,
-    };
-  };
-
-  if (typeof self !== "undefined") {
-    self.postMessage({ type: "contentLoaded" });
   }
+
+  restoreConsoleLog();
+  // console.log("<description>", descriptionMessage);
+  return {
+    error: evaluationError,
+    // metaCaseCode: metaCaseCode,
+    // internalTest: internalTestCode,
+    userPassed: userPassed,
+    description: descriptionMessage,
+    resultType: typeof result,
+    evalResult: result,
+  };
+};
+
+if (typeof self !== "undefined") {
+  self.postMessage({ type: "contentLoaded" });
+}

@@ -67,7 +67,7 @@ const executeTests = async (
 
       const newTest = {
         description: null,
-        internalTestIsErrorFree: true,
+        userPassed: null,
         internalTestLabel,
         challengeLabel,
         metaLabel,
@@ -81,31 +81,27 @@ const executeTests = async (
       };
       // console.log("newTest name: ", newTest);
 
-      const {
-        internalTestIsErrorFree,
-        error,
-        description,
-        resultType,
-        evalResult,
-      } = await runTestEvaluator({
-        metaCaseCode,
-        internalTestCode,
-        metaLabel,
-        challengeLabel,
-        metaTestId,
-        internalTest,
-        userShouldPass,
-      });
+      const { userPassed, error, description, resultType, evalResult } =
+        await runTestEvaluator({
+          metaCaseCode,
+          internalTestCode,
+          metaLabel,
+          challengeLabel,
+          metaTestId,
+          internalTest,
+          userShouldPass,
+        });
       newTest.description = description;
       newTest.resultType = resultType;
       newTest.evalResult = evalResult;
+      newTest.userPassed = userPassed;
 
       if (error) {
         // @ts-expect-error will fix later
         const { message, stack } = error;
         // newTest.message = error.message;
         // newTest.stack = error.stack;
-        newTest.internalTestIsErrorFree = false;
+        // newTest.userPassed = false;
         newTest.error = message;
         newTest.stack = stack;
       }
