@@ -66,12 +66,12 @@ const executeTests = async (
       // console.log("<internalTest pMap> ", internalTest);
 
       const newTest = {
-        metaLabel,
         description: null,
         userPassed: null,
-        resultType: null,
+        metaLabel,
         evalResult: null,
         evalResultShouldBe,
+        resultType: null,
         internalTestLabel,
         challengeLabel,
         metaTestId,
