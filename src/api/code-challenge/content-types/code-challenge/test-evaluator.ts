@@ -144,95 +144,121 @@ export const runTestEvaluator = async ({
 
     // console.log("<evaluationError>", evaluationError);
 
+    // If else logic as switch
+    // switch (typeof result === 'boolean') {
+    //   case false:
+    //     console.log('not a bool');
+    //     switch (typeof result) {
+    //       case 'undefined':
+    //         switch (userShouldPass) {
+    //           case false:
+    //             switch (existsMetaError) {
+    //               case false:
+    //                 userPassed = false;
+    //                 descriptionMessage = `ERROR: internalTestCode is failing, metaCaseCode no errors`;
+    //                 evaluationError = evalErrorContainer;
+    //                 evaluationError.stack.substring(0, 200);
+    //                 break;
+    //               case true:
+    //                 descriptionMessage = `PASS w/ WARNING: undefined eval result is caused by EXPECTED ERROR in metaCaseCode or UNEXPECTED ERROR in internalTestCode`;
+    //                 break;
+    //             }
+    //             break;
+    //           case true:
+    //             userPassed = false;
+    //             descriptionMessage = `ERROR: UNEXPECTED type: undefined of result test-evaluator.ts`;
+    //             evaluationError = evalErrorContainer;
+    //             evaluationError.stack.substring(0, 200);
+    //             break;
+    //         }
+    //         break;
+    //       case 'string':
+    //         userPassed = false;
+    //         descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are STRING, Suggestion: Check for extra quotes around internal/metaCaseCodes`;
+    //         evaluationError = {
+    //           message: null,
+    //           stack: null,
+    //         };
+    //         break;
+    //       default:
+    //         userPassed = false;
+    //         descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id
+    //           } are type: ${(typeof result).toUpperCase()}, should be BOOLEAN`;
+    //         evaluationError = evalErrorContainer;
+    //         evaluationError.stack.substring(0, 200);
+    //         break;
+    //     }    break;
+    //   case true:
+    //     console.log('bool');
+    //     break;
+    // }
+
+
     if (typeof result !== "boolean") {
       if (typeof result === "undefined") {
         if (!userShouldPass) {
           if (existsMetaError) {
             descriptionMessage = `PASS w/ WARNING: undefined eval result is caused by EXPECTED ERROR in metaCaseCode or UNEXPECTED ERROR in internalTestCode`;
-          } else if (!existsMetaError) {
-            userPassed = false;
-            descriptionMessage = `ERROR: internalTestCode is failing, metaCaseCode no errors`;
             evaluationError = evalErrorContainer;
-            evaluationError.stack.substring(0, 200);
+            evaluationError.stack = evaluationError.stack.substring(0, 200);
+          } else if (!existsMetaError) {
+            descriptionMessage = `ERROR: internalTestCode is failing, metaCaseCode no errors`;
+            userPassed = false;
+            evaluationError = evalErrorContainer;
+            evaluationError.stack = evaluationError.stack.substring(0, 200);
           }
         } else if (userShouldPass) {
-          userPassed = false;
           descriptionMessage = `ERROR: UNEXPECTED type: undefined of result test-evaluator.ts`;
+          userPassed = false;
           evaluationError = evalErrorContainer;
-          evaluationError.stack.substring(0, 200);
+          evaluationError.stack = evaluationError.stack.substring(0, 200);
         }
       } else if (typeof result === "string") {
-        userPassed = false;
         descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are STRING, Suggestion: Check for extra quotes around internal/metaCaseCodes`;
+        userPassed = false;
         evaluationError = {
           message: null,
           stack: null,
         };
       } else {
+        descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id
+          } are type: ${(typeof result).toUpperCase()}, should be BOOLEAN`;
         userPassed = false;
-        descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${
-          internalTest.id
-        } are type: ${(typeof result).toUpperCase()}, should be BOOLEAN`;
         evaluationError = evalErrorContainer;
-        evaluationError.stack.substring(0, 200);
+        evaluationError.stack = evaluationError.stack.substring(0, 200);
       }
     }
 
     if (typeof result === "boolean") {
       if (result && userShouldPass) {
-        evaluationError = { message: null, stack: null };
         descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
+        evaluationError = { message: null, stack: null };
       } else if (!result && !userShouldPass) {
         descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
-        evaluationError = evalErrorContainer;
-      } else if (result !== userShouldPass) {
-        userPassed = false;
-        descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, which is UNEXPECTED`;
         evaluationError = { message: null, stack: null };
+
+      } else if (result !== userShouldPass) {
+        descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, which is UNEXPECTED`;
+        userPassed = false;
+        evaluationError = evalErrorContainer;
+        evaluationError.stack = evaluationError.stack.substring(0, 200);
       }
     }
-    // if (typeof result === "boolean" && result && userShouldPass) {
-    //   // if result is a boolean, and DOES match EXPECTED passing true
-    //   // evaluationError = { message: null, stack: null };
-    //   // descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
-    // } else if (typeof result === "boolean" && !result && !userShouldPass) {
-    //   // if result is a boolean, and DOES match EXPECTED passing false
-    //   // descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
-    //   // evaluationError = evalErrorContainer;
-    // } else if (typeof result === "boolean" && result !== userShouldPass) {
-    //   // if result is a boolean, but does NOT match EXPECTED example outcome
-    //   // userPassed = false;
-    //   // descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, which is UNEXPECTED`;
-    //   // evaluationError = { message: null, stack: null };
-    // } else if (typeof result === "string") {
-    //   // if result type non-boolean, but no runtime error. Ex: type = string
-    //   // userPassed = false;
-    //   // descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${
-    //   //   internalTest.id
-    //   // } are type: ${(typeof result).toUpperCase()}, should be BOOLEAN`;
-    //   // evaluationError = {
-    //   //   message: `${evalErrorContainer.name}: ${evalErrorContainer.message}`,
-    //   //   stack: evalErrorContainer.stack.substring(0, 200),
-    //   // };
-    // }
-  }
-  // if (typeof result === "undefined") {
-  //   console.log("-----FINALLY END----------------");
-  // }
 
-  restoreConsoleLog();
-  // console.log("<description>", descriptionMessage);
-  return {
-    error: evaluationError,
-    // metaCaseCode: metaCaseCode,
-    // internalTest: internalTestCode,
-    internalTestIsErrorFree: userPassed,
-    description: descriptionMessage,
-    resultType: typeof result,
-    evalResult: result,
+
+    restoreConsoleLog();
+    // console.log("<description>", descriptionMessage);
+    return {
+      error: evaluationError,
+      // metaCaseCode: metaCaseCode,
+      // internalTest: internalTestCode,
+      internalTestIsErrorFree: userPassed,
+      description: descriptionMessage,
+      resultType: typeof result,
+      evalResult: result,
+    };
   };
-};
 
-if (typeof self !== "undefined") {
-  self.postMessage({ type: "contentLoaded" });
-}
+  if (typeof self !== "undefined") {
+    self.postMessage({ type: "contentLoaded" });
+  }

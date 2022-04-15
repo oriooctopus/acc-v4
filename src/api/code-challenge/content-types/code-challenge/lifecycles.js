@@ -100,7 +100,7 @@ const executeTests = async (
       newTest.resultType = resultType;
       newTest.evalResult = evalResult;
 
-      if (!internalTestIsErrorFree) {
+      if (error) {
         // @ts-expect-error will fix later
         const { message, stack } = error;
         // newTest.message = error.message;
