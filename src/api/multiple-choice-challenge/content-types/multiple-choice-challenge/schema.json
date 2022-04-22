@@ -38,6 +38,10 @@
       "type": "component",
       "repeatable": false,
       "component": "challenge.challenge-meta"
+    },
+    "name": {
+      "type": "string",
+      "required": true
     }
   }
 }
