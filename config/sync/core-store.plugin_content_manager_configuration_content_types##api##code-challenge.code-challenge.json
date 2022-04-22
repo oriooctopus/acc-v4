@@ -1,14 +1,14 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::lesson.lesson",
+  "key": "plugin_content_manager_configuration_content_types::api::code-challenge.code-challenge",
   "value": {
-    "uid": "api::lesson.lesson",
+    "uid": "api::code-challenge.code-challenge",
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "slug",
-      "defaultSortBy": "slug",
+      "mainField": "internalLabel",
+      "defaultSortBy": "internalLabel",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -20,44 +20,58 @@
           "sortable": true
         }
       },
-      "slug": {
+      "startingCode": {
         "edit": {
-          "label": "Slug",
+          "label": "StartingCode",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "Slug",
-          "searchable": true,
-          "sortable": true
+          "label": "StartingCode",
+          "searchable": false,
+          "sortable": false
         }
       },
-      "name": {
+      "tests": {
         "edit": {
-          "label": "Name",
+          "label": "Tests",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "Name",
-          "searchable": true,
-          "sortable": true
+          "label": "Tests",
+          "searchable": false,
+          "sortable": false
         }
       },
-      "isHard": {
+      "prompt": {
         "edit": {
-          "label": "IsHard",
+          "label": "Prompt",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "IsHard",
+          "label": "Prompt",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "internalLabel": {
+        "edit": {
+          "label": "InternalLabel",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "InternalLabel",
           "searchable": true,
           "sortable": true
         }
@@ -76,38 +90,51 @@
           "sortable": true
         }
       },
-      "externalResources": {
+      "hints": {
         "edit": {
-          "label": "ExternalResources",
+          "label": "Hints",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "ExternalResources",
+          "label": "Hints",
           "searchable": false,
           "sortable": false
         }
       },
-      "sublessons": {
+      "getStartingCodeFromPreviousChallenge": {
         "edit": {
-          "label": "Sublessons",
+          "label": "GetStartingCodeFromPreviousChallenge",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "name"
+          "editable": true
         },
         "list": {
-          "label": "Sublessons",
+          "label": "GetStartingCodeFromPreviousChallenge",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "MetaTest": {
+        "edit": {
+          "label": "MetaTest",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "MetaTest",
           "searchable": false,
           "sortable": false
         }
       },
-      "module": {
+      "category": {
         "edit": {
-          "label": "Module",
+          "label": "Category",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -115,24 +142,37 @@
           "mainField": "name"
         },
         "list": {
-          "label": "Module",
+          "label": "Category",
           "searchable": true,
           "sortable": true
         }
       },
-      "syntaxEntry": {
+      "editorMeta": {
         "edit": {
-          "label": "SyntaxEntry",
+          "label": "EditorMeta",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "name"
+          "editable": true
         },
         "list": {
-          "label": "SyntaxEntry",
-          "searchable": true,
-          "sortable": true
+          "label": "EditorMeta",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "challengeMeta": {
+        "edit": {
+          "label": "ChallengeMeta",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "ChallengeMeta",
+          "searchable": false,
+          "sortable": false
         }
       },
       "createdAt": {
@@ -167,31 +207,38 @@
     "layouts": {
       "list": [
         "id",
-        "slug",
-        "name",
-        "isHard"
+        "internalLabel",
+        "internalNotes",
+        "getStartingCodeFromPreviousChallenge"
       ],
-      "editRelations": [
-        "sublessons",
-        "module",
-        "syntaxEntry"
-      ],
-
+      "editRelations": ["category"],
       "edit": [
         [
           {
-            "name": "slug",
+            "name": "internalLabel",
             "size": 6
           },
           {
-            "name": "name",
-            "size": 6
+            "name": "startingCode",
+            "size": 12
           }
         ],
         [
           {
-            "name": "isHard",
-            "size": 4
+            "name": "tests",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "prompt",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "internalLabel",
+            "size": 6
           },
           {
             "name": "internalNotes",
@@ -200,7 +247,31 @@
         ],
         [
           {
-            "name": "externalResources",
+            "name": "hints",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "getStartingCodeFromPreviousChallenge",
+            "size": 4
+          }
+        ],
+        [
+          {
+            "name": "MetaTest",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "editorMeta",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "challengeMeta",
             "size": 12
           }
         ]

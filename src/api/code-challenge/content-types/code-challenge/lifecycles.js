@@ -1,11 +1,27 @@
-module.exports = {
-  beforeCreate(event) {
-    runMetaTests(event.params.data.tests, event.params.data.MetaTest);
-  },
+const getInternalLabel = async (event) => {
+  const {
+    data: { challengeMeta, name },
+  } = event.params;
 
-  beforeUpdate(event) {
-    runMetaTests(event.params.data.tests, event.params.data.MetaTest);
-  },
+  const defaultName = `Unassigned - ${name}`;
+  const challengeMetaId = challengeMeta ? challengeMeta.id : undefined;
+
+  if (!challengeMetaId) {
+    return defaultName;
+  }
+
+  const { lesson } = await strapi.db.query("challenge.challenge-meta").findOne({
+    where: {
+      id: challengeMetaId,
+    },
+    populate: ["challengeMeta", "lesson"],
+  });
+
+  if (!lesson) {
+    return defaultName;
+  }
+
+  return `${lesson.name} -- name`;
 };
 
 // runMetaTestsNeed more specific name later, maybe use "validateInternalTests"
@@ -43,3 +59,19 @@ async function getMetaTests(eventMetaTests) {
   });
   return metaTests;
 }
+
+const beforeCreateOrUpdate = async (event) => {
+  const internalLabel = await getInternalLabel(event);
+  // event.params.data.internalLabel = internalLabel;
+  runMetaTests(event.params.data.tests, event.params.data.MetaTest);
+};
+
+module.exports = {
+  async beforeCreate(event) {
+    await beforeCreateOrUpdate(event);
+  },
+
+  async beforeUpdate(event) {
+    await beforeCreateOrUpdate(event);
+  },
+};

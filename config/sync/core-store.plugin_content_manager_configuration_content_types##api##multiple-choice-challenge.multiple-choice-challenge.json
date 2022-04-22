@@ -1,14 +1,14 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::lesson.lesson",
+  "key": "plugin_content_manager_configuration_content_types::api::multiple-choice-challenge.multiple-choice-challenge",
   "value": {
-    "uid": "api::lesson.lesson",
+    "uid": "api::multiple-choice-challenge.multiple-choice-challenge",
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "slug",
-      "defaultSortBy": "slug",
+      "mainField": "internalLabel",
+      "defaultSortBy": "internalLabel",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -20,117 +20,72 @@
           "sortable": true
         }
       },
-      "slug": {
+      "options": {
         "edit": {
-          "label": "Slug",
+          "label": "Options",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "Slug",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "name": {
-        "edit": {
-          "label": "Name",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "Name",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "isHard": {
-        "edit": {
-          "label": "IsHard",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "IsHard",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "internalNotes": {
-        "edit": {
-          "label": "InternalNotes",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "InternalNotes",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "externalResources": {
-        "edit": {
-          "label": "ExternalResources",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "ExternalResources",
+          "label": "Options",
           "searchable": false,
           "sortable": false
         }
       },
-      "sublessons": {
+      "prompt": {
         "edit": {
-          "label": "Sublessons",
+          "label": "Prompt",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "name"
+          "editable": true
         },
         "list": {
-          "label": "Sublessons",
+          "label": "Prompt",
           "searchable": false,
           "sortable": false
         }
       },
-      "module": {
+      "internalLabel": {
         "edit": {
-          "label": "Module",
+          "label": "InternalLabel",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "name"
+          "editable": true
         },
         "list": {
-          "label": "Module",
+          "label": "InternalLabel",
           "searchable": true,
           "sortable": true
         }
       },
-      "syntaxEntry": {
+      "canSelectMultipleOptions": {
         "edit": {
-          "label": "SyntaxEntry",
+          "label": "CanSelectMultipleOptions",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "name"
+          "editable": true
         },
         "list": {
-          "label": "SyntaxEntry",
+          "label": "CanSelectMultipleOptions",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "optionsInitiallyHidden": {
+        "edit": {
+          "label": "OptionsInitiallyHidden",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "OptionsInitiallyHidden",
           "searchable": true,
           "sortable": true
         }
@@ -167,41 +122,38 @@
     "layouts": {
       "list": [
         "id",
-        "slug",
-        "name",
-        "isHard"
+        "internalLabel",
+        "canSelectMultipleOptions",
+        "optionsInitiallyHidden"
       ],
-      "editRelations": [
-        "sublessons",
-        "module",
-        "syntaxEntry"
-      ],
-
+      "editRelations": [],
       "edit": [
         [
           {
-            "name": "slug",
-            "size": 6
-          },
-          {
-            "name": "name",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "isHard",
-            "size": 4
-          },
-          {
-            "name": "internalNotes",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "externalResources",
+            "name": "options",
             "size": 12
+          }
+        ],
+        [
+          {
+            "name": "prompt",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "internalLabel",
+            "size": 6
+          },
+          {
+            "name": "canSelectMultipleOptions",
+            "size": 4
+          }
+        ],
+        [
+          {
+            "name": "optionsInitiallyHidden",
+            "size": 4
           }
         ]
       ]

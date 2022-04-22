@@ -1,14 +1,14 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::lesson.lesson",
+  "key": "plugin_content_manager_configuration_content_types::api::syntax-entry.syntax-entry",
   "value": {
-    "uid": "api::lesson.lesson",
+    "uid": "api::syntax-entry.syntax-entry",
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "slug",
-      "defaultSortBy": "slug",
+      "mainField": "name",
+      "defaultSortBy": "name",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -20,18 +20,18 @@
           "sortable": true
         }
       },
-      "slug": {
+      "content": {
         "edit": {
-          "label": "Slug",
+          "label": "Content",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "Slug",
-          "searchable": true,
-          "sortable": true
+          "label": "Content",
+          "searchable": false,
+          "sortable": false
         }
       },
       "name": {
@@ -44,20 +44,6 @@
         },
         "list": {
           "label": "Name",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "isHard": {
-        "edit": {
-          "label": "IsHard",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "IsHard",
           "searchable": true,
           "sortable": true
         }
@@ -76,53 +62,23 @@
           "sortable": true
         }
       },
-      "externalResources": {
+      "maxWidth": {
         "edit": {
-          "label": "ExternalResources",
+          "label": "MaxWidth",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "ExternalResources",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "sublessons": {
-        "edit": {
-          "label": "Sublessons",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "Sublessons",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "module": {
-        "edit": {
-          "label": "Module",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "Module",
+          "label": "MaxWidth",
           "searchable": true,
           "sortable": true
         }
       },
-      "syntaxEntry": {
+      "sublesson": {
         "edit": {
-          "label": "SyntaxEntry",
+          "label": "Sublesson",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -130,7 +86,22 @@
           "mainField": "name"
         },
         "list": {
-          "label": "SyntaxEntry",
+          "label": "Sublesson",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "lesson": {
+        "edit": {
+          "label": "Lesson",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "Lesson",
           "searchable": true,
           "sortable": true
         }
@@ -167,31 +138,25 @@
     "layouts": {
       "list": [
         "id",
-        "slug",
         "name",
-        "isHard"
+        "internalNotes",
+        "maxWidth"
       ],
       "editRelations": [
-        "sublessons",
-        "module",
-        "syntaxEntry"
+        "sublesson",
+        "lesson"
       ],
-
       "edit": [
         [
           {
-            "name": "slug",
-            "size": 6
-          },
-          {
-            "name": "name",
-            "size": 6
+            "name": "content",
+            "size": 12
           }
         ],
         [
           {
-            "name": "isHard",
-            "size": 4
+            "name": "name",
+            "size": 6
           },
           {
             "name": "internalNotes",
@@ -200,8 +165,8 @@
         ],
         [
           {
-            "name": "externalResources",
-            "size": 12
+            "name": "maxWidth",
+            "size": 4
           }
         ]
       ]

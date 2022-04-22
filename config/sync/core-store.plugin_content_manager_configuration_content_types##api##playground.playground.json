@@ -1,14 +1,14 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::course.course",
+  "key": "plugin_content_manager_configuration_content_types::api::playground.playground",
   "value": {
-    "uid": "api::course.course",
+    "uid": "api::playground.playground",
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
-      "pageSize": 100,
-      "mainField": "name",
-      "defaultSortBy": "name",
+      "pageSize": 10,
+      "mainField": "internalLabel",
+      "defaultSortBy": "internalLabel",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -20,45 +20,44 @@
           "sortable": true
         }
       },
-      "name": {
+      "internalLabel": {
         "edit": {
-          "label": "Name",
+          "label": "InternalLabel",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "Name",
+          "label": "InternalLabel",
           "searchable": true,
           "sortable": true
         }
       },
-      "slug": {
+      "internalNotes": {
         "edit": {
-          "label": "Slug",
+          "label": "InternalNotes",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "Slug",
+          "label": "InternalNotes",
           "searchable": true,
           "sortable": true
         }
       },
-      "modules": {
+      "prompt": {
         "edit": {
-          "label": "Modules",
+          "label": "Prompt",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "name"
+          "editable": true
         },
         "list": {
-          "label": "Modules",
+          "label": "Prompt",
           "searchable": false,
           "sortable": false
         }
@@ -95,22 +94,26 @@
     "layouts": {
       "list": [
         "id",
-        "name",
-        "slug",
-        "modules"
+        "internalLabel",
+        "internalNotes",
+        "createdAt"
       ],
-      "editRelations": [
-        "modules"
-      ],
+      "editRelations": [],
       "edit": [
         [
           {
-            "name": "name",
+            "name": "internalLabel",
             "size": 6
           },
           {
-            "name": "slug",
+            "name": "internalNotes",
             "size": 6
+          }
+        ],
+        [
+          {
+            "name": "prompt",
+            "size": 12
           }
         ]
       ]

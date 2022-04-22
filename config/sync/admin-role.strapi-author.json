@@ -1,0 +1,499 @@
+{
+  "name": "Author",
+  "code": "strapi-author",
+  "description": "Authors can manage the content they have created.",
+  "permissions": [
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::code-challenge.code-challenge",
+      "properties": {
+        "fields": [
+          "startingCode",
+          "tests.label",
+          "tests.internalTest",
+          "tests.furtherExplanation",
+          "prompt",
+          "internalLabel",
+          "internalNotes",
+          "hints.text",
+          "hints.recommendedTimeBeforeViewing",
+          "getStartingCodeFromPreviousChallenge"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+          "getStartingCodeFromPreviousChallenge":
+          "MetaTest.caseCode",
+          "MetaTest.label":
+          "MetaTest.passes",
+          "category"
+        :
+      },
+      "conditions", ["admin::is-creator"]
+    ,
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::code-challenge.code-challenge",
+      "properties": {},
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::code-challenge.code-challenge",
+      "properties": {
+        "fields": [
+          "startingCode",
+          "tests.label",
+          "tests.internalTest",
+          "tests.furtherExplanation",
+          "prompt",
+          "internalLabel",
+          "internalNotes",
+          "hints.text",
+          "hints.recommendedTimeBeforeViewing",
+          "getStartingCodeFromPreviousChallenge",
+          "MetaTest.caseCode",
+          "MetaTest.label",
+          "MetaTest.passes",
+          "category"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::code-challenge.code-challenge",
+      "properties": {
+        "fields": [
+          "startingCode",
+          "tests.label",
+          "tests.internalTest",
+          "tests.furtherExplanation",
+          "prompt",
+          "internalLabel",
+          "internalNotes",
+          "hints.text",
+          "hints.recommendedTimeBeforeViewing",
+          "getStartingCodeFromPreviousChallenge",
+          "MetaTest.caseCode",
+          "MetaTest.label",
+          "MetaTest.passes",
+          "category"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::course.course",
+      "properties": {
+        "fields": ["name", "slug", "modules"]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::course.course",
+      "properties": {},
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::course.course",
+      "properties": {
+        "fields": [
+          "name",
+          "slug",
+          "modules"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ]
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::course.course",
+      "properties": {
+        "fields": [
+          "name",
+          "slug",
+          "modules"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ]
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::lesson.lesson",
+      "properties": {
+        "fields": [
+          "slug",
+          "name",
+          "isHard",
+          "internalNotes",
+          "externalResources.name",
+          "externalResources.link",
+          "externalResources.type",
+          "sublessons",
+          "module",
+          "syntaxEntry"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::lesson.lesson",
+      "properties": {},
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::lesson.lesson",
+      "properties": {
+        "fields": [
+          "slug",
+          "name",
+          "isHard",
+          "internalNotes",
+          "externalResources.name",
+          "externalResources.link",
+          "externalResources.type",
+          "sublessons",
+          "module",
+          "syntaxEntry"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::lesson.lesson",
+      "properties": {
+        "fields": [
+          "slug",
+          "name",
+          "isHard",
+          "internalNotes",
+          "externalResources.name",
+          "externalResources.link",
+          "externalResources.type",
+          "sublessons",
+          "module",
+          "syntaxEntry"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::module.module",
+      "properties": {
+        "fields": ["name", "lessons", "moduleLessons.lesson"]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::module.module",
+      "properties": {},
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::module.module",
+      "properties": {
+        "fields": ["name", "lessons", "moduleLessons.lesson"]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::module.module",
+      "properties": {
+        "fields": ["name", "lessons", "moduleLessons.lesson"]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::multiple-choice-challenge.multiple-choice-challenge",
+      "properties": {
+        "fields": [
+          "options.text",
+          "options.isCorrect",
+          "options.incorrectChoiceExplanation",
+          "prompt",
+          "internalLabel",
+          "canSelectMultipleOptions",
+          "optionsInitiallyHidden"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::multiple-choice-challenge.multiple-choice-challenge",
+      "properties": {},
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::multiple-choice-challenge.multiple-choice-challenge",
+      "properties": {
+        "fields": [
+          "options.text",
+          "options.isCorrect",
+          "options.incorrectChoiceExplanation",
+          "prompt",
+          "internalLabel",
+          "canSelectMultipleOptions",
+          "optionsInitiallyHidden"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::multiple-choice-challenge.multiple-choice-challenge",
+      "properties": {
+        "fields": [
+          "options.text",
+          "options.isCorrect",
+          "options.incorrectChoiceExplanation",
+          "prompt",
+          "internalLabel",
+          "canSelectMultipleOptions",
+          "optionsInitiallyHidden"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::playground.playground",
+      "properties": {
+        "fields": ["internalLabel", "internalNotes", "prompt"]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::playground.playground",
+      "properties": {},
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::playground.playground",
+      "properties": {
+        "fields": ["internalLabel", "internalNotes", "prompt"]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::playground.playground",
+      "properties": {
+        "fields": ["internalLabel", "internalNotes", "prompt"]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::sublesson.sublesson",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "internalNotes",
+          "lesson",
+          "challenges.codeChallenge",
+          "challenges.multipleChoiceChallenge",
+          "challenges.playground",
+          "syntaxEntry",
+          "steps.codeChallenge",
+          "steps.multipleChoiceChallenge",
+          "steps.playground"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::sublesson.sublesson",
+      "properties": {},
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::sublesson.sublesson",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "internalNotes",
+          "lesson",
+          "challenges.codeChallenge",
+          "challenges.multipleChoiceChallenge",
+          "challenges.playground",
+          "syntaxEntry",
+          "steps.codeChallenge",
+          "steps.multipleChoiceChallenge",
+          "steps.playground"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::sublesson.sublesson",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "internalNotes",
+          "lesson",
+          "challenges.codeChallenge",
+          "challenges.multipleChoiceChallenge",
+          "challenges.playground",
+          "syntaxEntry",
+          "steps.codeChallenge",
+          "steps.multipleChoiceChallenge",
+          "steps.playground"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::syntax-entry.syntax-entry",
+      "properties": {
+        "fields": [
+          "content",
+          "name",
+          "internalNotes",
+          "maxWidth",
+          "sublesson",
+          "lesson"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::syntax-entry.syntax-entry",
+      "properties": {},
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::syntax-entry.syntax-entry",
+      "properties": {
+        "fields": [
+          "content",
+          "name",
+          "internalNotes",
+          "maxWidth",
+          "sublesson",
+          "lesson"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::syntax-entry.syntax-entry",
+      "properties": {
+        "fields": [
+          "content",
+          "name",
+          "internalNotes",
+          "maxWidth",
+          "sublesson",
+          "lesson"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::translation-group.translation-group",
+      "properties": {
+        "fields": [
+          "aboutPage.title",
+          "coreComponents.backButton",
+          "coreComponents.nextButton",
+          "coreComponents.wefwe"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::translation-group.translation-group",
+      "properties": {},
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::translation-group.translation-group",
+      "properties": {
+        "fields": [
+          "aboutPage.title",
+          "coreComponents.backButton",
+          "coreComponents.nextButton",
+          "coreComponents.wefwe"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::translation-group.translation-group",
+      "properties": {
+        "fields": [
+          "aboutPage.title",
+          "coreComponents.backButton",
+          "coreComponents.nextButton",
+          "coreComponents.wefwe"
+        ]
+      },
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::upload.assets.copy-link",
+      "subject": null,
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::upload.assets.create",
+      "subject": null,
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::upload.assets.download",
+      "subject": null,
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::upload.assets.update",
+      "subject": null,
+      "properties": {},
+      "conditions": ["admin::is-creator"]
+    },
+    {
+      "action": "plugin::upload.read",
+      "subject": null,
+      "properties": {},
+      "conditions": ["admin::is-creator"]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "projects",
+  "info": {
+    "singularName": "project",
+    "pluralName": "projects",
+    "displayName": "Project",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "editorMeta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "misc.editor-meta"
+    },
+    "steps": {
+      "displayName": "projectSteps",
+      "type": "component",
+      "repeatable": true,
+      "component": "project.project-steps",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

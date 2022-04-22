@@ -1,14 +1,14 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::course.course",
+  "key": "plugin_content_manager_configuration_content_types::api::translation-group.translation-group",
   "value": {
-    "uid": "api::course.course",
+    "uid": "api::translation-group.translation-group",
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
-      "pageSize": 100,
-      "mainField": "name",
-      "defaultSortBy": "name",
+      "pageSize": 10,
+      "mainField": "id",
+      "defaultSortBy": "id",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -20,45 +20,30 @@
           "sortable": true
         }
       },
-      "name": {
+      "aboutPage": {
         "edit": {
-          "label": "Name",
+          "label": "AboutPage",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "Name",
-          "searchable": true,
-          "sortable": true
+          "label": "AboutPage",
+          "searchable": false,
+          "sortable": false
         }
       },
-      "slug": {
+      "coreComponents": {
         "edit": {
-          "label": "Slug",
+          "label": "CoreComponents",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "Slug",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "modules": {
-        "edit": {
-          "label": "Modules",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "Modules",
+          "label": "CoreComponents",
           "searchable": false,
           "sortable": false
         }
@@ -95,22 +80,21 @@
     "layouts": {
       "list": [
         "id",
-        "name",
-        "slug",
-        "modules"
+        "createdAt",
+        "updatedAt"
       ],
-      "editRelations": [
-        "modules"
-      ],
+      "editRelations": [],
       "edit": [
         [
           {
-            "name": "name",
-            "size": 6
-          },
+            "name": "aboutPage",
+            "size": 12
+          }
+        ],
+        [
           {
-            "name": "slug",
-            "size": 6
+            "name": "coreComponents",
+            "size": 12
           }
         ]
       ]

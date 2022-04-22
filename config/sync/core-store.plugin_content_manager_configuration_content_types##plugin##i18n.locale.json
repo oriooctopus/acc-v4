@@ -1,12 +1,12 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::course.course",
+  "key": "plugin_content_manager_configuration_content_types::plugin::i18n.locale",
   "value": {
-    "uid": "api::course.course",
+    "uid": "plugin::i18n.locale",
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
-      "pageSize": 100,
+      "pageSize": 10,
       "mainField": "name",
       "defaultSortBy": "name",
       "defaultSortOrder": "ASC"
@@ -34,33 +34,18 @@
           "sortable": true
         }
       },
-      "slug": {
+      "code": {
         "edit": {
-          "label": "Slug",
+          "label": "Code",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "Slug",
+          "label": "Code",
           "searchable": true,
           "sortable": true
-        }
-      },
-      "modules": {
-        "edit": {
-          "label": "Modules",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "Modules",
-          "searchable": false,
-          "sortable": false
         }
       },
       "createdAt": {
@@ -96,12 +81,10 @@
       "list": [
         "id",
         "name",
-        "slug",
-        "modules"
+        "code",
+        "createdAt"
       ],
-      "editRelations": [
-        "modules"
-      ],
+      "editRelations": [],
       "edit": [
         [
           {
@@ -109,7 +92,7 @@
             "size": 6
           },
           {
-            "name": "slug",
+            "name": "code",
             "size": 6
           }
         ]
