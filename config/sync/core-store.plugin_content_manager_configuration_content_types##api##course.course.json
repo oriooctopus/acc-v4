@@ -6,7 +6,7 @@
       "bulkable": true,
       "filterable": true,
       "searchable": true,
-      "pageSize": 10,
+      "pageSize": 100,
       "mainField": "name",
       "defaultSortBy": "name",
       "defaultSortOrder": "ASC"
