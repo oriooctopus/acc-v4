@@ -17,8 +17,9 @@
     "@strapi/plugin-users-permissions": "^4.1.7",
     "@strapi/strapi": "^4.1.7",
     "express": "^4.17.2",
+    "p-map": "4.0.0",
     "pg": "8.6.0",
-    "strapi-plugin-config-sync": "^1.0.0-beta.8"
+    "strapi-plugin-config-sync": "boazpoolman/strapi-plugin-config-sync#pull/52/head"
   },
   "author": {
     "name": "A Strapi developer"

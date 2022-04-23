@@ -9893,10 +9893,9 @@ std-env@^2.2.1:
   dependencies:
     ci-info "^3.1.1"
 
-strapi-plugin-config-sync@^1.0.0-beta.8:
+strapi-plugin-config-sync@boazpoolman/strapi-plugin-config-sync#pull/52/head:
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/strapi-plugin-config-sync/-/strapi-plugin-config-sync-1.0.0.tgz#25047c3af9feff671ae783a11ce0a6467605311a"
-  integrity sha512-oXAvDLeKO2qUY/ySTjUrJ8wUdI2L+y34g2zTdAlxO+dP0PL4TqR2dyCcf0sz+HyfHDbYLuxEqQK8MeXqWwg7BQ==
+  resolved "https://codeload.github.com/boazpoolman/strapi-plugin-config-sync/tar.gz/f4d689e431c409d1cc80803aeb0ab87eeb0fb20f"
   dependencies:
     chalk "^4.1.2"
     cli-table "^0.3.6"
