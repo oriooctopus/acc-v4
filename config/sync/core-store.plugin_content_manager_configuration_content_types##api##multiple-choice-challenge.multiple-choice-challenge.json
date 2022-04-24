@@ -90,6 +90,34 @@
           "sortable": true
         }
       },
+      "challengeMeta": {
+        "edit": {
+          "label": "challengeMeta",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "challengeMeta",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "name": {
+        "edit": {
+          "label": "name",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "name",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "CreatedAt",
@@ -126,7 +154,6 @@
         "canSelectMultipleOptions",
         "optionsInitiallyHidden"
       ],
-      "editRelations": [],
       "edit": [
         [
           {
@@ -155,8 +182,21 @@
             "name": "optionsInitiallyHidden",
             "size": 4
           }
+        ],
+        [
+          {
+            "name": "challengeMeta",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "name",
+            "size": 6
+          }
         ]
-      ]
+      ],
+      "editRelations": []
     }
   },
   "type": "object",

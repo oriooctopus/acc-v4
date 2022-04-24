@@ -23,8 +23,13 @@
           "MetaTest.passes",
           "category",
           "editorMeta.context",
+          "editorMeta.startingCode",
           "challengeMeta.isDebuggingChallenge",
-          "challengeMeta.lesson"
+          "challengeMeta.lesson",
+          "challengeMeta.difficulty",
+          "challengeMeta.sublesson",
+          "name",
+          "namePrivateClarifications"
         ]
       },
       "conditions": []
@@ -61,8 +66,13 @@
           "MetaTest.passes",
           "category",
           "editorMeta.context",
+          "editorMeta.startingCode",
           "challengeMeta.isDebuggingChallenge",
-          "challengeMeta.lesson"
+          "challengeMeta.lesson",
+          "challengeMeta.difficulty",
+          "challengeMeta.sublesson",
+          "name",
+          "namePrivateClarifications"
         ]
       },
       "conditions": []
@@ -87,8 +97,13 @@
           "MetaTest.passes",
           "category",
           "editorMeta.context",
+          "editorMeta.startingCode",
           "challengeMeta.isDebuggingChallenge",
-          "challengeMeta.lesson"
+          "challengeMeta.lesson",
+          "challengeMeta.difficulty",
+          "challengeMeta.sublesson",
+          "name",
+          "namePrivateClarifications"
         ]
       },
       "conditions": []
@@ -97,7 +112,11 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::course.course",
       "properties": {
-        "fields": ["name", "slug", "modules"]
+        "fields": [
+          "name",
+          "slug",
+          "modules"
+        ]
       },
       "conditions": []
     },
@@ -117,7 +136,11 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::course.course",
       "properties": {
-        "fields": ["name", "slug", "modules"]
+        "fields": [
+          "name",
+          "slug",
+          "modules"
+        ]
       },
       "conditions": []
     },
@@ -125,7 +148,11 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::course.course",
       "properties": {
-        "fields": ["name", "slug", "modules"]
+        "fields": [
+          "name",
+          "slug",
+          "modules"
+        ]
       },
       "conditions": []
     },
@@ -202,7 +229,11 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::module.module",
       "properties": {
-        "fields": ["name", "lessons", "moduleLessons.lesson"]
+        "fields": [
+          "name",
+          "lessons",
+          "moduleLessons.lesson"
+        ]
       },
       "conditions": []
     },
@@ -222,7 +253,11 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::module.module",
       "properties": {
-        "fields": ["name", "lessons", "moduleLessons.lesson"]
+        "fields": [
+          "name",
+          "lessons",
+          "moduleLessons.lesson"
+        ]
       },
       "conditions": []
     },
@@ -230,7 +265,11 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::module.module",
       "properties": {
-        "fields": ["name", "lessons", "moduleLessons.lesson"]
+        "fields": [
+          "name",
+          "lessons",
+          "moduleLessons.lesson"
+        ]
       },
       "conditions": []
     },
@@ -245,7 +284,12 @@
           "prompt",
           "internalLabel",
           "canSelectMultipleOptions",
-          "optionsInitiallyHidden"
+          "optionsInitiallyHidden",
+          "challengeMeta.isDebuggingChallenge",
+          "challengeMeta.lesson",
+          "challengeMeta.difficulty",
+          "challengeMeta.sublesson",
+          "name"
         ]
       },
       "conditions": []
@@ -273,7 +317,12 @@
           "prompt",
           "internalLabel",
           "canSelectMultipleOptions",
-          "optionsInitiallyHidden"
+          "optionsInitiallyHidden",
+          "challengeMeta.isDebuggingChallenge",
+          "challengeMeta.lesson",
+          "challengeMeta.difficulty",
+          "challengeMeta.sublesson",
+          "name"
         ]
       },
       "conditions": []
@@ -289,7 +338,12 @@
           "prompt",
           "internalLabel",
           "canSelectMultipleOptions",
-          "optionsInitiallyHidden"
+          "optionsInitiallyHidden",
+          "challengeMeta.isDebuggingChallenge",
+          "challengeMeta.lesson",
+          "challengeMeta.difficulty",
+          "challengeMeta.sublesson",
+          "name"
         ]
       },
       "conditions": []
@@ -298,7 +352,11 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::playground.playground",
       "properties": {
-        "fields": ["internalLabel", "internalNotes", "prompt"]
+        "fields": [
+          "internalLabel",
+          "internalNotes",
+          "prompt"
+        ]
       },
       "conditions": []
     },
@@ -318,7 +376,11 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::playground.playground",
       "properties": {
-        "fields": ["internalLabel", "internalNotes", "prompt"]
+        "fields": [
+          "internalLabel",
+          "internalNotes",
+          "prompt"
+        ]
       },
       "conditions": []
     },
@@ -326,7 +388,11 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::playground.playground",
       "properties": {
-        "fields": ["internalLabel", "internalNotes", "prompt"]
+        "fields": [
+          "internalLabel",
+          "internalNotes",
+          "prompt"
+        ]
       },
       "conditions": []
     },
@@ -335,13 +401,12 @@
       "subject": "api::project.project",
       "properties": {
         "fields": [
-          "editorMeta.context",
-          "steps.text",
-          "steps.hints.text",
-          "steps.hints.recommendedTimeBeforeViewing",
-          "steps.exampleSolution",
+          "steps.useNewCodeContext",
+          "steps.codeChallenge",
+          "steps.playground",
           "title",
-          "slug"
+          "slug",
+          "intro"
         ]
       },
       "conditions": []
@@ -363,13 +428,12 @@
       "subject": "api::project.project",
       "properties": {
         "fields": [
-          "editorMeta.context",
-          "steps.text",
-          "steps.hints.text",
-          "steps.hints.recommendedTimeBeforeViewing",
-          "steps.exampleSolution",
+          "steps.useNewCodeContext",
+          "steps.codeChallenge",
+          "steps.playground",
           "title",
-          "slug"
+          "slug",
+          "intro"
         ]
       },
       "conditions": []
@@ -379,13 +443,12 @@
       "subject": "api::project.project",
       "properties": {
         "fields": [
-          "editorMeta.context",
-          "steps.text",
-          "steps.hints.text",
-          "steps.hints.recommendedTimeBeforeViewing",
-          "steps.exampleSolution",
+          "steps.useNewCodeContext",
+          "steps.codeChallenge",
+          "steps.playground",
           "title",
-          "slug"
+          "slug",
+          "intro"
         ]
       },
       "conditions": []
@@ -405,7 +468,8 @@
           "syntaxEntry",
           "steps.codeChallenge",
           "steps.multipleChoiceChallenge",
-          "steps.playground"
+          "steps.playground",
+          "internalLabel"
         ]
       },
       "conditions": []
@@ -437,7 +501,8 @@
           "syntaxEntry",
           "steps.codeChallenge",
           "steps.multipleChoiceChallenge",
-          "steps.playground"
+          "steps.playground",
+          "internalLabel"
         ]
       },
       "conditions": []
@@ -457,7 +522,8 @@
           "syntaxEntry",
           "steps.codeChallenge",
           "steps.multipleChoiceChallenge",
-          "steps.playground"
+          "steps.playground",
+          "internalLabel"
         ]
       },
       "conditions": []

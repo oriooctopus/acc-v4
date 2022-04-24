@@ -16,8 +16,8 @@
         "edit": {},
         "list": {
           "label": "Id",
-          "searchable": true,
-          "sortable": true
+          "searchable": false,
+          "sortable": false
         }
       },
       "isDebuggingChallenge": {
@@ -48,15 +48,44 @@
           "searchable": true,
           "sortable": true
         }
+      },
+      "difficulty": {
+        "edit": {
+          "label": "difficulty",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "difficulty",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "sublesson": {
+        "edit": {
+          "label": "sublesson",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "internalLabel"
+        },
+        "list": {
+          "label": "sublesson",
+          "searchable": true,
+          "sortable": true
+        }
       }
     },
     "layouts": {
       "list": [
         "id",
         "isDebuggingChallenge",
-        "lesson"
+        "lesson",
+        "difficulty"
       ],
-      "editRelations": [],
       "edit": [
         [
           {
@@ -67,8 +96,19 @@
             "name": "lesson",
             "size": 6
           }
+        ],
+        [
+          {
+            "name": "difficulty",
+            "size": 6
+          },
+          {
+            "name": "sublesson",
+            "size": 6
+          }
         ]
-      ]
+      ],
+      "editRelations": []
     },
     "isComponent": true
   },

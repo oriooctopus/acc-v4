@@ -529,7 +529,10 @@
         },
         "type": {
           "type": "enumeration",
-          "enum": ["read-only", "full-access"],
+          "enum": [
+            "read-only",
+            "full-access"
+          ],
           "configurable": false,
           "required": false,
           "default": "read-only"
@@ -602,7 +605,10 @@
           },
           "type": {
             "type": "enumeration",
-            "enum": ["read-only", "full-access"],
+            "enum": [
+              "read-only",
+              "full-access"
+            ],
             "configurable": false,
             "required": false,
             "default": "read-only"
@@ -1374,7 +1380,7 @@
         "internalLabel": {
           "pluginOptions": {},
           "type": "string",
-          "required": true,
+          "required": false,
           "private": true
         },
         "internalNotes": {
@@ -1387,7 +1393,7 @@
           "type": "component",
           "repeatable": true,
           "pluginOptions": {},
-          "component": "challenge.challenge-hints"
+          "component": "content.challenge-hints"
         },
         "getStartingCodeFromPreviousChallenge": {
           "pluginOptions": {},
@@ -1413,6 +1419,14 @@
           "type": "component",
           "repeatable": false,
           "component": "challenge.challenge-meta"
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "namePrivateClarifications": {
+          "type": "string",
+          "private": true
         },
         "createdAt": {
           "type": "datetime"
@@ -1479,7 +1493,7 @@
           "internalLabel": {
             "pluginOptions": {},
             "type": "string",
-            "required": true,
+            "required": false,
             "private": true
           },
           "internalNotes": {
@@ -1492,7 +1506,7 @@
             "type": "component",
             "repeatable": true,
             "pluginOptions": {},
-            "component": "challenge.challenge-hints"
+            "component": "content.challenge-hints"
           },
           "getStartingCodeFromPreviousChallenge": {
             "pluginOptions": {},
@@ -1518,6 +1532,14 @@
             "type": "component",
             "repeatable": false,
             "component": "challenge.challenge-meta"
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "namePrivateClarifications": {
+            "type": "string",
+            "private": true
           }
         },
         "kind": "collectionType"
@@ -1925,6 +1947,15 @@
           "type": "boolean",
           "default": true
         },
+        "challengeMeta": {
+          "type": "component",
+          "repeatable": false,
+          "component": "challenge.challenge-meta"
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
         "createdAt": {
           "type": "datetime"
         },
@@ -1992,6 +2023,15 @@
           "optionsInitiallyHidden": {
             "type": "boolean",
             "default": true
+          },
+          "challengeMeta": {
+            "type": "component",
+            "repeatable": false,
+            "component": "challenge.challenge-meta"
+          },
+          "name": {
+            "type": "string",
+            "required": true
           }
         },
         "kind": "collectionType"
@@ -2109,11 +2149,6 @@
       },
       "pluginOptions": {},
       "attributes": {
-        "editorMeta": {
-          "type": "component",
-          "repeatable": false,
-          "component": "misc.editor-meta"
-        },
         "steps": {
           "displayName": "projectSteps",
           "type": "component",
@@ -2127,6 +2162,10 @@
         },
         "slug": {
           "type": "string",
+          "required": true
+        },
+        "intro": {
+          "type": "richtext",
           "required": true
         },
         "createdAt": {
@@ -2175,11 +2214,6 @@
         },
         "pluginOptions": {},
         "attributes": {
-          "editorMeta": {
-            "type": "component",
-            "repeatable": false,
-            "component": "misc.editor-meta"
-          },
           "steps": {
             "displayName": "projectSteps",
             "type": "component",
@@ -2193,6 +2227,10 @@
           },
           "slug": {
             "type": "string",
+            "required": true
+          },
+          "intro": {
+            "type": "richtext",
             "required": true
           }
         },
@@ -2256,6 +2294,10 @@
           "type": "component",
           "repeatable": true,
           "component": "content.steps"
+        },
+        "internalLabel": {
+          "type": "string",
+          "private": true
         },
         "createdAt": {
           "type": "datetime"
@@ -2338,6 +2380,10 @@
             "type": "component",
             "repeatable": true,
             "component": "content.steps"
+          },
+          "internalLabel": {
+            "type": "string",
+            "private": true
           }
         },
         "kind": "collectionType"

@@ -120,6 +120,20 @@
           "sortable": false
         }
       },
+      "internalLabel": {
+        "edit": {
+          "label": "internalLabel",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "internalLabel",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "CreatedAt",
@@ -150,8 +164,12 @@
       }
     },
     "layouts": {
-      "list": ["id", "name", "internalNotes", "lesson"],
-      "editRelations": ["lesson", "syntaxEntry"],
+      "list": [
+        "id",
+        "name",
+        "internalNotes",
+        "lesson"
+      ],
       "edit": [
         [
           {
@@ -182,7 +200,17 @@
             "name": "steps",
             "size": 12
           }
+        ],
+        [
+          {
+            "name": "internalLabel",
+            "size": 6
+          }
         ]
+      ],
+      "editRelations": [
+        "lesson",
+        "syntaxEntry"
       ]
     }
   },

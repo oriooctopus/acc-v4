@@ -33,6 +33,20 @@
           "searchable": false,
           "sortable": false
         }
+      },
+      "startingCode": {
+        "edit": {
+          "label": "startingCode",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "startingCode",
+          "searchable": false,
+          "sortable": false
+        }
       }
     },
     "layouts": {
@@ -43,6 +57,12 @@
         [
           {
             "name": "context",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "startingCode",
             "size": 12
           }
         ]

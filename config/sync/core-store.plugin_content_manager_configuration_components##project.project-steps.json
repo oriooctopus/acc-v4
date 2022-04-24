@@ -20,70 +20,73 @@
           "sortable": false
         }
       },
-      "text": {
+      "useNewCodeContext": {
         "edit": {
-          "label": "Text",
+          "label": "useNewCodeContext",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "Text",
-          "searchable": false,
-          "sortable": false
+          "label": "useNewCodeContext",
+          "searchable": true,
+          "sortable": true
         }
       },
-      "hints": {
+      "codeChallenge": {
         "edit": {
-          "label": "Hints",
+          "label": "codeChallenge",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true
+          "editable": true,
+          "mainField": "internalLabel"
         },
         "list": {
-          "label": "Hints",
-          "searchable": false,
-          "sortable": false
+          "label": "codeChallenge",
+          "searchable": true,
+          "sortable": true
         }
       },
-      "exampleSolution": {
+      "playground": {
         "edit": {
-          "label": "ExampleSolution",
+          "label": "playground",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true
+          "editable": true,
+          "mainField": "internalLabel"
         },
         "list": {
-          "label": "ExampleSolution",
-          "searchable": false,
-          "sortable": false
+          "label": "playground",
+          "searchable": true,
+          "sortable": true
         }
       }
     },
     "layouts": {
       "list": [
-        "id"
+        "id",
+        "useNewCodeContext",
+        "codeChallenge",
+        "playground"
       ],
       "edit": [
         [
           {
-            "name": "text",
-            "size": 12
+            "name": "useNewCodeContext",
+            "size": 4
+          },
+          {
+            "name": "codeChallenge",
+            "size": 6
           }
         ],
         [
           {
-            "name": "hints",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "exampleSolution",
-            "size": 12
+            "name": "playground",
+            "size": 6
           }
         ]
       ],

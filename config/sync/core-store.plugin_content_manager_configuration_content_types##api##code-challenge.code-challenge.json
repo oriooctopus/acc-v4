@@ -175,6 +175,34 @@
           "sortable": false
         }
       },
+      "name": {
+        "edit": {
+          "label": "name",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "name",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "namePrivateClarifications": {
+        "edit": {
+          "label": "namePrivateClarifications",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "namePrivateClarifications",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "CreatedAt",
@@ -211,7 +239,6 @@
         "internalNotes",
         "getStartingCodeFromPreviousChallenge"
       ],
-      "editRelations": ["category"],
       "edit": [
         [
           {
@@ -274,7 +301,20 @@
             "name": "challengeMeta",
             "size": 12
           }
+        ],
+        [
+          {
+            "name": "name",
+            "size": 6
+          },
+          {
+            "name": "namePrivateClarifications",
+            "size": 6
+          }
         ]
+      ],
+      "editRelations": [
+        "category"
       ]
     }
   },
