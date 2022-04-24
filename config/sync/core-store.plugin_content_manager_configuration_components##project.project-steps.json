@@ -23,7 +23,7 @@
       "useNewCodeContext": {
         "edit": {
           "label": "useNewCodeContext",
-          "description": "",
+          "description": "Irrelevant on the first step as there will always be a new code context at the beginning",
           "placeholder": "",
           "visible": true,
           "editable": true

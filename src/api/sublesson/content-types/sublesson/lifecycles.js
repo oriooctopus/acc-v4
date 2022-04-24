@@ -4,6 +4,8 @@ const pMap = require("p-map");
  * TODO:
  * This is pretty inefficient. Look into either simple or
  * more complex optimizations
+ * Since it's a private field maybe we can just check if
+ * it's present and only run this if it is present?
  */
 const addInternalLabel = async (sublesson) => {
   const populatedSublesson = await strapi.db

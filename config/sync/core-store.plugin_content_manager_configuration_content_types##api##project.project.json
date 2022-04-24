@@ -64,7 +64,7 @@
       },
       "intro": {
         "edit": {
-          "label": "intro",
+          "label": "Intro",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -106,11 +106,6 @@
       }
     },
     "layouts": {
-      "list": [
-        "title",
-        "createdAt",
-        "updatedAt"
-      ],
       "edit": [
         [
           {
@@ -124,18 +119,23 @@
         ],
         [
           {
-            "name": "steps",
+            "name": "intro",
             "size": 12
           }
         ],
         [
           {
-            "name": "intro",
+            "name": "steps",
             "size": 12
           }
         ]
       ],
-      "editRelations": []
+      "editRelations": [],
+      "list": [
+        "title",
+        "createdAt",
+        "updatedAt"
+      ]
     }
   },
   "type": "object",
