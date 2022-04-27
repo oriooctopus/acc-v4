@@ -6,7 +6,7 @@
       "bulkable": true,
       "filterable": true,
       "searchable": true,
-      "pageSize": 10,
+      "pageSize": 100,
       "mainField": "internalLabel",
       "defaultSortBy": "internalLabel",
       "defaultSortOrder": "ASC"
@@ -233,18 +233,46 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "internalLabel",
-        "internalNotes",
-        "getStartingCodeFromPreviousChallenge"
-      ],
       "edit": [
         [
           {
-            "name": "internalLabel",
+            "name": "name",
             "size": 6
           },
+          {
+            "name": "internalNotes",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "challengeMeta",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "prompt",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "editorMeta",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "getStartingCodeFromPreviousChallenge",
+            "size": 4
+          },
+          {
+            "name": "namePrivateClarifications",
+            "size": 6
+          }
+        ],
+        [
           {
             "name": "startingCode",
             "size": 12
@@ -258,30 +286,8 @@
         ],
         [
           {
-            "name": "prompt",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "internalLabel",
-            "size": 6
-          },
-          {
-            "name": "internalNotes",
-            "size": 6
-          }
-        ],
-        [
-          {
             "name": "hints",
             "size": 12
-          }
-        ],
-        [
-          {
-            "name": "getStartingCodeFromPreviousChallenge",
-            "size": 4
           }
         ],
         [
@@ -289,32 +295,16 @@
             "name": "MetaTest",
             "size": 12
           }
-        ],
-        [
-          {
-            "name": "editorMeta",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "challengeMeta",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "name",
-            "size": 6
-          },
-          {
-            "name": "namePrivateClarifications",
-            "size": 6
-          }
         ]
       ],
       "editRelations": [
         "category"
+      ],
+      "list": [
+        "id",
+        "internalLabel",
+        "internalNotes",
+        "getStartingCodeFromPreviousChallenge"
       ]
     }
   },

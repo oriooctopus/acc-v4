@@ -6,7 +6,7 @@
       "bulkable": true,
       "filterable": true,
       "searchable": true,
-      "pageSize": 10,
+      "pageSize": 100,
       "mainField": "name",
       "defaultSortBy": "name",
       "defaultSortOrder": "ASC"
@@ -164,12 +164,6 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "name",
-        "internalNotes",
-        "lesson"
-      ],
       "edit": [
         [
           {
@@ -211,6 +205,12 @@
       "editRelations": [
         "lesson",
         "syntaxEntry"
+      ],
+      "list": [
+        "id",
+        "name",
+        "internalNotes",
+        "lesson"
       ]
     }
   },

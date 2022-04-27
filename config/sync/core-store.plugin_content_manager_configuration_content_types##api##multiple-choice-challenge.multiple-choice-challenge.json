@@ -6,7 +6,7 @@
       "bulkable": true,
       "filterable": true,
       "searchable": true,
-      "pageSize": 10,
+      "pageSize": 100,
       "mainField": "internalLabel",
       "defaultSortBy": "internalLabel",
       "defaultSortOrder": "ASC"
@@ -148,16 +148,16 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "internalLabel",
-        "canSelectMultipleOptions",
-        "optionsInitiallyHidden"
-      ],
       "edit": [
         [
           {
-            "name": "options",
+            "name": "name",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "challengeMeta",
             "size": 12
           }
         ],
@@ -169,34 +169,28 @@
         ],
         [
           {
-            "name": "internalLabel",
-            "size": 6
-          },
-          {
-            "name": "canSelectMultipleOptions",
-            "size": 4
-          }
-        ],
-        [
-          {
-            "name": "optionsInitiallyHidden",
-            "size": 4
-          }
-        ],
-        [
-          {
-            "name": "challengeMeta",
+            "name": "options",
             "size": 12
           }
         ],
         [
           {
-            "name": "name",
-            "size": 6
+            "name": "canSelectMultipleOptions",
+            "size": 4
+          },
+          {
+            "name": "optionsInitiallyHidden",
+            "size": 4
           }
         ]
       ],
-      "editRelations": []
+      "editRelations": [],
+      "list": [
+        "internalLabel",
+        "id",
+        "canSelectMultipleOptions",
+        "optionsInitiallyHidden"
+      ]
     }
   },
   "type": "object",
