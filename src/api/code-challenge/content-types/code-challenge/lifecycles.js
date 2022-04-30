@@ -1,28 +1,4 @@
-const getInternalLabel = async (event) => {
-  const {
-    data: { challengeMeta, name },
-  } = event.params;
-
-  const defaultName = `Unassigned - ${name}`;
-  const challengeMetaId = challengeMeta ? challengeMeta.id : undefined;
-
-  if (!challengeMetaId) {
-    return defaultName;
-  }
-
-  const { lesson } = await strapi.db.query("challenge.challenge-meta").findOne({
-    where: {
-      id: challengeMetaId,
-    },
-    populate: ["challengeMeta", "lesson"],
-  });
-
-  if (!lesson) {
-    return defaultName;
-  }
-
-  return `${lesson.name} -- name`;
-};
+const { handleInternalLabel } = require("../../../../utils/general");
 
 // runMetaTestsNeed more specific name later, maybe use "validateInternalTests"
 async function runMetaTests(eventTests, eventMetaTests) {
@@ -61,8 +37,6 @@ async function getMetaTests(eventMetaTests) {
 }
 
 const beforeCreateOrUpdate = async (event) => {
-  const internalLabel = await getInternalLabel(event);
-  // event.params.data.internalLabel = internalLabel;
   runMetaTests(event.params.data.tests, event.params.data.MetaTest);
 };
 
@@ -73,5 +47,23 @@ module.exports = {
 
   async beforeUpdate(event) {
     await beforeCreateOrUpdate(event);
+  },
+
+  async afterFindOne(event) {
+    if (!event.result) {
+      return;
+    }
+
+    const challengeMeta = event.result.challengeMeta;
+    if (challengeMeta) {
+      /**
+       * This is a temporary hack u
+       * https://github.com/strapi/strapi/issues/13216 gets resolved
+       */
+      await handleInternalLabel({
+        sublesson: challengeMeta.sublesson,
+        populateLesson: true,
+      });
+    }
   },
 };
