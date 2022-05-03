@@ -4,7 +4,8 @@
   "info": {
     "singularName": "playground",
     "pluralName": "playgrounds",
-    "displayName": "Playground"
+    "displayName": "Playground",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -20,6 +21,11 @@
     },
     "prompt": {
       "type": "richtext"
+    },
+    "editorMeta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "misc.editor-meta"
     }
   }
 }
