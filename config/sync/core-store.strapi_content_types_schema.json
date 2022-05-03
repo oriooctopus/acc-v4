@@ -2051,14 +2051,15 @@
       "info": {
         "singularName": "playground",
         "pluralName": "playgrounds",
-        "displayName": "Playground"
+        "displayName": "Playground",
+        "description": ""
       },
       "options": {
         "draftAndPublish": true
       },
       "pluginOptions": {},
       "attributes": {
-        "internalLabel": {
+        "name": {
           "type": "string",
           "required": true
         },
@@ -2067,6 +2068,11 @@
         },
         "prompt": {
           "type": "richtext"
+        },
+        "editorMeta": {
+          "type": "component",
+          "repeatable": false,
+          "component": "misc.editor-meta"
         },
         "createdAt": {
           "type": "datetime"
@@ -2106,14 +2112,15 @@
         "info": {
           "singularName": "playground",
           "pluralName": "playgrounds",
-          "displayName": "Playground"
+          "displayName": "Playground",
+          "description": ""
         },
         "options": {
           "draftAndPublish": true
         },
         "pluginOptions": {},
         "attributes": {
-          "internalLabel": {
+          "name": {
             "type": "string",
             "required": true
           },
@@ -2122,6 +2129,11 @@
           },
           "prompt": {
             "type": "richtext"
+          },
+          "editorMeta": {
+            "type": "component",
+            "repeatable": false,
+            "component": "misc.editor-meta"
           }
         },
         "kind": "collectionType"

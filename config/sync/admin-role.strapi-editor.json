@@ -320,9 +320,9 @@
       "subject": "api::playground.playground",
       "properties": {
         "fields": [
-          "internalLabel",
           "internalNotes",
-          "prompt"
+          "prompt",
+          "name"
         ]
       },
       "conditions": []
@@ -344,9 +344,9 @@
       "subject": "api::playground.playground",
       "properties": {
         "fields": [
-          "internalLabel",
           "internalNotes",
-          "prompt"
+          "prompt",
+          "name"
         ]
       },
       "conditions": []
@@ -356,9 +356,9 @@
       "subject": "api::playground.playground",
       "properties": {
         "fields": [
-          "internalLabel",
           "internalNotes",
-          "prompt"
+          "prompt",
+          "name"
         ]
       },
       "conditions": []

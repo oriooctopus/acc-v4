@@ -246,6 +246,12 @@
         ],
         [
           {
+            "name": "internalLabel",
+            "size": 6
+          }
+        ],
+        [
+          {
             "name": "challengeMeta",
             "size": 12
           }
@@ -302,6 +308,7 @@
       ],
       "list": [
         "id",
+        "name",
         "internalLabel",
         "internalNotes",
         "getStartingCodeFromPreviousChallenge"

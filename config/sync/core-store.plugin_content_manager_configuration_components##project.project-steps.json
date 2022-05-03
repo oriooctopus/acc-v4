@@ -41,7 +41,7 @@
           "placeholder": "",
           "visible": true,
           "editable": true,
-          "mainField": "internalLabel"
+          "mainField": "name"
         },
         "list": {
           "label": "codeChallenge",
@@ -56,7 +56,7 @@
           "placeholder": "",
           "visible": true,
           "editable": true,
-          "mainField": "internalLabel"
+          "mainField": "name"
         },
         "list": {
           "label": "playground",

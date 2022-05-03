@@ -353,9 +353,11 @@
       "subject": "api::playground.playground",
       "properties": {
         "fields": [
-          "internalLabel",
+          "name",
           "internalNotes",
-          "prompt"
+          "prompt",
+          "editorMeta.context",
+          "editorMeta.startingCode"
         ]
       },
       "conditions": []
@@ -377,9 +379,11 @@
       "subject": "api::playground.playground",
       "properties": {
         "fields": [
-          "internalLabel",
+          "name",
           "internalNotes",
-          "prompt"
+          "prompt",
+          "editorMeta.context",
+          "editorMeta.startingCode"
         ]
       },
       "conditions": []
@@ -389,9 +393,11 @@
       "subject": "api::playground.playground",
       "properties": {
         "fields": [
-          "internalLabel",
+          "name",
           "internalNotes",
-          "prompt"
+          "prompt",
+          "editorMeta.context",
+          "editorMeta.startingCode"
         ]
       },
       "conditions": []
