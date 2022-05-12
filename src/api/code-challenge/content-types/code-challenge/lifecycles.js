@@ -57,7 +57,7 @@ module.exports = {
     const challengeMeta = event.result.challengeMeta;
     if (challengeMeta) {
       /**
-       * This is a temporary hack u
+       * This is a temporary hack until
        * https://github.com/strapi/strapi/issues/13216 gets resolved
        */
       await handleInternalLabel({

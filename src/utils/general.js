@@ -40,6 +40,11 @@ const handleInternalLabel = async ({ sublesson, populateLesson = false }) => {
     : `Unassigned - ${sublessonName}`;
 };
 
+function insertPropertiesIf(condition, properties) {
+  return condition ? properties : {};
+}
+
 module.exports = {
   handleInternalLabel,
+  insertPropertiesIf,
 };
