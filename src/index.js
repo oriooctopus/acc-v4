@@ -14,25 +14,35 @@ module.exports = {
 
     const extension = ({ nexus }) => ({
       types: [
+        getPracticeChallenges.responseDefinition({ nexus }),
         nexus.objectType({
-          name: "GetPracticeChallengesResponse",
-          description: "Custom object for getPracticeChallenges query",
+          name: "UniqueChallengeIdentifier",
+          description:
+            "An id and challenge type is necessary to locate an individual challenge",
           definition(t) {
-            t.list.field("allChallenges", { type: "ChallengeUnion" });
-            t.list.int("recommendedChallenges");
+            t.nonNull.int("id");
+            t.nonNull.string("typename");
           },
         }),
         nexus.unionType({
-          name: "ChallengeUnion",
-          description: "All possible challenge types",
+          name: "ChallengeEntityUnion",
+          description: "All possible challenge entity types",
           definition(t) {
-            t.members("CodeChallenge", "MultipleChoiceChallenge", "Playground");
+            t.members(
+              "CodeChallengeEntity",
+              "MultipleChoiceChallengeEntity",
+              "PlaygroundEntity"
+            );
           },
           resolveType(item) {
-            return item.challengeType;
+            return item.__typename;
           },
         }),
         nexus.queryType({
+          // nonNullDefaults: {
+          //   input: true,
+          //   output: true,
+          // },
           definition(t) {
             nextLessonSlug.queryDefinition({ nexus, t });
             getPracticeChallenges.queryDefinition({ nexus, t });

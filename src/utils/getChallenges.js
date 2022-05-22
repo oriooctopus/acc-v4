@@ -1,34 +1,43 @@
-const challengeTypes = [
+const __typenames = [
   {
     apiReference: "api::code-challenge.code-challenge",
-    typeName: "CodeChallenge",
+    typename: "CodeChallengeEntity",
   },
   {
     apiReference: "api::multiple-choice-challenge.multiple-choice-challenge",
-    typeName: "MultipleChoiceChallenge",
+    typename: "MultipleChoiceChallengeEntity",
   },
   {
     apiReference: "api::playground.playground",
-    typeName: "Playground",
+    typename: "PlaygroundEntity",
   },
 ];
 
-module.exports = async ({ strapi, parameters, includeTypename }) => {
+const getTypenameWithoutEntity = (typename) =>
+  typename.slice(0, typename.length - 6);
+
+module.exports = async ({ strapi, parameters }) => {
   const challengeGroups = await Promise.all(
-    challengeTypes.map(({ apiReference }) =>
+    __typenames.map(({ apiReference }) =>
       strapi.entityService.findMany(apiReference, parameters)
     )
   );
 
-  const final = includeTypename
-    ? challengeTypes.flatMap(({ typeName }, index) =>
-        challengeGroups[index].map((challenge) => {
-          return {
-            ...challenge,
-            challengeType: typeName,
-          };
-        })
-      )
-    : t;
-  return final;
+  return __typenames.flatMap(({ typename }, index) =>
+    challengeGroups[index].map(({ id, ...challenge }) => {
+      // TODO: is the typename thing really a manual process???
+      return {
+        id,
+        attributes: {
+          __typename: getTypenameWithoutEntity(typename),
+        },
+        /**
+         *  TODO: Investigate why this isn't working when it
+         *  goes inside of attributes!!
+         */
+        ...challenge,
+        __typename: typename,
+      };
+    })
+  );
 };
