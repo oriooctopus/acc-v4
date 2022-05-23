@@ -12,11 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "editorMeta": {
-      "type": "component",
-      "repeatable": false,
-      "component": "misc.editor-meta"
-    },
     "steps": {
       "displayName": "projectSteps",
       "type": "component",
@@ -30,6 +25,10 @@
     },
     "slug": {
       "type": "string",
+      "required": true
+    },
+    "intro": {
+      "type": "richtext",
       "required": true
     }
   }

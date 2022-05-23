@@ -1,4 +1,6 @@
 "use strict";
+const getPracticeChallenges = require("./resolvers/getPracticeChallenges");
+const nextLessonSlug = require("./resolvers/nextLessonSlug");
 
 module.exports = {
   /**
@@ -11,62 +13,43 @@ module.exports = {
     const extensionService = strapi.plugin("graphql").service("extension");
 
     const extension = ({ nexus }) => ({
-      // Nexus
       types: [
+        nexus.objectType({
+          name: "GetPracticeChallengesResponse",
+          description: "Custom object for getPracticeChallenges query",
+          definition(t) {
+            t.list.field("allChallenges", { type: "ChallengeUnion" });
+            t.list.int("recommendedChallenges");
+          },
+        }),
+        nexus.unionType({
+          name: "ChallengeUnion",
+          description: "All possible challenge types",
+          definition(t) {
+            t.members("CodeChallenge", "MultipleChoiceChallenge", "Playground");
+          },
+          resolveType(item) {
+            return item.challengeType;
+          },
+        }),
         nexus.queryType({
           definition(t) {
-            t.field("nextLessonSlug", {
-              type: "String",
-              args: {
-                currentLessonId: nexus.intArg(),
-              },
-            });
+            nextLessonSlug.queryDefinition({ nexus, t });
+            getPracticeChallenges.queryDefinition({ nexus, t });
           },
         }),
       ],
-      // GraphQL SDL
-      typeDefs: `
-          type Article {
-              name: String
-          }
-      `,
       resolvers: {
         Query: {
-          nextLessonSlug: {
-            async resolve(_context, { currentLessonId }) {
-              console.log("before");
-              const result = await strapi.db
-                .query("api::module.module")
-                .findOne({
-                  where: {
-                    id: 1,
-                  },
-                  populate: {
-                    moduleLessons: {
-                      populate: ["lesson"],
-                    },
-                  },
-                });
-              const { moduleLessons: lessons } = result;
-              const currentLessonIndex = lessons.findIndex(
-                ({ lesson: { id } }) => id === currentLessonId
-              );
-
-              if (currentLessonIndex === -1) {
-                throw new Error(`Lesson of id ${currentLessonId} not found`);
-              }
-
-              if (currentLessonIndex === lessons.length - 1) {
-                return null;
-              }
-
-              return lessons[currentLessonIndex + 1].lesson.slug;
-            },
-          },
+          getPracticeChallenges: { resolve: getPracticeChallenges.resolve },
+          nextLessonSlug: { resolve: nextLessonSlug.resolve },
         },
       },
       resolversConfig: {
         "Query.nextLessonSlug": {
+          auth: false,
+        },
+        "Query.getPracticeChallenges": {
           auth: false,
         },
       },

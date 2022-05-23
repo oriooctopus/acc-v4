@@ -27,6 +27,7 @@ const getInternalLabel = async (event) => {
 
   return `${lesson.name} -- name`;
 };
+const { handleInternalLabel } = require("../../../../utils/general");
 
 const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
   const [internalTests, metaTests] = await Promise.all([
@@ -186,6 +187,7 @@ function compareIds(a, b) {
 }
 
 const beforeCreateOrUpdate = async (event) => {
+<<<<<<< HEAD
   const internalLabel = await getInternalLabel(event);
   // event.params.data.internalLabel = internalLabel;
   iterateMetaTests(
@@ -193,6 +195,9 @@ const beforeCreateOrUpdate = async (event) => {
     event.params.data.MetaTest,
     event.params.data.internalLabel
   );
+=======
+  runMetaTests(event.params.data.tests, event.params.data.MetaTest);
+>>>>>>> 35c3218ef1373085c3dfe7d4b3e815489b3fe8e2
 };
 
 module.exports = {
@@ -202,5 +207,23 @@ module.exports = {
 
   async beforeUpdate(event) {
     await beforeCreateOrUpdate(event);
+  },
+
+  async afterFindOne(event) {
+    if (!event.result) {
+      return;
+    }
+
+    const challengeMeta = event.result.challengeMeta;
+    if (challengeMeta) {
+      /**
+       * This is a temporary hack until
+       * https://github.com/strapi/strapi/issues/13216 gets resolved
+       */
+      await handleInternalLabel({
+        sublesson: challengeMeta.sublesson,
+        populateLesson: true,
+      });
+    }
   },
 };

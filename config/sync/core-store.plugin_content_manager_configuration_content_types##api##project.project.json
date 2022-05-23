@@ -20,20 +20,6 @@
           "sortable": true
         }
       },
-      "editorMeta": {
-        "edit": {
-          "label": "EditorMeta",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "EditorMeta",
-          "searchable": false,
-          "sortable": false
-        }
-      },
       "steps": {
         "edit": {
           "label": "Steps",
@@ -74,6 +60,20 @@
           "label": "Slug",
           "searchable": true,
           "sortable": true
+        }
+      },
+      "intro": {
+        "edit": {
+          "label": "Intro",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "intro",
+          "searchable": false,
+          "sortable": false
         }
       },
       "createdAt": {
@@ -119,7 +119,7 @@
         ],
         [
           {
-            "name": "editorMeta",
+            "name": "intro",
             "size": 12
           }
         ],

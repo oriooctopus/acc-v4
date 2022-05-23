@@ -26,7 +26,7 @@ export const runTestEvaluator = async ({
   evalResultShouldBe,
   internalTest,
   removeComments,
-}: runTestEvaluatorProps) => {
+}: runTestEvaluatorProps) => {=
   let userPassed = null;
   let userShouldPass = evalResultShouldBe;
   let evaluationError;
@@ -157,6 +157,11 @@ export const runTestEvaluator = async ({
       };
     };
 
+    const determineResult = (evalResult) => {
+      console.log("evalResult", evalResult);
+      return {};
+    };
+
     switch (true) {
       case typeof result !== "boolean" &&
         typeof result === "undefined" &&
@@ -209,56 +214,6 @@ export const runTestEvaluator = async ({
         setNullError();
         break;
     }
-
-    // if (
-    //   typeof result !== "boolean" &&
-    //   typeof result === "undefined" &&
-    //   !userShouldPass &&
-    //   existsMetaError
-    // ) {
-    //   descriptionMessage = `PASS w/ WARNING: undefined eval result is caused by EXPECTED ERROR in metaCaseCode or UNEXPECTED ERROR in internalTestCode`;
-    //   userPassed = true;
-    //   setShortError();
-    // } else if (
-    //   typeof result !== "boolean" &&
-    //   typeof result === "undefined" &&
-    //   !userShouldPass &&
-    //   !existsMetaError
-    // ) {
-    //   descriptionMessage = `ERROR: internalTestCode is failing, metaCaseCode no errors`;
-    //   userPassed = false;
-    //   setShortError();
-    // } else if (
-    //   typeof result !== "boolean" &&
-    //   typeof result === "undefined" &&
-    //   userShouldPass
-    // ) {
-    //   descriptionMessage = `ERROR: UNEXPECTED undefined during eval() of tests`;
-    //   userPassed = false;
-    //   setShortError();
-    // } else if (typeof result !== "boolean" && typeof result === "string") {
-    //   descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are STRING, Suggestion: Check for extra quotes around internal/metaCaseCodes`;
-    //   userPassed = false;
-    //   setNullError();
-    // } else if (typeof result !== "boolean") {
-    //   descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${
-    //     internalTest.id
-    //   } are type: ${(typeof result).toUpperCase()}, should be BOOLEAN`;
-    //   userPassed = false;
-    //   setShortError();
-    // } else if (typeof result === "boolean" && result && userShouldPass) {
-    //   descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
-    //   userPassed = true;
-    //   setNullError();
-    // } else if (typeof result === "boolean" && !result && !userShouldPass) {
-    //   descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
-    //   userPassed = true;
-    //   setNullError();
-    // } else if (typeof result === "boolean" && result !== userShouldPass) {
-    //   descriptionMessage = `ERROR: FAILED metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, which is UNEXPECTED`;
-    //   userPassed = false;
-    //   setShortError();
-    // }
   }
 
   restoreConsoleLog();

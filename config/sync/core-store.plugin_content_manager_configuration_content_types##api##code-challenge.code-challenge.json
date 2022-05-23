@@ -6,7 +6,7 @@
       "bulkable": true,
       "filterable": true,
       "searchable": true,
-      "pageSize": 10,
+      "pageSize": 100,
       "mainField": "internalLabel",
       "defaultSortBy": "internalLabel",
       "defaultSortOrder": "ASC"
@@ -175,6 +175,34 @@
           "sortable": false
         }
       },
+      "name": {
+        "edit": {
+          "label": "name",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "name",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "namePrivateClarifications": {
+        "edit": {
+          "label": "namePrivateClarifications",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "namePrivateClarifications",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "CreatedAt",
@@ -205,19 +233,52 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "internalLabel",
-        "internalNotes",
-        "getStartingCodeFromPreviousChallenge"
-      ],
-      "editRelations": ["category"],
       "edit": [
+        [
+          {
+            "name": "name",
+            "size": 6
+          },
+          {
+            "name": "internalNotes",
+            "size": 6
+          }
+        ],
         [
           {
             "name": "internalLabel",
             "size": 6
+          }
+        ],
+        [
+          {
+            "name": "challengeMeta",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "prompt",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "editorMeta",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "getStartingCodeFromPreviousChallenge",
+            "size": 4
           },
+          {
+            "name": "namePrivateClarifications",
+            "size": 6
+          }
+        ],
+        [
           {
             "name": "startingCode",
             "size": 12
@@ -231,30 +292,8 @@
         ],
         [
           {
-            "name": "prompt",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "internalLabel",
-            "size": 6
-          },
-          {
-            "name": "internalNotes",
-            "size": 6
-          }
-        ],
-        [
-          {
             "name": "hints",
             "size": 12
-          }
-        ],
-        [
-          {
-            "name": "getStartingCodeFromPreviousChallenge",
-            "size": 4
           }
         ],
         [
@@ -262,19 +301,17 @@
             "name": "MetaTest",
             "size": 12
           }
-        ],
-        [
-          {
-            "name": "editorMeta",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "challengeMeta",
-            "size": 12
-          }
         ]
+      ],
+      "editRelations": [
+        "category"
+      ],
+      "list": [
+        "id",
+        "name",
+        "internalLabel",
+        "internalNotes",
+        "getStartingCodeFromPreviousChallenge"
       ]
     }
   },

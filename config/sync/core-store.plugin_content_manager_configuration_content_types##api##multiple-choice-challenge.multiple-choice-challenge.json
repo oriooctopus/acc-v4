@@ -6,7 +6,7 @@
       "bulkable": true,
       "filterable": true,
       "searchable": true,
-      "pageSize": 10,
+      "pageSize": 100,
       "mainField": "internalLabel",
       "defaultSortBy": "internalLabel",
       "defaultSortOrder": "ASC"
@@ -90,6 +90,34 @@
           "sortable": true
         }
       },
+      "challengeMeta": {
+        "edit": {
+          "label": "challengeMeta",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "challengeMeta",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "name": {
+        "edit": {
+          "label": "name",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "name",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "CreatedAt",
@@ -120,17 +148,16 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "internalLabel",
-        "canSelectMultipleOptions",
-        "optionsInitiallyHidden"
-      ],
-      "editRelations": [],
       "edit": [
         [
           {
-            "name": "options",
+            "name": "name",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "challengeMeta",
             "size": 12
           }
         ],
@@ -142,20 +169,27 @@
         ],
         [
           {
-            "name": "internalLabel",
-            "size": 6
-          },
-          {
-            "name": "canSelectMultipleOptions",
-            "size": 4
+            "name": "options",
+            "size": 12
           }
         ],
         [
+          {
+            "name": "canSelectMultipleOptions",
+            "size": 4
+          },
           {
             "name": "optionsInitiallyHidden",
             "size": 4
           }
         ]
+      ],
+      "editRelations": [],
+      "list": [
+        "internalLabel",
+        "id",
+        "canSelectMultipleOptions",
+        "optionsInitiallyHidden"
       ]
     }
   },

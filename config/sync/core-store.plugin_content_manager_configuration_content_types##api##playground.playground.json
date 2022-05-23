@@ -7,8 +7,8 @@
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "internalLabel",
-      "defaultSortBy": "internalLabel",
+      "mainField": "name",
+      "defaultSortBy": "name",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -20,16 +20,16 @@
           "sortable": true
         }
       },
-      "internalLabel": {
+      "name": {
         "edit": {
-          "label": "InternalLabel",
+          "label": "name",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "InternalLabel",
+          "label": "name",
           "searchable": true,
           "sortable": true
         }
@@ -58,6 +58,20 @@
         },
         "list": {
           "label": "Prompt",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "editorMeta": {
+        "edit": {
+          "label": "editorMeta",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "editorMeta",
           "searchable": false,
           "sortable": false
         }
@@ -94,17 +108,12 @@
     "layouts": {
       "list": [
         "id",
-        "internalLabel",
         "internalNotes",
-        "createdAt"
+        "createdAt",
+        "name"
       ],
-      "editRelations": [],
       "edit": [
         [
-          {
-            "name": "internalLabel",
-            "size": 6
-          },
           {
             "name": "internalNotes",
             "size": 6
@@ -115,8 +124,21 @@
             "name": "prompt",
             "size": 12
           }
+        ],
+        [
+          {
+            "name": "editorMeta",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "name",
+            "size": 6
+          }
         ]
-      ]
+      ],
+      "editRelations": []
     }
   },
   "type": "object",

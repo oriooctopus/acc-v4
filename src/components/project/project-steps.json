@@ -7,17 +7,18 @@
   },
   "options": {},
   "attributes": {
-    "text": {
-      "type": "richtext",
-      "required": true
+    "useNewCodeContext": {
+      "type": "boolean"
     },
-    "hints": {
-      "type": "component",
-      "repeatable": true,
-      "component": "content.challenge-hints"
+    "codeChallenge": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::code-challenge.code-challenge"
     },
-    "exampleSolution": {
-      "type": "richtext"
+    "playground": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::playground.playground"
     }
   }
 }

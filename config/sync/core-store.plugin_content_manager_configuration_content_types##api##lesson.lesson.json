@@ -6,7 +6,7 @@
       "bulkable": true,
       "filterable": true,
       "searchable": true,
-      "pageSize": 10,
+      "pageSize": 100,
       "mainField": "slug",
       "defaultSortBy": "slug",
       "defaultSortOrder": "ASC"
@@ -165,17 +165,6 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "slug",
-        "name",
-        "isHard"
-      ],
-      "editRelations": [
-        "sublessons",
-        "module",
-        "syntaxEntry"
-      ],
       "edit": [
         [
           {
@@ -203,6 +192,17 @@
             "size": 12
           }
         ]
+      ],
+      "editRelations": [
+        "sublessons",
+        "module",
+        "syntaxEntry"
+      ],
+      "list": [
+        "id",
+        "slug",
+        "name",
+        "isHard"
       ]
     }
   },
