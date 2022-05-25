@@ -1,6 +1,7 @@
 const pMap = require("p-map");
 const { removeEmpty } = require("../code-challenge/general");
 const { runTestEvaluator } = require("../code-challenge/test-evaluator");
+const { handleInternalLabel } = require("../../../../utils/general");
 
 const getInternalLabel = async (event) => {
   const {
@@ -27,7 +28,6 @@ const getInternalLabel = async (event) => {
 
   return `${lesson.name} -- name`;
 };
-const { handleInternalLabel } = require("../../../../utils/general");
 
 const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
   const [internalTests, metaTests] = await Promise.all([
@@ -194,7 +194,7 @@ const beforeCreateOrUpdate = async (event) => {
     event.params.data.MetaTest,
     event.params.data.internalLabel
   );
-  runMetaTests(event.params.data.tests, event.params.data.MetaTest);
+  // runMetaTests(event.params.data.tests, event.params.data.MetaTest);
 };
 
 module.exports = {

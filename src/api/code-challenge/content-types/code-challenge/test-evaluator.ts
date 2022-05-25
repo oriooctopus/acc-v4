@@ -26,7 +26,7 @@ export const runTestEvaluator = async ({
   evalResultShouldBe,
   internalTest,
   removeComments,
-}: runTestEvaluatorProps) => {=
+}: runTestEvaluatorProps) => {
   let userPassed = null;
   let userShouldPass = evalResultShouldBe;
   let evaluationError;
@@ -163,26 +163,13 @@ export const runTestEvaluator = async ({
     };
 
     switch (true) {
-      case typeof result !== "boolean" &&
-        typeof result === "undefined" &&
-        !userShouldPass &&
-        existsMetaError:
-        descriptionMessage = `PARTIAL SUCCESS: metaCaseCode throws error & undefined by intention`;
-        userPassed = true;
-        setShortError();
-        break;
-      case typeof result !== "boolean" &&
-        typeof result === "undefined" &&
-        !userShouldPass &&
-        !existsMetaError:
-        descriptionMessage = `PARTIAL FAIL: metaCaseCode appears valid, check internalTestCode`;
+      case userShouldPass === false:
+        descriptionMessage = `FAIL: Failing Examples currently not supported`;
         userPassed = false;
         setShortError();
         break;
-      case typeof result !== "boolean" &&
-        typeof result === "undefined" &&
-        userShouldPass:
-        descriptionMessage = `FAIL: UNEXPECTED undefined during eval() of tests`;
+      case typeof result === "undefined":
+        descriptionMessage = `FAIL: UNDEFINED test results during eval()`;
         userPassed = false;
         setShortError();
         break;
