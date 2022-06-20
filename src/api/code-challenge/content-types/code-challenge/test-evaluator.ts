@@ -27,63 +27,21 @@ export const runTestEvaluator = async ({
   internalTest,
   removeComments,
 }: runTestEvaluatorProps) => {
-  let userPassed = null;
-  // evalResultShouldBe is more readable on the Final Results of the MetaTest Output.
-  // userShouldPass is more readable in this document.
+  const setShortError = () => {
+    evalError.stack = `${evalError.stack.substring(
+      0,
+      250
+    )} --- (End of Abridged Error)`;
+  };
 
-  let userShouldPass = evalResultShouldBe;
-  let descriptionMessage;
-  const formattedCode = getCode(metaCaseCode, removeComments);
-  const logs = [] as Array<unknown>;
-
-  overrideConsoleLog((args) => {
-    logs.push(args);
-    // @ts-expect-error will fix later
-    console.standardLog("args", ...args);
-  });
-  console.log("\n<challengeLabel>", challengeLabel);
-  console.log("\n\n<<METATEST CODE>>", metaCaseCode);
-  console.log("<formattedCode>", formattedCode);
-  console.log("<formattedCode TYPE>", typeof formattedCode);
-  console.log("<internalTestCode>", internalTestCode, "\n\n");
-  let result;
-  let evalError = null;
-
-  try {
-    // @ts-expect-error will fix later
-    const context = getEvaluationContext(formattedCode, logs);
-
-    result = evaluateWithContext(
-      `${formattedCode};
-      ${internalTestCode};`,
-      context
-    );
-  } catch (err) {
-    evalError = err;
-  } finally {
-    // console.log("---expectPasses: ", expectPasses);
-    // console.log("\n<FINALLY RESULT>", result);
-    // console.log("<FINAL TYPE>", typeof result, "\n");
-    // console.log("<userShouldPass>", userShouldPass);
-    console.log("<metaTestId>", metaTestId);
-    console.log("<internalTest.id>", internalTest.id);
-    // console.log("<metaLabel>", metaLabel);
-    console.log("<evalError>", evalError);
-
-    const setShortError = () => {
-      evalError.stack = `${evalError.stack.substring(
-        0,
-        250
-      )} --- (End of Abridged Error)`;
+  const setNullError = () => {
+    evalError = {
+      message: null,
+      stack: null,
     };
+  };
 
-    const setNullError = () => {
-      evalError = {
-        message: null,
-        stack: null,
-      };
-    };
-
+  const determineCase = () => {
     switch (true) {
       case userShouldPass === false:
         descriptionMessage = `FAIL: Failing Examples currently not supported`;
@@ -123,14 +81,58 @@ export const runTestEvaluator = async ({
         setNullError();
         break;
     }
+  };
+  // Assigning variables to be returned in final Object "testEvaluatorResults"
+
+  // evalResultShouldBe is more readable on the Final Results of the MetaTest Output.
+  // userShouldPass is more readable in this document.
+  let userPassed = null;
+  let userShouldPass = evalResultShouldBe;
+  let descriptionMessage;
+
+  const formattedCode = getCode(metaCaseCode, removeComments);
+  const logs = [] as Array<unknown>;
+
+  overrideConsoleLog((args) => {
+    logs.push(args);
+    // @ts-expect-error will fix later
+    console.standardLog("args", ...args);
+  });
+  console.log("\n<challengeLabel>", challengeLabel);
+  console.log("\n\n<<METATEST CODE>>", metaCaseCode);
+  console.log("<formattedCode>", formattedCode);
+  console.log("<formattedCode TYPE>", typeof formattedCode);
+  console.log("<internalTestCode>", internalTestCode, "\n\n");
+  let result;
+  let evalError = null;
+
+  try {
+    // @ts-expect-error will fix later
+    const context = getEvaluationContext(formattedCode, logs);
+
+    result = evaluateWithContext(
+      `${formattedCode};
+      ${internalTestCode};`,
+      context
+    );
+  } catch (err) {
+    evalError = err;
+  } finally {
+    // console.log("---expectPasses: ", expectPasses);
+    // console.log("\n<FINALLY RESULT>", result);
+    // console.log("<FINAL TYPE>", typeof result, "\n");
+    // console.log("<userShouldPass>", userShouldPass);
+    console.log("<metaTestId>", metaTestId);
+    console.log("<internalTest.id>", internalTest.id);
+    // console.log("<metaLabel>", metaLabel);
+    console.log("<evalError>", evalError);
+
+    determineCase();
   }
 
   restoreConsoleLog();
-  // console.log("<description>", descriptionMessage);
   return {
     error: evalError,
-    // metaCaseCode: metaCaseCode,
-    // internalTest: internalTestCode,
     userPassed: userPassed,
     description: descriptionMessage,
     resultType: typeof result,
