@@ -102,22 +102,24 @@ const executeTests = async (
           "resultType",
           "evalResult",
           "userPassed",
+          "error",
         ]),
       };
       // newTest.description = description;
       // newTest.resultType = resultType;
       // newTest.evalResult = evalResult;
       // newTest.userPassed = userPassed;
-      console.log("--- newTest--- lifecycles", newTest);
-      if (testEvaluatorResults.error) {
-        // @ts-expect-error will fix later
-        const { message, stack } = testEvaluatorResults.error;
-        // newTest.message = error.message;
-        // newTest.stack = error.stack;
-        // newTest.userPassed = false;
-        newTest.error = message;
-        newTest.stack = stack;
-      }
+      // console.log("--- newTest--- lifecycles", newTest);
+
+      // if (testEvaluatorResults.error) {
+      // @ts-expect-error will fix later
+      // const { message, stack } = testEvaluatorResults.error;
+      // newTest.message = error.message;
+      // newTest.stack = error.stack;
+      // newTest.userPassed = false;
+      // newTest.error = testEvaluatorResults.error;
+      // newTest.stack = stack;
+      // }
       // show metaTest + InternalTest Results
       // console.log(
       //   `---------------
