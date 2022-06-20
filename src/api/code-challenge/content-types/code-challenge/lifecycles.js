@@ -69,8 +69,19 @@ const executeTests = async (
       } = internalTest;
 
       // console.log("<internalTest pMap> ", internalTest);
+      // console.log("newTest name: ", newTest);
 
-      let newTest = {
+      const testEvaluatorResults = await runTestEvaluator({
+        metaCaseCode,
+        internalTestCode,
+        metaLabel,
+        challengeLabel,
+        metaTestId,
+        internalTest,
+        evalResultShouldBe,
+      });
+
+      return {
         description: null,
         userPassed: null,
         metaLabel,
@@ -83,20 +94,6 @@ const executeTests = async (
         internalTestId,
         metaCaseCode,
         internalTestCode,
-      };
-      // console.log("newTest name: ", newTest);
-
-      const testEvaluatorResults = await runTestEvaluator({
-        metaCaseCode,
-        internalTestCode,
-        metaLabel,
-        challengeLabel,
-        metaTestId,
-        internalTest,
-        evalResultShouldBe,
-      });
-      newTest = {
-        ...newTest,
         ...pick(testEvaluatorResults, [
           "description",
           "resultType",
@@ -105,31 +102,7 @@ const executeTests = async (
           "error",
         ]),
       };
-      // newTest.description = description;
-      // newTest.resultType = resultType;
-      // newTest.evalResult = evalResult;
-      // newTest.userPassed = userPassed;
-      // console.log("--- newTest--- lifecycles", newTest);
-
-      // if (testEvaluatorResults.error) {
-      // @ts-expect-error will fix later
-      // const { message, stack } = testEvaluatorResults.error;
-      // newTest.message = error.message;
-      // newTest.stack = error.stack;
-      // newTest.userPassed = false;
-      // newTest.error = testEvaluatorResults.error;
-      // newTest.stack = stack;
-      // }
-      // show metaTest + InternalTest Results
-      // console.log(
-      //   `---------------
-      // \n<newTest.pass> ${newTest.pass},
-      // \n <label> ${newTest.label},
-      // \n <internalTestCode> ${newTest.internalTestCode},
-      // \n <error type> ${typeof newTest.error}
-      // \n--------------`
-      // );
-      return newTest;
+      // return newTest;
     }
   );
 };
