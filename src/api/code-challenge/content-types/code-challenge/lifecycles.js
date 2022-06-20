@@ -2,6 +2,7 @@ const pMap = require("p-map");
 const { removeEmpty } = require("../code-challenge/general");
 const { runTestEvaluator } = require("../code-challenge/test-evaluator");
 const { handleInternalLabel } = require("../../../../utils/general");
+const pick = require("lodash/pick");
 
 const getInternalLabel = async (event) => {
   const {
@@ -61,12 +62,15 @@ const executeTests = async (
   return pMap(
     internalTests?.filter(removeEmpty) || [],
     async (internalTest) => {
-      const internalTestLabel = internalTest.label;
-      const internalTestCode = internalTest.internalTestCode;
-      const internalTestId = internalTest.id;
+      const {
+        label: internalTestLabel,
+        internalTestCode: internalTestCode,
+        id: internalTestId,
+      } = internalTest;
+
       // console.log("<internalTest pMap> ", internalTest);
 
-      const newTest = {
+      let newTest = {
         description: null,
         userPassed: null,
         metaLabel,
@@ -82,24 +86,32 @@ const executeTests = async (
       };
       // console.log("newTest name: ", newTest);
 
-      const { userPassed, error, description, resultType, evalResult } =
-        await runTestEvaluator({
-          metaCaseCode,
-          internalTestCode,
-          metaLabel,
-          challengeLabel,
-          metaTestId,
-          internalTest,
-          evalResultShouldBe,
-        });
-      newTest.description = description;
-      newTest.resultType = resultType;
-      newTest.evalResult = evalResult;
-      newTest.userPassed = userPassed;
-
-      if (error) {
+      const testEvaluatorResults = await runTestEvaluator({
+        metaCaseCode,
+        internalTestCode,
+        metaLabel,
+        challengeLabel,
+        metaTestId,
+        internalTest,
+        evalResultShouldBe,
+      });
+      newTest = {
+        ...newTest,
+        ...pick(testEvaluatorResults, [
+          "description",
+          "resultType",
+          "evalResult",
+          "userPassed",
+        ]),
+      };
+      // newTest.description = description;
+      // newTest.resultType = resultType;
+      // newTest.evalResult = evalResult;
+      // newTest.userPassed = userPassed;
+      console.log("--- newTest--- lifecycles", newTest);
+      if (testEvaluatorResults.error) {
         // @ts-expect-error will fix later
-        const { message, stack } = error;
+        const { message, stack } = testEvaluatorResults.error;
         // newTest.message = error.message;
         // newTest.stack = error.stack;
         // newTest.userPassed = false;
