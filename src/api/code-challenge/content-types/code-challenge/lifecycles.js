@@ -4,6 +4,7 @@ const { runTestEvaluator } = require("../code-challenge/test-evaluator");
 const { handleInternalLabel } = require("../../../../utils/general");
 const pick = require("lodash/pick");
 
+// Currently unused function. Did you write this Oliver?
 const getInternalLabel = async (event) => {
   const {
     data: { challengeMeta, name },
@@ -35,10 +36,6 @@ const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
     getInternalTests(eventTests),
     getMetaTests(eventMetaTests),
   ]);
-  console.log("<metaTests.length>", metaTests.length);
-  console.log("<metaTests>", metaTests);
-  console.log("<code-challenge>", challengeLabel);
-  console.log("<internalTests>: ", internalTests);
   for (let i = 0; i < metaTests.length; i++) {
     runInternalTests(
       internalTests,
@@ -46,7 +43,8 @@ const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
       challengeLabel,
       metaTests[i].label,
       metaTests[i].id,
-      metaTests[i].passes
+      metaTests[i].passes,
+      i
     );
   }
 };
@@ -113,7 +111,8 @@ async function runInternalTests(
   challengeLabel,
   metaTestLabel,
   metaTestId,
-  evalResultShouldBe
+  evalResultShouldBe,
+  count
 ) {
   let results = await executeTests(
     metaCaseCode,
@@ -123,33 +122,27 @@ async function runInternalTests(
     metaTestId,
     evalResultShouldBe
   );
+  // MetaTest Final Results being logged to Console.
+  console.log(`<METATEST EXAMPLE SET #${count + 1}>`, results);
 
-  console.log("<RESULTS LIFECYCLES.JS>", results);
-
-  let testCounter = 1;
   return results;
 }
 
 async function getInternalTests(eventTests) {
-  // console.log("eventTests:", eventTests);
   const internalTests = await strapi.db
     .query("challenge.code-challenge-test")
-    .findMany(
-      // {}
-      {
-        select: ["id", "internalTest", "label"],
-        where: {
-          id: eventTests.map(({ id: testId }) => testId),
-        },
-      }
-    );
-  // console.log("FRESH N RAW INTERNAL TESTS: ", internalTests);
+    .findMany({
+      select: ["id", "internalTest", "label"],
+      where: {
+        id: eventTests.map(({ id: testId }) => testId),
+      },
+    });
+
   // Rename internalTest to internalTestCode
   internalTests.map((internalTestPackage) => {
     internalTestPackage.internalTestCode = internalTestPackage.internalTest;
     delete internalTestPackage.internalTest;
   });
-  // console.log("RENAMED INTERNAL TESTS: ", internalTests);
   return internalTests.sort(compareIds);
 }
 
@@ -174,14 +167,13 @@ function compareIds(a, b) {
 }
 
 const beforeCreateOrUpdate = async (event) => {
-  const internalLabel = await getInternalLabel(event);
+  // const internalLabel = await getInternalLabel(event);
   // event.params.data.internalLabel = internalLabel;
   iterateMetaTests(
     event.params.data.tests,
     event.params.data.MetaTest,
     event.params.data.internalLabel
   );
-  // runMetaTests(event.params.data.tests, event.params.data.MetaTest);
 };
 
 module.exports = {

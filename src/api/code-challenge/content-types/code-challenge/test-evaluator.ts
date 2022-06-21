@@ -41,7 +41,7 @@ export const runTestEvaluator = async ({
     };
   };
 
-  const determineCase = () => {
+  const determineReturnObject = () => {
     switch (true) {
       case userShouldPass === false:
         descriptionMessage = `FAIL: Failing Examples currently not supported`;
@@ -82,13 +82,13 @@ export const runTestEvaluator = async ({
         break;
     }
   };
-  // Assigning variables to be returned in final Object "testEvaluatorResults"
+  // evalResultShouldBe is renamed to userShouldPass to improve readability on output vs this file
 
-  // evalResultShouldBe is more readable on the Final Results of the MetaTest Output.
-  // userShouldPass is more readable in this document.
   let userPassed = null;
   let userShouldPass = evalResultShouldBe;
   let descriptionMessage;
+  let result;
+  let evalError = null;
 
   const formattedCode = getCode(metaCaseCode, removeComments);
   const logs = [] as Array<unknown>;
@@ -98,13 +98,6 @@ export const runTestEvaluator = async ({
     // @ts-expect-error will fix later
     console.standardLog("args", ...args);
   });
-  console.log("\n<challengeLabel>", challengeLabel);
-  console.log("\n\n<<METATEST CODE>>", metaCaseCode);
-  console.log("<formattedCode>", formattedCode);
-  console.log("<formattedCode TYPE>", typeof formattedCode);
-  console.log("<internalTestCode>", internalTestCode, "\n\n");
-  let result;
-  let evalError = null;
 
   try {
     // @ts-expect-error will fix later
@@ -118,18 +111,8 @@ export const runTestEvaluator = async ({
   } catch (err) {
     evalError = err;
   } finally {
-    // console.log("---expectPasses: ", expectPasses);
-    // console.log("\n<FINALLY RESULT>", result);
-    // console.log("<FINAL TYPE>", typeof result, "\n");
-    // console.log("<userShouldPass>", userShouldPass);
-    console.log("<metaTestId>", metaTestId);
-    console.log("<internalTest.id>", internalTest.id);
-    // console.log("<metaLabel>", metaLabel);
-    console.log("<evalError>", evalError);
-
-    determineCase();
+    determineReturnObject();
   }
-
   restoreConsoleLog();
   return {
     error: evalError,
