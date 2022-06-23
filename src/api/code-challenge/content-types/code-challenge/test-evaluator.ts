@@ -34,11 +34,8 @@ export const runTestEvaluator = async ({
     )} --- (End of Abridged Error)`;
   };
 
-  const setNullError = () => {
-    evalError = {
-      message: null,
-      stack: null,
-    };
+  const setNoError = () => {
+    evalError = "no eval() error detected";
   };
 
   const determineReturnObject = () => {
@@ -46,39 +43,39 @@ export const runTestEvaluator = async ({
       case userShouldPass === false:
         descriptionMessage = `FAIL: Failing Examples currently not supported`;
         userPassed = false;
-        evalError ? setShortError() : setNullError();
+        evalError ? setShortError() : setNoError();
         break;
       case typeof result === "undefined":
         descriptionMessage = `FAIL: UNDEFINED test results during eval()`;
         userPassed = false;
-        evalError ? setShortError() : setNullError();
+        evalError ? setShortError() : setNoError();
         break;
       case typeof result !== "boolean" && typeof result === "string":
         descriptionMessage = `FAIL: test results in wrong type STRING, Suggestion: Check for extra quotes around internal/metaCaseCodes`;
         userPassed = false;
-        setNullError();
+        setNoError();
         break;
       case typeof result !== "boolean":
         descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
         userPassed = true;
-        setNullError();
+        setNoError();
         break;
       case typeof result === "boolean" && result && userShouldPass:
         descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
         userPassed = true;
-        setNullError();
+        setNoError();
         break;
       case typeof result === "boolean" && !result && !userShouldPass:
         descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
         userPassed = true;
-        setNullError();
+        setNoError();
         break;
       case typeof result === "boolean" && result !== userShouldPass:
         descriptionMessage = `FAIL: test results in boolean: ${result
           .toString()
           .toUpperCase()}, which is UNEXPECTED`;
         userPassed = false;
-        setNullError();
+        setNoError();
         break;
     }
   };

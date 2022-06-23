@@ -21,7 +21,7 @@ const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
 
     // MetaTest Final Results being logged to Console.
     await console.log(
-      `<"${metaTests[i].label}" METATEST #${metaTests[i].id}> \n\n`,
+      `\n\n<"${metaTests[i].label}" METATEST #${metaTests[i].id}> \n\n`,
       metaTestResult,
       "\n\n"
     );
@@ -57,29 +57,25 @@ const executeTests = async (
         internalTest,
         evalResultShouldBe,
       });
-
       return {
-        challengeLabel,
-        metaTestId,
-        internalTestId,
-        internalTestLabel,
-        description: null,
-        // evalResultShouldBe,
-        // evalResult: null,
-        userPassed: null,
-        evalResultType: null,
-        // metaLabel,
-        // metaCaseCode,
-        // internalTestCode,
-        ...pick(testEvaluatorResults, [
-          "description",
-          "evalResultType",
-          // "evalResult",
-          "userPassed",
-          "error",
-        ]),
+        short: {
+          description: null,
+          ...pick(testEvaluatorResults, ["description"]),
+        },
+        long: {
+          challengeLabel,
+          metaTestId,
+          internalTestId,
+          internalTestLabel,
+          userPassed: null,
+          evalResultType: null,
+          ...pick(testEvaluatorResults, [
+            "evalResultType",
+            "userPassed",
+            "error",
+          ]),
+        },
       };
-      // return newTest;
     }
   );
 };
@@ -94,7 +90,10 @@ async function getInternalTests(eventTests) {
       },
     });
 
-  // Rename internalTest to internalTestCode
+  // Originally, the content of internalTest === internalTestCode in strapi.
+  // I renamed internalTest to internalTestCode for clarity in lifecycles.js & test-evaluator.ts
+  // This renamed variable makes: (internalTestCode vs internalTestLabel vs internalTestId) the children of internalTestPackage
+
   internalTests.map((internalTestPackage) => {
     internalTestPackage.internalTestCode = internalTestPackage.internalTest;
     delete internalTestPackage.internalTest;
