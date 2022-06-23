@@ -10,7 +10,7 @@ const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
     getMetaTests(eventMetaTests),
   ]);
   for (let i = 0; i < metaTests.length; i++) {
-    let results = await executeTests(
+    let metaTestResult = await executeTests(
       metaTests[i].caseCode,
       internalTests,
       metaTests[i].label,
@@ -22,7 +22,7 @@ const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
     // MetaTest Final Results being logged to Console.
     await console.log(
       `<"${metaTests[i].label}" METATEST #${metaTests[i].id}> \n\n`,
-      results,
+      metaTestResult,
       "\n\n"
     );
   }
@@ -62,19 +62,19 @@ const executeTests = async (
         challengeLabel,
         metaTestId,
         internalTestId,
-        description: null,
-        evalResultShouldBe,
-        evalResult: null,
-        resultType: null,
-        userPassed: null,
-        // metaLabel,
         internalTestLabel,
+        description: null,
+        // evalResultShouldBe,
+        // evalResult: null,
+        userPassed: null,
+        evalResultType: null,
+        // metaLabel,
         // metaCaseCode,
         // internalTestCode,
         ...pick(testEvaluatorResults, [
           "description",
-          "resultType",
-          "evalResult",
+          "evalResultType",
+          // "evalResult",
           "userPassed",
           "error",
         ]),

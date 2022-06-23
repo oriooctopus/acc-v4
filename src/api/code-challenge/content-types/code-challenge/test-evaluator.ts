@@ -118,7 +118,7 @@ export const runTestEvaluator = async ({
     error: evalError,
     userPassed: userPassed,
     description: descriptionMessage,
-    resultType: typeof result,
+    evalResultType: typeof result,
     evalResult: result,
   };
 };
