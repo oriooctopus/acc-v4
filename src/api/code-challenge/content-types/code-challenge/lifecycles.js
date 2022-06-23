@@ -4,33 +4,6 @@ const { runTestEvaluator } = require("../code-challenge/test-evaluator");
 const { handleInternalLabel } = require("../../../../utils/general");
 const pick = require("lodash/pick");
 
-// Currently unused function. Did you write this Oliver?
-const getInternalLabel = async (event) => {
-  const {
-    data: { challengeMeta, name },
-  } = event.params;
-
-  const defaultName = `Unassigned - ${name}`;
-  const challengeMetaId = challengeMeta ? challengeMeta.id : undefined;
-
-  if (!challengeMetaId) {
-    return defaultName;
-  }
-
-  const { lesson } = await strapi.db.query("challenge.challenge-meta").findOne({
-    where: {
-      id: challengeMetaId,
-    },
-    populate: ["challengeMeta", "lesson"],
-  });
-
-  if (!lesson) {
-    return defaultName;
-  }
-
-  return `${lesson.name} -- name`;
-};
-
 const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
   const [internalTests, metaTests] = await Promise.all([
     getInternalTests(eventTests),
@@ -43,8 +16,7 @@ const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
       challengeLabel,
       metaTests[i].label,
       metaTests[i].id,
-      metaTests[i].passes,
-      i
+      metaTests[i].passes
     );
   }
 };
@@ -80,6 +52,8 @@ const executeTests = async (
       });
 
       return {
+        metaTestId,
+        internalTestId,
         description: null,
         userPassed: null,
         metaLabel,
@@ -88,8 +62,6 @@ const executeTests = async (
         resultType: null,
         internalTestLabel,
         challengeLabel,
-        metaTestId,
-        internalTestId,
         metaCaseCode,
         internalTestCode,
         ...pick(testEvaluatorResults, [
@@ -111,8 +83,7 @@ async function runInternalTests(
   challengeLabel,
   metaTestLabel,
   metaTestId,
-  evalResultShouldBe,
-  count
+  evalResultShouldBe
 ) {
   let results = await executeTests(
     metaCaseCode,
@@ -123,7 +94,11 @@ async function runInternalTests(
     evalResultShouldBe
   );
   // MetaTest Final Results being logged to Console.
-  console.log(`<METATEST EXAMPLE SET #${count + 1}>`, results);
+  console.log(
+    `<METATEST "${metaTestLabel}" SET #${metaTestId}> \n\n`,
+    results,
+    "\n\n"
+  );
 
   return results;
 }
