@@ -10,13 +10,20 @@ const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
     getMetaTests(eventMetaTests),
   ]);
   for (let i = 0; i < metaTests.length; i++) {
-    runInternalTests(
-      internalTests,
+    let results = await executeTests(
       metaTests[i].caseCode,
-      challengeLabel,
+      internalTests,
       metaTests[i].label,
+      challengeLabel,
       metaTests[i].id,
       metaTests[i].passes
+    );
+
+    // MetaTest Final Results being logged to Console.
+    await console.log(
+      `<"${metaTests[i].label}" METATEST #${metaTests[i].id}> \n\n`,
+      results,
+      "\n\n"
     );
   }
 };
@@ -52,18 +59,18 @@ const executeTests = async (
       });
 
       return {
+        challengeLabel,
         metaTestId,
         internalTestId,
         description: null,
-        userPassed: null,
-        metaLabel,
-        evalResult: null,
         evalResultShouldBe,
+        evalResult: null,
         resultType: null,
+        userPassed: null,
+        // metaLabel,
         internalTestLabel,
-        challengeLabel,
-        metaCaseCode,
-        internalTestCode,
+        // metaCaseCode,
+        // internalTestCode,
         ...pick(testEvaluatorResults, [
           "description",
           "resultType",
@@ -76,32 +83,6 @@ const executeTests = async (
     }
   );
 };
-
-async function runInternalTests(
-  internalTests,
-  metaCaseCode,
-  challengeLabel,
-  metaTestLabel,
-  metaTestId,
-  evalResultShouldBe
-) {
-  let results = await executeTests(
-    metaCaseCode,
-    internalTests,
-    metaTestLabel,
-    challengeLabel,
-    metaTestId,
-    evalResultShouldBe
-  );
-  // MetaTest Final Results being logged to Console.
-  console.log(
-    `<METATEST "${metaTestLabel}" SET #${metaTestId}> \n\n`,
-    results,
-    "\n\n"
-  );
-
-  return results;
-}
 
 async function getInternalTests(eventTests) {
   const internalTests = await strapi.db
