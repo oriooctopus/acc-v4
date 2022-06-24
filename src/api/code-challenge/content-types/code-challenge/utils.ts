@@ -145,7 +145,7 @@ export const evaluateWithContext = (code: string, context = {}) => {
   }.call(context);
 };
 
-export const compareIds = (a: object, b: object) => {
+export const compareIds = (a: { id: number }, b: { id: number }) => {
   if (a.id < b.id) {
     return -1;
   }

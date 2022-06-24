@@ -13,7 +13,7 @@ type runTestEvaluatorProps = {
   challengeLabel: string;
   metaTestId: number;
   evalResultShouldBe: boolean;
-  internalTest?: object;
+  internalTest: { id: number };
   removeComments?: boolean;
 };
 
@@ -74,7 +74,7 @@ export const runTestEvaluator = async ({
   };
 
   let evalResult: unknown;
-  let evalError: Error | string;
+  let evalError: unknown;
   const formattedCode = getCode(metaCaseCode, removeComments);
   const logs = [] as Array<unknown>;
 
