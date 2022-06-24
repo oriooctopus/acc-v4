@@ -94,11 +94,13 @@ async function getInternalTests(eventTests) {
   // I renamed internalTest to internalTestCode for clarity in lifecycles.js & test-evaluator.ts
   // This renamed variable makes: (internalTestCode vs internalTestLabel vs internalTestId) the children of internalTestPackage
 
-  internalTests.map((internalTestPackage) => {
-    internalTestPackage.internalTestCode = internalTestPackage.internalTest;
-    delete internalTestPackage.internalTest;
-  });
-  return internalTests.sort(compareIds);
+  return internalTests
+    .map((internalTestPackage) => {
+      internalTestPackage.internalTestCode = internalTestPackage.internalTest;
+      delete internalTestPackage.internalTest;
+      return internalTestPackage;
+    })
+    .sort(compareIds);
 }
 
 async function getMetaTests(eventMetaTests) {
