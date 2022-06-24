@@ -45,35 +45,24 @@ export const runTestEvaluator = async ({
         userPassed = false;
         evalError ? setShortError() : setNoError();
         break;
-      case typeof result === "undefined":
-        descriptionMessage = `FAIL: UNDEFINED test results during eval()`;
-        userPassed = false;
-        evalError ? setShortError() : setNoError();
-        break;
       case typeof result !== "boolean" && typeof result === "string":
-        descriptionMessage = `FAIL: test results in wrong type STRING, Suggestion: Check for extra quotes around internal/metaCaseCodes`;
+        descriptionMessage = `FAIL: EvalResultType should be 'boolean', but currently is 'string', 
+        \nSuggestion: Check for extra quotes around internal/metaCaseCodes`;
         userPassed = false;
         setNoError();
         break;
-      case typeof result !== "boolean":
-        descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
+      case typeof result !== "boolean" && typeof result !== "string":
+        descriptionMessage = `FAIL: EvalResultType should always be 'boolean' but is currently '${typeof result}'.`;
         userPassed = true;
         setNoError();
         break;
       case typeof result === "boolean" && result && userShouldPass:
-        descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
-        userPassed = true;
-        setNoError();
-        break;
-      case typeof result === "boolean" && !result && !userShouldPass:
-        descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are ${result}, as EXPECTED`;
+        descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are '${result}', as EXPECTED`;
         userPassed = true;
         setNoError();
         break;
       case typeof result === "boolean" && result !== userShouldPass:
-        descriptionMessage = `FAIL: test results in boolean: ${result
-          .toString()
-          .toUpperCase()}, which is UNEXPECTED`;
+        descriptionMessage = `FAIL: metaTest evalResult is: '${result}', which is UNEXPECTED`;
         userPassed = false;
         setNoError();
         break;
