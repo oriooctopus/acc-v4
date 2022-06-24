@@ -77,7 +77,7 @@ const executeTests = async (
           ...pick(testEvaluatorResults, [
             "evalResultType",
             "userPassed",
-            "error",
+            "evalError",
           ]),
         },
       };

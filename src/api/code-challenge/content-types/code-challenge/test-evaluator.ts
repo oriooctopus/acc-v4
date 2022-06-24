@@ -20,62 +20,61 @@ type runTestEvaluatorProps = {
 export const runTestEvaluator = async ({
   metaCaseCode,
   internalTestCode,
-  metaLabel,
-  challengeLabel,
   metaTestId,
   evalResultShouldBe,
   internalTest,
   removeComments,
 }: runTestEvaluatorProps) => {
   const setShortError = () => {
-    evalError.stack = `${evalError.stack.substring(
-      0,
-      250
-    )} --- (End of Abridged Error)`;
+    return `${evalError.stack.substring(0, 250)} --- (End of Abridged Error)`;
   };
 
   const setNoError = () => {
-    evalError = "no eval() error detected";
+    return "no eval() error detected";
   };
 
-  const determineReturnObject = () => {
+  const assignReturnObject = () => {
+    let userPassed = null;
+    let description;
+
     switch (true) {
-      case userShouldPass === false:
-        descriptionMessage = `FAIL: Failing Examples currently not supported`;
+      case evalResultShouldBe === false:
+        description = `FAIL: Failing Examples currently not supported`;
         userPassed = false;
-        evalError ? setShortError() : setNoError();
+        evalError = evalError ? setShortError() : setNoError();
         break;
-      case typeof result === "string":
-        descriptionMessage = `FAIL: EvalResultType should be 'boolean', but currently is 'string', 
-        \nSuggestion: Check for extra quotes around internal/metaCaseCodes`;
+      case typeof evalResult === "string":
+        description = `FAIL: EvalResultType should be 'boolean', but currently is 'string',\nSuggestion: Check for extra quotes around internal/metaCaseCodes`;
         userPassed = false;
-        setNoError();
+        evalError = evalError ? setShortError() : setNoError();
         break;
-      case typeof result !== "boolean" && typeof result !== "string":
-        descriptionMessage = `FAIL: EvalResultType should always be 'boolean' but is currently '${typeof result}'.`;
+      case typeof evalResult !== "boolean" && typeof evalResult !== "string":
+        description = `FAIL: EvalResultType should always be 'boolean' but is currently '${typeof evalResult}'.`;
+        userPassed = false;
+        evalError = evalError ? setShortError() : setNoError();
+        break;
+      case evalResult === true:
+        description = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are 'true', as EXPECTED`;
         userPassed = true;
-        setNoError();
+        evalError = evalError ? setShortError() : setNoError();
         break;
-      case result === true:
-        descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are 'true', as EXPECTED`;
-        userPassed = true;
-        setNoError();
-        break;
-      case result === false:
-        descriptionMessage = `FAIL: metaTest ${metaTestId} & internalTest ${internalTest.id} 'false', which is UNEXPECTED`;
+      case evalResult === false:
+        description = `FAIL: metaTest ${metaTestId} & internalTest ${internalTest.id} 'false', which is UNEXPECTED`;
         userPassed = false;
-        setNoError();
+        evalError = evalError ? setShortError() : setNoError();
         break;
     }
+    return {
+      evalError: evalError,
+      userPassed: userPassed,
+      description: description,
+      evalResultType: typeof evalResult,
+      evalResult: evalResult,
+    };
   };
-  // evalResultShouldBe is renamed to userShouldPass to improve readability on output vs this file
 
-  let userPassed = null;
-  let userShouldPass = evalResultShouldBe;
-  let descriptionMessage;
-  let result: unknown;
-  let evalError: unknown = null;
-
+  let evalResult: unknown;
+  let evalError: Error | string;
   const formattedCode = getCode(metaCaseCode, removeComments);
   const logs = [] as Array<unknown>;
 
@@ -89,26 +88,15 @@ export const runTestEvaluator = async ({
     // @ts-expect-error will fix later
     const context = getEvaluationContext(formattedCode, logs);
 
-    result = evaluateWithContext(
+    evalResult = evaluateWithContext(
       `${formattedCode};
       ${internalTestCode};`,
       context
     );
   } catch (err) {
     evalError = err;
-  } finally {
-    determineReturnObject();
   }
-  restoreConsoleLog();
-  return {
-    error: evalError,
-    userPassed: userPassed,
-    description: descriptionMessage,
-    evalResultType: typeof result,
-    evalResult: result,
-  };
-};
 
-if (typeof self !== "undefined") {
-  self.postMessage({ type: "contentLoaded" });
-}
+  restoreConsoleLog();
+  return assignReturnObject();
+};
