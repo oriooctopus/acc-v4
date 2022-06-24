@@ -45,7 +45,7 @@ export const runTestEvaluator = async ({
         userPassed = false;
         evalError ? setShortError() : setNoError();
         break;
-      case typeof result !== "boolean" && typeof result === "string":
+      case typeof result === "string":
         descriptionMessage = `FAIL: EvalResultType should be 'boolean', but currently is 'string', 
         \nSuggestion: Check for extra quotes around internal/metaCaseCodes`;
         userPassed = false;
@@ -56,13 +56,13 @@ export const runTestEvaluator = async ({
         userPassed = true;
         setNoError();
         break;
-      case typeof result === "boolean" && result && userShouldPass:
-        descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are '${result}', as EXPECTED`;
+      case result === true:
+        descriptionMessage = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are 'true', as EXPECTED`;
         userPassed = true;
         setNoError();
         break;
-      case typeof result === "boolean" && result !== userShouldPass:
-        descriptionMessage = `FAIL: metaTest evalResult is: '${result}', which is UNEXPECTED`;
+      case result === false:
+        descriptionMessage = `FAIL: metaTest ${metaTestId} & internalTest ${internalTest.id} 'false', which is UNEXPECTED`;
         userPassed = false;
         setNoError();
         break;
@@ -73,8 +73,8 @@ export const runTestEvaluator = async ({
   let userPassed = null;
   let userShouldPass = evalResultShouldBe;
   let descriptionMessage;
-  let result;
-  let evalError = null;
+  let result: unknown;
+  let evalError: unknown = null;
 
   const formattedCode = getCode(metaCaseCode, removeComments);
   const logs = [] as Array<unknown>;
