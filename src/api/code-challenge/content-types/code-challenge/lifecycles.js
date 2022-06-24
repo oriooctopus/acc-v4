@@ -1,8 +1,9 @@
 const pMap = require("p-map");
+const pick = require("lodash/pick");
 const { removeEmpty } = require("../code-challenge/general");
 const { runTestEvaluator } = require("../code-challenge/test-evaluator");
 const { handleInternalLabel } = require("../../../../utils/general");
-const pick = require("lodash/pick");
+const { compareIds } = require("../code-challenge/utils");
 
 const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
   const [internalTests, metaTests] = await Promise.all([
@@ -111,16 +112,6 @@ async function getMetaTests(eventMetaTests) {
     },
   });
   return metaTests.sort(compareIds);
-}
-
-function compareIds(a, b) {
-  if (a.id < b.id) {
-    return -1;
-  }
-  if (a.id > b.id) {
-    return 1;
-  }
-  return 0;
 }
 
 const beforeCreateOrUpdate = async (event) => {
