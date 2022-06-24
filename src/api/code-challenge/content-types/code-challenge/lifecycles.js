@@ -5,7 +5,11 @@ const { runTestEvaluator } = require("../code-challenge/test-evaluator");
 const { handleInternalLabel } = require("../../../../utils/general");
 const { compareIds } = require("../code-challenge/utils");
 
-const iterateMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
+const conductMetaTestsOnTests = async (
+  eventTests,
+  eventMetaTests,
+  challengeLabel
+) => {
   const [internalTests, metaTests] = await Promise.all([
     getInternalTests(eventTests),
     getMetaTests(eventMetaTests),
@@ -117,7 +121,7 @@ async function getMetaTests(eventMetaTests) {
 const beforeCreateOrUpdate = async (event) => {
   // const internalLabel = await getInternalLabel(event);
   // event.params.data.internalLabel = internalLabel;
-  iterateMetaTests(
+  conductMetaTestsOnTests(
     event.params.data.tests,
     event.params.data.MetaTest,
     event.params.data.internalLabel
