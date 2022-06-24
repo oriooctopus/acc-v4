@@ -25,10 +25,6 @@ export const restoreConsoleLog = () => {
   console.log = console.standardLog;
 };
 
-interface IFindFirstPassingLineForCondition {
-  condition: string;
-}
-
 const getCodeEvaluationHelpers = (
   logs: Array<Array<unknown>>,
   codeString: string
@@ -47,7 +43,9 @@ const getCodeEvaluationHelpers = (
      */
     findFirstPassingLineForCondition: ({
       condition,
-    }: IFindFirstPassingLineForCondition) => {
+    }: {
+      condition: string;
+    }) => {
       debugger;
       const splitCodeString = codeString.split("\n");
       let codeToEvaluate = "";
@@ -57,8 +55,11 @@ const getCodeEvaluationHelpers = (
         codeToEvaluate += i === 0 ? currentLine : `\n${currentLine}`;
         const context = getEvaluationContext(codeToEvaluate);
         const codeWithCondition = `${codeToEvaluate}\n${condition}`;
-
-        if (evaluateWithContext(codeWithCondition, context)) {
+        const evalResultWithContext = evaluateWithContext(
+          codeWithCondition,
+          context
+        );
+        if (evalResultWithContext) {
           return {
             index: i,
             passed: true,
