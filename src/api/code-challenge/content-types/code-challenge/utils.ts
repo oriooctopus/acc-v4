@@ -1,27 +1,21 @@
-// Import filepaths changed from original
 import { removeJSComments } from "../code-challenge/curriculum-helpers";
-import { getErrorMessage } from "../code-challenge/general";
 
 type consoleLogOverride = (data: unknown[]) => void;
 
 export const overrideConsoleLog = (override: consoleLogOverride) => {
-  // @ts-expect-error will fix later
   console.standardLog = console.log;
   console.log = (...data: unknown[]) => {
     override(data);
-    // @ts-expect-error will fix later
-    console.standardLog.apply(console, data); // eslint-disable-line prefer-spread
+    console.standardLog.apply(console, data);
   };
 };
 
 export const restoreConsoleLog = () => {
-  // @ts-expect-error will fix later
   if (!console.standardLog) {
     throw new Error(
       "Attempted to restore console.log but it has never been overwritten"
     );
   }
-  // @ts-expect-error will fix later
   console.log = console.standardLog;
 };
 
@@ -30,17 +24,12 @@ const getCodeEvaluationHelpers = (
   codeString: string
 ) => {
   const helpers = {
-    // right now this only works with primitives
     wasLoggedToConsole: (val: unknown) => {
       return logs.some((logGroup) => logGroup.some((log) => log === val));
     },
     wasFunctionInvoked: (functionName: string) => {
       return codeString.trim().includes(`${functionName}()`);
     },
-    /**
-     * Evaluates a condition for each line of the provided code.
-     * Upon finding a line that passes it returns that line's index
-     */
     findFirstPassingLineForCondition: ({
       condition,
     }: {
@@ -98,40 +87,6 @@ export const getEvaluationContext = (
 export const getCode = (code = "", removeComments?: boolean) =>
   removeComments ? removeJSComments(code) : code;
 
-export const getConsoleLogsFromCodeEvaluation = (
-  code: string | undefined
-): Array<string> => {
-  if (code === undefined) {
-    return [];
-  }
-
-  const context = getEvaluationContext(code);
-  const logs = [] as Array<string>;
-  // Disabled for debugging test-evaluator
-
-  overrideConsoleLog((...args) => {
-    logs.push(args.toString());
-    // @ts-expect-error will fix later
-    console.standardLog("args", ...args);
-  });
-
-  try {
-    evaluateWithContext(
-      `
-    ${code};
-  `,
-      context
-    );
-  } catch (e) {
-    logs.push(getErrorMessage(e));
-  }
-  // Disabled for debugging test-evaluator
-
-  restoreConsoleLog();
-  return logs;
-};
-
-// TODO: type context
 export const evaluateWithContext = (code: string, context = {}) => {
   return function evaluateEval() {
     const contextStr = Object.keys(context)
