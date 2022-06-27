@@ -5,7 +5,8 @@ const { runTestEvaluator } = require("../code-challenge/test-evaluator");
 const { handleInternalLabel } = require("../../../../utils/general");
 const { compareIds } = require("../code-challenge/utils");
 
-const runMetaTests = async (eventTests, eventMetaTests, challengeLabel) => {
+const runMetaTests = async (eventParams) => {
+  const { eventTests, eventMetaTests, challengeLabel } = eventParams;
   const [internalTests, metaTests] = await Promise.all([
     getInternalTests(eventTests),
     getMetaTests(eventMetaTests),
@@ -42,7 +43,7 @@ const executeTests = async (
     async (internalTest) => {
       const {
         label: internalTestLabel,
-        internalTestCode: internalTestCode,
+        internalTestCode,
         id: internalTestId,
       } = internalTest;
 
@@ -59,22 +60,17 @@ const executeTests = async (
         evalResultShouldBe,
       });
       return {
-        short: {
-          description: null,
-          ...pick(testEvaluatorResults, ["description"]),
+        message: {
+          description: testEvaluatorResults.description,
         },
-        long: {
+        debugInfo: {
           challengeLabel,
           metaTestId,
           internalTestId,
           internalTestLabel,
-          userPassed: null,
-          evalResultType: null,
-          ...pick(testEvaluatorResults, [
-            "evalResultType",
-            "userPassed",
-            "evalError",
-          ]),
+          userPassed: testEvaluatorResults.userPassed,
+          evalResultType: testEvaluatorResults.evalResultType,
+          evalError: testEvaluatorResults.evalError,
         },
       };
     }
@@ -90,11 +86,9 @@ async function getInternalTests(eventTests) {
         id: eventTests.map(({ id: testId }) => testId),
       },
     });
-
-  // Originally, the content of internalTest === internalTestCode in strapi.
-  // I renamed internalTest to internalTestCode for clarity in lifecycles.js & test-evaluator.ts
-  // This renamed variable makes: (internalTestCode vs internalTestLabel vs internalTestId) the children of internalTestPackage
-
+  /* Originally, the content of internalTest === internalTestCode in strapi.
+ I renamed internalTest to internalTestCode for clarity in lifecycles.js & test-evaluator.ts
+ This renamed variable makes: (internalTestCode vs internalTestLabel vs internalTestId) the children of internalTestPackage */
   return internalTests
     .map((internalTestPackage) => {
       internalTestPackage.internalTestCode = internalTestPackage.internalTest;
@@ -115,13 +109,12 @@ async function getMetaTests(eventMetaTests) {
 }
 
 const beforeCreateOrUpdate = async (event) => {
-  // const internalLabel = await getInternalLabel(event);
-  // event.params.data.internalLabel = internalLabel;
-  runMetaTests(
-    event.params.data.tests,
-    event.params.data.MetaTest,
-    event.params.data.internalLabel
-  );
+  const eventParams = {
+    eventTests: event.params.data.tests,
+    eventMetaTests: event.params.data.MetaTest,
+    challengeLabel: event.params.data.internalLabel,
+  };
+  runMetaTests(eventParams);
 };
 
 module.exports = {
