@@ -1,3 +1,5 @@
+import strip from "strip-comments";
+
 export const removeJSComments = (codeStr: string): string => {
   // TODO: publish type declarations and reenable eslint
   try {

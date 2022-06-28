@@ -26,7 +26,9 @@ export const runTestEvaluator = async ({
   removeComments,
 }: runTestEvaluatorProps) => {
   const getShortError = () => {
-    return `${evalError.stack.substring(0, 250)} --- (End of Abridged Error)`; // TS Compile Error: Object is of type 'unknown'.
+    return `${evalError.stack
+      ?.toString()
+      .substring(0, 250)} --- (End of Abridged Error)`; // TS Compile Error: Object is of type 'unknown'.
   };
 
   const getNoError = () => {
@@ -41,9 +43,9 @@ export const runTestEvaluator = async ({
       case evalResultShouldBe === false:
         description = `FAIL: Failing Examples currently not supported`;
         userPassed = false;
-        evalError = evalError ? getShortError() : getNoError();
+        // evalError = evalError ? getShortError() : getNoError();
         return {
-          evalError: evalError,
+          evalError: evalError ? getShortError() : getNoError(),
           userPassed: userPassed,
           description: description,
           evalResultType: typeof evalResult,
@@ -52,9 +54,9 @@ export const runTestEvaluator = async ({
       case typeof evalResult === "string":
         description = `FAIL: EvalResultType should be 'boolean', but currently is 'string',\nSuggestion: Check for extra quotes around internal/metaCaseCodes`;
         userPassed = false;
-        evalError = evalError ? getShortError() : getNoError();
+        // evalError = evalError ? getShortError() : getNoError();
         return {
-          evalError: evalError,
+          evalError: evalError ? getShortError() : getNoError(),
           userPassed: userPassed,
           description: description,
           evalResultType: typeof evalResult,
@@ -63,9 +65,9 @@ export const runTestEvaluator = async ({
       case typeof evalResult !== "boolean" && typeof evalResult !== "string":
         description = `FAIL: EvalResultType should always be 'boolean' but is currently '${typeof evalResult}'.`;
         userPassed = false;
-        evalError = evalError ? getShortError() : getNoError();
+        // evalError = evalError ? getShortError() : getNoError();
         return {
-          evalError: evalError,
+          evalError: evalError ? getShortError() : getNoError(),
           userPassed: userPassed,
           description: description,
           evalResultType: typeof evalResult,
@@ -74,9 +76,9 @@ export const runTestEvaluator = async ({
       case evalResult === true:
         description = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are 'true', as EXPECTED`;
         userPassed = true;
-        evalError = evalError ? getShortError() : getNoError();
+        // evalError = evalError ? getShortError() : getNoError();
         return {
-          evalError: evalError,
+          evalError: evalError ? getShortError() : getNoError(),
           userPassed: userPassed,
           description: description,
           evalResultType: typeof evalResult,
@@ -85,9 +87,9 @@ export const runTestEvaluator = async ({
       case evalResult === false:
         description = `FAIL: metaTest ${metaTestId} & internalTest ${internalTest.id} 'false', which is UNEXPECTED`;
         userPassed = false;
-        evalError = evalError ? getShortError() : getNoError();
+        // evalError = evalError ? getShortError() : getNoError();
         return {
-          evalError: evalError,
+          evalError: evalError ? getShortError() : getNoError(),
           userPassed: userPassed,
           description: description,
           evalResultType: typeof evalResult,
@@ -97,9 +99,9 @@ export const runTestEvaluator = async ({
   };
 
   let evalResult: unknown;
-  let evalError: unknown; // evalError is declared here with unknown type
+  let evalError: Error; // evalError is declared here with unknown type
   const formattedCode = getCode(metaCaseCode, removeComments);
-  const logs = [] as Array<string>;
+  const logs = [] as Array<unknown>; // Fix this
 
   overrideConsoleLog((args) => {
     logs.push(args);
@@ -117,7 +119,9 @@ export const runTestEvaluator = async ({
       context
     );
   } catch (err) {
-    evalError = err; // evalError is assigned here with either type Error Object or undefined if no "err" is caught
+    if (err instanceof Error) {
+      evalError = err;
+    }
   }
 
   restoreConsoleLog();

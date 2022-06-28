@@ -2395,6 +2395,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/strip-comments@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/strip-comments/-/strip-comments-2.0.1.tgz#0395c848a57e679c221b6bf48f87433dc4389b50"
+  integrity sha512-7xjBu+wvKSRHSmgZoRAfUBZMIupd7634b2+uI2qeBDUvfoX+VELjuWCzlL6CF40eG/TGKwU+pqoJfvcvs3fzKA==
+
 "@types/through@*":
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/through/-/through-0.0.30.tgz#e0e42ce77e897bd6aead6f6ea62aeb135b8a3895"
