@@ -11,6 +11,8 @@ const runMetaTests = async (eventParams) => {
     getInternalTests(eventTests),
     getMetaTests(eventMetaTests),
   ]);
+  console.log("<internalTests after get1> ", internalTests);
+
   for (let i = 0; i < metaTests.length; i++) {
     let metaTestResult = await executeTests(
       metaTests[i].caseCode,
@@ -41,13 +43,17 @@ const executeTests = async (
   return pMap(
     internalTests?.filter(removeEmpty) || [],
     async (internalTest) => {
-      const {
-        label: internalTestLabel,
-        internalTestCode,
-        id: internalTestId,
-      } = internalTest;
+      // const {
+      //   label: internalTestLabel,
+      //   internalTestCode,
+      //   id: internalTestId,
+      // } = internalTest;
 
-      // console.log("<internalTest pMap> ", internalTest);
+      const internalTestLabel = internalTest.label;
+      const internalTestCode = internalTest.internalTestCode;
+      const internalTestId = internalTest.id;
+
+      console.log("<internalTest after get2> ", internalTest);
       // console.log("newTest name: ", newTest);
 
       const testEvaluatorResults = await runTestEvaluator({
@@ -86,16 +92,24 @@ async function getInternalTests(eventTests) {
         id: eventTests.map(({ id: testId }) => testId),
       },
     });
-  /* Originally, the content of internalTest === internalTestCode in strapi.
- I renamed internalTest to internalTestCode for clarity in lifecycles.js & test-evaluator.ts
- This renamed variable makes: (internalTestCode vs internalTestLabel vs internalTestId) the children of internalTestPackage */
-  return internalTests
-    .map((internalTestPackage) => {
-      internalTestPackage.internalTestCode = internalTestPackage.internalTest;
-      delete internalTestPackage.internalTest;
-      return internalTestPackage;
-    })
-    .sort(compareIds);
+
+  let sortedInternalTests = internalTests.sort(compareIds);
+
+  console.log("<sortedInternalTests1>", sortedInternalTests);
+
+  let internalTestPackages = internalTests.map((e) => {
+    // console.log("<e> ", e);
+    e.internalTestCode = e.internalTest;
+    // delete e.internalTest;
+    return e;
+  });
+  // .sort(compareIds);
+
+  console.log("<sortedInternalTests2>", sortedInternalTests);
+
+  // console.log("<internalTestPackages> ", internalTestPackages);
+
+  return sortedInternalTests;
 }
 
 async function getMetaTests(eventMetaTests) {
