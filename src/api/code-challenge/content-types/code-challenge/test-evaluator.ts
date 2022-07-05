@@ -13,7 +13,7 @@ type runTestEvaluatorProps = {
   challengeLabel: string;
   metaTestId: number;
   evalResultShouldBe: boolean;
-  internalTest: { id: number };
+  internalTestId: number;
   removeComments?: boolean;
 };
 
@@ -22,7 +22,7 @@ export const runTestEvaluator = async ({
   internalTestCode,
   metaTestId,
   evalResultShouldBe,
-  internalTest,
+  internalTestId,
   removeComments,
 }: runTestEvaluatorProps) => {
   const getShortError = () => {
@@ -74,7 +74,7 @@ export const runTestEvaluator = async ({
           evalResult: evalResult,
         };
       case evalResult === true:
-        description = `SUCCESS: metaTest ${metaTestId} & internalTest ${internalTest.id} are 'true', as EXPECTED`;
+        description = `SUCCESS: metaTestId ${metaTestId} & internalTestId ${internalTestId} are 'true', as EXPECTED`;
         userPassed = true;
         // evalError = evalError ? getShortError() : getNoError();
         return {
@@ -85,7 +85,7 @@ export const runTestEvaluator = async ({
           evalResult: evalResult,
         };
       case evalResult === false:
-        description = `FAIL: metaTest ${metaTestId} & internalTest ${internalTest.id} 'false', which is UNEXPECTED`;
+        description = `FAIL: metaTestId ${metaTestId} & internalTestId ${internalTestId} 'false', which is UNEXPECTED`;
         userPassed = false;
         // evalError = evalError ? getShortError() : getNoError();
         return {

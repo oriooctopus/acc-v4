@@ -62,7 +62,7 @@ const executeTests = async (
         metaLabel,
         challengeLabel,
         metaTestId,
-        internalTest,
+        internalTestId,
         evalResultShouldBe,
       });
       return {
