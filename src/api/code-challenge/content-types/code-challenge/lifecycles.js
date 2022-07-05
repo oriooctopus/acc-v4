@@ -45,15 +45,15 @@ const executeTests = async (
     async (internalTest) => {
       // const {
       //   label: internalTestLabel,
-      //   internalTestCode,
+      //   internalTest: internalTestCode,
       //   id: internalTestId,
       // } = internalTest;
 
       const internalTestLabel = internalTest.label;
-      const internalTestCode = internalTest.internalTestCode;
+      const internalTestCode = internalTest.internalTest;
       const internalTestId = internalTest.id;
 
-      console.log("<internalTest after get2> ", internalTest);
+      // console.log("<internalTest after get2> ", internalTest);
       // console.log("newTest name: ", newTest);
 
       const testEvaluatorResults = await runTestEvaluator({
@@ -92,24 +92,7 @@ async function getInternalTests(eventTests) {
         id: eventTests.map(({ id: testId }) => testId),
       },
     });
-
-  let sortedInternalTests = internalTests.sort(compareIds);
-
-  console.log("<sortedInternalTests1>", sortedInternalTests);
-
-  let internalTestPackages = internalTests.map((e) => {
-    // console.log("<e> ", e);
-    e.internalTestCode = e.internalTest;
-    // delete e.internalTest;
-    return e;
-  });
-  // .sort(compareIds);
-
-  console.log("<sortedInternalTests2>", sortedInternalTests);
-
-  // console.log("<internalTestPackages> ", internalTestPackages);
-
-  return sortedInternalTests;
+  return internalTests.sort(compareIds);
 }
 
 async function getMetaTests(eventMetaTests) {

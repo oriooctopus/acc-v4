@@ -112,7 +112,7 @@ export const runTestEvaluator = async ({
   try {
     // @ts-expect-error will fix later
     const context = getEvaluationContext(formattedCode, logs);
-
+    // console.log("eval args\n", formattedCode, "\n", internalTestCode);
     evalResult = evaluateWithContext(
       `${formattedCode};
       ${internalTestCode};`,
