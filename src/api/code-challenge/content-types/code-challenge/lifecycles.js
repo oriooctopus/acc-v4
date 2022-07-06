@@ -11,7 +11,6 @@ const runMetaTests = async (eventParams) => {
     getInternalTests(eventTests),
     getMetaTests(eventMetaTests),
   ]);
-  console.log("<internalTests after get1> ", internalTests);
 
   for (let i = 0; i < metaTests.length; i++) {
     let metaTestResult = await executeTests(
@@ -43,22 +42,17 @@ const executeTests = async (
   return pMap(
     internalTests?.filter(removeEmpty) || [],
     async (internalTest) => {
-      // const {
-      //   label: internalTestLabel,
-      //   internalTest: internalTestCode,
-      //   id: internalTestId,
-      // } = internalTest;
-
       const internalTestLabel = internalTest.label;
+      // Rename function is gone,
+      // but I am still struggling to rename internalTest.internalTest
       const internalTestCode = internalTest.internalTest;
+      // renaming the property from
+      // `internalTest.internalTest` to `internalTestCode` for clarity
       const internalTestId = internalTest.id;
-
-      // console.log("<internalTest after get2> ", internalTest);
-      // console.log("newTest name: ", newTest);
 
       const testEvaluatorResults = await runTestEvaluator({
         metaCaseCode,
-        internalTestCode,
+        internalTestCode, // internalTest.internalTest invalid here
         metaLabel,
         challengeLabel,
         metaTestId,

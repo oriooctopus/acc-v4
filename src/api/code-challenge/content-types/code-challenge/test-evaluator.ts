@@ -28,7 +28,7 @@ export const runTestEvaluator = async ({
   const getShortError = () => {
     return `${evalError.stack
       ?.toString()
-      .substring(0, 250)} --- (End of Abridged Error)`; // TS Compile Error: Object is of type 'unknown'.
+      .substring(0, 250)} --- (End of Abridged Error)`;
   };
 
   const getNoError = () => {
@@ -38,12 +38,11 @@ export const runTestEvaluator = async ({
   const getMetaTestResultObject = () => {
     let userPassed = null;
     let description;
-    // console.log("<evalError>", evalError);
     switch (true) {
       case evalResultShouldBe === false:
         description = `FAIL: Failing Examples currently not supported`;
         userPassed = false;
-        // evalError = evalError ? getShortError() : getNoError();
+
         return {
           evalError: evalError ? getShortError() : getNoError(),
           userPassed: userPassed,
@@ -54,7 +53,7 @@ export const runTestEvaluator = async ({
       case typeof evalResult === "string":
         description = `FAIL: EvalResultType should be 'boolean', but currently is 'string',\nSuggestion: Check for extra quotes around internal/metaCaseCodes`;
         userPassed = false;
-        // evalError = evalError ? getShortError() : getNoError();
+
         return {
           evalError: evalError ? getShortError() : getNoError(),
           userPassed: userPassed,
@@ -65,7 +64,7 @@ export const runTestEvaluator = async ({
       case typeof evalResult !== "boolean" && typeof evalResult !== "string":
         description = `FAIL: EvalResultType should always be 'boolean' but is currently '${typeof evalResult}'.`;
         userPassed = false;
-        // evalError = evalError ? getShortError() : getNoError();
+
         return {
           evalError: evalError ? getShortError() : getNoError(),
           userPassed: userPassed,
@@ -76,7 +75,7 @@ export const runTestEvaluator = async ({
       case evalResult === true:
         description = `SUCCESS: metaTestId ${metaTestId} & internalTestId ${internalTestId} are 'true', as EXPECTED`;
         userPassed = true;
-        // evalError = evalError ? getShortError() : getNoError();
+
         return {
           evalError: evalError ? getShortError() : getNoError(),
           userPassed: userPassed,
@@ -87,7 +86,7 @@ export const runTestEvaluator = async ({
       case evalResult === false:
         description = `FAIL: metaTestId ${metaTestId} & internalTestId ${internalTestId} 'false', which is UNEXPECTED`;
         userPassed = false;
-        // evalError = evalError ? getShortError() : getNoError();
+
         return {
           evalError: evalError ? getShortError() : getNoError(),
           userPassed: userPassed,
@@ -99,7 +98,7 @@ export const runTestEvaluator = async ({
   };
 
   let evalResult: unknown;
-  let evalError: Error; // evalError is declared here with unknown type
+  let evalError: Error;
   const formattedCode = getCode(metaCaseCode, removeComments);
   const logs = [] as Array<unknown>; // Fix this
 
@@ -112,7 +111,6 @@ export const runTestEvaluator = async ({
   try {
     // @ts-expect-error will fix later
     const context = getEvaluationContext(formattedCode, logs);
-    // console.log("eval args\n", formattedCode, "\n", internalTestCode);
     evalResult = evaluateWithContext(
       `${formattedCode};
       ${internalTestCode};`,
@@ -125,5 +123,6 @@ export const runTestEvaluator = async ({
   }
 
   restoreConsoleLog();
+
   return getMetaTestResultObject();
 };
