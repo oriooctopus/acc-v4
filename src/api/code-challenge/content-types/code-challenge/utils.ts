@@ -68,6 +68,7 @@ const getCodeEvaluationHelpers = (
       else return helpers.removeWhitespace(string, i + 1, (res += string[i]));
     },
   };
+
   return helpers;
 };
 
@@ -76,6 +77,7 @@ export const getEvaluationContext = (
   logs: Array<Array<unknown>> = []
 ) => {
   const _codeString = `${code}`;
+
   return {
     _codeEvaluationHelpers: getCodeEvaluationHelpers(logs, _codeString),
     _helpers: getCodeEvaluationHelpers(logs, _codeString),
@@ -107,5 +109,6 @@ export const compareIds = (a: { id: number }, b: { id: number }) => {
   if (a.id > b.id) {
     return 1;
   }
+
   return 0;
 };

@@ -5,8 +5,7 @@ const { runTestEvaluator } = require("../code-challenge/test-evaluator");
 const { handleInternalLabel } = require("../../../../utils/general");
 const { compareIds } = require("../code-challenge/utils");
 
-const runMetaTests = async (eventParams) => {
-  const { eventTests, eventMetaTests, challengeLabel } = eventParams;
+const runMetaTests = async ({ eventTests, eventMetaTests, challengeLabel }) => {
   const [internalTests, metaTests] = await Promise.all([
     getInternalTests(eventTests),
     getMetaTests(eventMetaTests),
@@ -23,7 +22,7 @@ const runMetaTests = async (eventParams) => {
     );
 
     // MetaTest Final Results being logged to Console.
-    await console.log(
+    console.log(
       `\n\n<"${metaTests[i].label}" METATEST #${metaTests[i].id}> \n\n`,
       metaTestResult,
       "\n\n"
@@ -59,10 +58,9 @@ const executeTests = async (
         internalTestId,
         evalResultShouldBe,
       });
+
       return {
-        message: {
-          description: testEvaluatorResults.description,
-        },
+        message: testEvaluatorResults.description,
         debugInfo: {
           challengeLabel,
           metaTestId,
@@ -86,6 +84,7 @@ async function getInternalTests(eventTests) {
         id: eventTests.map(({ id: testId }) => testId),
       },
     });
+
   return internalTests.sort(compareIds);
 }
 
@@ -96,6 +95,7 @@ async function getMetaTests(eventMetaTests) {
       id: eventMetaTests.map(({ id: metaId }) => metaId),
     },
   });
+
   return metaTests.sort(compareIds);
 }
 
