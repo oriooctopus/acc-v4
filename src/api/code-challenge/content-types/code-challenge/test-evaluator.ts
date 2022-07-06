@@ -36,61 +36,44 @@ export const runTestEvaluator = async ({
   };
 
   const getMetaTestResultObject = () => {
-    let userPassed = null;
-    let description;
     switch (true) {
       case evalResultShouldBe === false:
-        description = `FAIL: Failing Examples currently not supported`;
-        userPassed = false;
-
         return {
           evalError: evalError ? getShortError() : getNoError(),
-          userPassed: userPassed,
-          description: description,
+          userPassed: false,
+          description: `FAIL: Failing Examples currently not supported`,
           evalResultType: typeof evalResult,
           evalResult: evalResult,
         };
       case typeof evalResult === "string":
-        description = `FAIL: EvalResultType should be 'boolean', but currently is 'string',\nSuggestion: Check for extra quotes around internal/metaCaseCodes`;
-        userPassed = false;
-
         return {
           evalError: evalError ? getShortError() : getNoError(),
-          userPassed: userPassed,
-          description: description,
+          userPassed: false,
+          description: `FAIL: EvalResultType should be 'boolean', but currently is 'string',\nSuggestion: Check for extra quotes around internal/metaCaseCodes`,
           evalResultType: typeof evalResult,
           evalResult: evalResult,
         };
       case typeof evalResult !== "boolean" && typeof evalResult !== "string":
-        description = `FAIL: EvalResultType should always be 'boolean' but is currently '${typeof evalResult}'.`;
-        userPassed = false;
-
         return {
           evalError: evalError ? getShortError() : getNoError(),
-          userPassed: userPassed,
-          description: description,
+          userPassed: false,
+          description: `FAIL: EvalResultType should always be 'boolean' but is currently '${typeof evalResult}'.`,
           evalResultType: typeof evalResult,
           evalResult: evalResult,
         };
       case evalResult === true:
-        description = `SUCCESS: metaTestId ${metaTestId} & internalTestId ${internalTestId} are 'true', as EXPECTED`;
-        userPassed = true;
-
         return {
           evalError: evalError ? getShortError() : getNoError(),
-          userPassed: userPassed,
-          description: description,
+          userPassed: false,
+          description: `SUCCESS: metaTestId ${metaTestId} & internalTestId ${internalTestId} are 'true', as EXPECTED`,
           evalResultType: typeof evalResult,
           evalResult: evalResult,
         };
       case evalResult === false:
-        description = `FAIL: metaTestId ${metaTestId} & internalTestId ${internalTestId} 'false', which is UNEXPECTED`;
-        userPassed = false;
-
         return {
           evalError: evalError ? getShortError() : getNoError(),
-          userPassed: userPassed,
-          description: description,
+          userPassed: false,
+          description: `FAIL: metaTestId ${metaTestId} & internalTestId ${internalTestId} 'false', which is UNEXPECTED`,
           evalResultType: typeof evalResult,
           evalResult: evalResult,
         };
@@ -100,7 +83,7 @@ export const runTestEvaluator = async ({
   let evalResult: unknown;
   let evalError: Error;
   const formattedCode = getCode(metaCaseCode, removeComments);
-  const logs = [] as Array<unknown>; // Fix this
+  const logs = [] as Array<unknown>;
 
   overrideConsoleLog((args) => {
     logs.push(args);

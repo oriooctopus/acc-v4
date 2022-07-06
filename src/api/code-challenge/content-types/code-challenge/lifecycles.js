@@ -1,7 +1,4 @@
-const pMap = require("p-map");
-const pick = require("lodash/pick");
-const { removeEmpty } = require("../code-challenge/general");
-const { runTestEvaluator } = require("../code-challenge/test-evaluator");
+const { executeTests } = require("../code-challenge/test-executor");
 const { handleInternalLabel } = require("../../../../utils/general");
 const { compareIds } = require("../code-challenge/utils");
 
@@ -12,67 +9,27 @@ const runMetaTests = async ({ eventTests, eventMetaTests, challengeLabel }) => {
   ]);
 
   for (let i = 0; i < metaTests.length; i++) {
-    let metaTestResult = await executeTests(
-      metaTests[i].caseCode,
-      internalTests,
-      metaTests[i].label,
-      challengeLabel,
-      metaTests[i].id,
-      metaTests[i].passes
-    );
+    const metaCaseCode = metaTests[i].caseCode;
+    const metaLabel = metaTests[i].label;
+    const metaTestId = metaTests[i].id;
+    const evalResultShouldBe = metaTests[i].passes;
 
-    // MetaTest Final Results being logged to Console.
+    let metaTestResult = await executeTests({
+      metaCaseCode,
+      internalTests,
+      metaLabel,
+      challengeLabel,
+      metaTestId,
+      evalResultShouldBe,
+    });
+
+    // Feature: MetaTest Final Results being logged to Console.
     console.log(
       `\n\n<"${metaTests[i].label}" METATEST #${metaTests[i].id}> \n\n`,
       metaTestResult,
       "\n\n"
     );
   }
-};
-
-const executeTests = async (
-  metaCaseCode,
-  internalTests,
-  metaLabel,
-  challengeLabel,
-  metaTestId,
-  evalResultShouldBe
-) => {
-  return pMap(
-    internalTests?.filter(removeEmpty) || [],
-    async (internalTest) => {
-      const internalTestLabel = internalTest.label;
-      // Rename function is gone,
-      // but I am still struggling to rename internalTest.internalTest
-      const internalTestCode = internalTest.internalTest;
-      // renaming the property from
-      // `internalTest.internalTest` to `internalTestCode` for clarity
-      const internalTestId = internalTest.id;
-
-      const testEvaluatorResults = await runTestEvaluator({
-        metaCaseCode,
-        internalTestCode, // internalTest.internalTest invalid here
-        metaLabel,
-        challengeLabel,
-        metaTestId,
-        internalTestId,
-        evalResultShouldBe,
-      });
-
-      return {
-        message: testEvaluatorResults.description,
-        debugInfo: {
-          challengeLabel,
-          metaTestId,
-          internalTestId,
-          internalTestLabel,
-          userPassed: testEvaluatorResults.userPassed,
-          evalResultType: testEvaluatorResults.evalResultType,
-          evalError: testEvaluatorResults.evalError,
-        },
-      };
-    }
-  );
 };
 
 async function getInternalTests(eventTests) {
