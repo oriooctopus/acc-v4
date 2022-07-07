@@ -57,12 +57,11 @@ async function getMetaTests(eventMetaTests) {
 }
 
 const beforeCreateOrUpdate = async (event) => {
-  const eventParams = {
+  runMetaTests({
     eventTests: event.params.data.tests,
     eventMetaTests: event.params.data.MetaTest,
     challengeLabel: event.params.data.internalLabel,
-  };
-  runMetaTests(eventParams);
+  });
 };
 
 module.exports = {

@@ -31,15 +31,11 @@ export const runTestEvaluator = async ({
       .substring(0, 250)} --- (End of Abridged Error)`;
   };
 
-  const getNoError = () => {
-    return "no eval() error detected";
-  };
-
   const getMetaTestResultObject = () => {
     switch (true) {
       case evalResultShouldBe === false:
         return {
-          evalError: evalError ? getShortError() : getNoError(),
+          evalError: evalError ? getShortError() : "no eval() error detected",
           userPassed: false,
           description: `FAIL: Failing Examples currently not supported`,
           evalResultType: typeof evalResult,
@@ -47,23 +43,15 @@ export const runTestEvaluator = async ({
         };
       case typeof evalResult === "string":
         return {
-          evalError: evalError ? getShortError() : getNoError(),
+          evalError: evalError ? getShortError() : "no eval() error detected",
           userPassed: false,
           description: `FAIL: EvalResultType should be 'boolean', but currently is 'string',\nSuggestion: Check for extra quotes around internal/metaCaseCodes`,
           evalResultType: typeof evalResult,
           evalResult: evalResult,
         };
-      case typeof evalResult !== "boolean" && typeof evalResult !== "string":
-        return {
-          evalError: evalError ? getShortError() : getNoError(),
-          userPassed: false,
-          description: `FAIL: EvalResultType should always be 'boolean' but is currently '${typeof evalResult}'.`,
-          evalResultType: typeof evalResult,
-          evalResult: evalResult,
-        };
       case evalResult === true:
         return {
-          evalError: evalError ? getShortError() : getNoError(),
+          evalError: evalError ? getShortError() : "no eval() error detected",
           userPassed: false,
           description: `SUCCESS: metaTestId ${metaTestId} & internalTestId ${internalTestId} are 'true', as EXPECTED`,
           evalResultType: typeof evalResult,
@@ -71,9 +59,17 @@ export const runTestEvaluator = async ({
         };
       case evalResult === false:
         return {
-          evalError: evalError ? getShortError() : getNoError(),
+          evalError: evalError ? getShortError() : "no eval() error detected",
           userPassed: false,
           description: `FAIL: metaTestId ${metaTestId} & internalTestId ${internalTestId} 'false', which is UNEXPECTED`,
+          evalResultType: typeof evalResult,
+          evalResult: evalResult,
+        };
+      default:
+        return {
+          evalError: evalError ? getShortError() : "no eval() error detected",
+          userPassed: false,
+          description: `FAIL: EvalResultType should always be 'boolean' but is currently '${typeof evalResult}'.`,
           evalResultType: typeof evalResult,
           evalResult: evalResult,
         };

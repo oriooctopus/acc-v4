@@ -35,7 +35,6 @@ const getCodeEvaluationHelpers = (
     }: {
       condition: string;
     }) => {
-      debugger;
       const splitCodeString = codeString.split("\n");
       let codeToEvaluate = "";
 
