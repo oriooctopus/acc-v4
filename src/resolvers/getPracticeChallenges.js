@@ -20,8 +20,7 @@ const getRecommendedChallengeIdentifiers = async (sublessonIds) => {
     }
   );
 
-  // now you just need to put them in an object of just typename and id
-  const final = populatedSublessons.flatMap(({ steps }) =>
+  const final = populatedSublessons.flatMap(({ steps, id: sublessonId }) =>
     steps.map(({ codeChallenge, multipleChoiceChallenge, playground }) => {
       if (codeChallenge) {
         return {
@@ -31,7 +30,7 @@ const getRecommendedChallengeIdentifiers = async (sublessonIds) => {
       } else if (multipleChoiceChallenge) {
         return {
           id: multipleChoiceChallenge.id,
-          typename: "multipleChoiceChallenge",
+          typename: "MultipleChoiceChallenge",
         };
       } else if (playground) {
         return {
@@ -40,21 +39,22 @@ const getRecommendedChallengeIdentifiers = async (sublessonIds) => {
         };
       }
 
-      throw new Error("undefined step");
+      throw new Error(
+        `Sublesson of id ${sublessonId} contains a step that does not have any challenges`
+      );
     })
   );
   return final;
 };
 
-const getSublessonIds = async (lessonSlug) => {
+const getSublessonIdsFromLesson = async (lessonSlug) => {
   const populatedSublessons = await strapi.entityService.findMany(
     "api::sublesson.sublesson",
     {
+      populate: ["lesson"],
       filters: {
-        challengeMeta: {
-          lesson: {
-            slug: lessonSlug,
-          },
+        lesson: {
+          slug: lessonSlug,
         },
       },
     }
@@ -96,7 +96,9 @@ module.exports = {
 
     const sublessonIds = sublessonId
       ? [sublessonId]
-      : await getSublessonIds(lessonSlug);
+      : lessonSlug
+      ? await getSublessonIdsFromLesson(lessonSlug)
+      : [];
 
     const recommendedChallengeIdentifiers =
       await getRecommendedChallengeIdentifiers(sublessonIds);
@@ -107,18 +109,22 @@ module.exports = {
         parameters: {
           populate: ["challengeMeta.sublesson", "challengeMeta.lesson"],
           filters: {
-            challengeMeta: {
-              ...insertPropertiesIf(sublessonIds.length, {
-                sublesson: {
-                  id: sublessonIds,
+            $or: [
+              insertPropertiesIf(sublessonIds.length, {
+                challengeMeta: {
+                  sublesson: {
+                    id: sublessonIds,
+                  },
                 },
               }),
-              ...insertPropertiesIf(lessonSlug, {
-                lesson: {
-                  slug: lessonSlug,
+              insertPropertiesIf(lessonSlug, {
+                challengeMeta: {
+                  lesson: {
+                    slug: lessonSlug,
+                  },
                 },
               }),
-            },
+            ],
           },
         },
       }),

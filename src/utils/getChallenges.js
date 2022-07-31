@@ -7,10 +7,10 @@ const __typenames = [
     apiReference: "api::multiple-choice-challenge.multiple-choice-challenge",
     typename: "MultipleChoiceChallengeEntity",
   },
-  {
-    apiReference: "api::playground.playground",
-    typename: "PlaygroundEntity",
-  },
+  // {
+  //   apiReference: "api::playground.playground",
+  //   typename: "PlaygroundEntity",
+  // },
 ];
 
 const getTypenameWithoutEntity = (typename) =>
