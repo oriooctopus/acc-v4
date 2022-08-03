@@ -1,25 +1,18 @@
 const parse = require("pg-connection-string").parse;
-const config = process.env.DATABASE_URL ? parse(process.env.DATABASE_URL) : {};
-
-const isProduction = true;
-
-console.log("is production?", isProduction);
-
-console.log("THIS IS THE CONFIG", config);
+const databaseUrl = process.env.DATABASE_URL
+  ? parse(process.env.DATABASE_URL)
+  : {};
 
 module.exports = ({ env }) => ({
   connection: {
     client: "postgres",
     connection: {
-      // I'm pretty sure env is a helper and can help me get rid of ||
-      host: config.host || env("DATABASE_HOST", "127.0.0.1"),
-      port: config.port || env.int("DATABASE_PORT", 5432),
-      database: config.database || env("DATABASE_NAME", "acc-v4"),
-      user: config.user || env("DATABASE_USERNAME", "acc-v4"),
-      password: config.password || env("DATABASE_PASSWORD", "password"),
-      // ssl: config.sslEnabled || env.bool("DATABASE_SSL", false),
-      // ssl: true,
-      ssl: isProduction
+      host: databaseUrl.host || "127.0.0.1",
+      port: databaseUrl.port || 5432,
+      database: databaseUrl.database || env("DATABASE_NAME", "postgres"),
+      user: databaseUrl.user || env("DATABASE_USER", "postgres"),
+      password: databaseUrl.password || env("DATABASE_PASSWORD", "password"),
+      ssl: env.bool("IS_PRODUCTION", false)
         ? {
             rejectUnauthorized: false,
           }

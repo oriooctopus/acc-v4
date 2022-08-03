@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_project_project_steps",
+  "info": {
+    "displayName": "projectSteps",
+    "icon": "arrow-down",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "useNewCodeContext": {
+      "type": "boolean"
+    },
+    "codeChallenge": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::code-challenge.code-challenge"
+    },
+    "playground": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::playground.playground"
+    }
+  }
+}

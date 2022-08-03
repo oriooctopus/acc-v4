@@ -1,0 +1,100 @@
+{
+  "key": "plugin_content_manager_configuration_components::project.project-steps",
+  "value": {
+    "uid": "project.project-steps",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "id",
+      "defaultSortBy": "id",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "Id",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "useNewCodeContext": {
+        "edit": {
+          "label": "useNewCodeContext",
+          "description": "Irrelevant on the first step as there will always be a new code context at the beginning",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "useNewCodeContext",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "codeChallenge": {
+        "edit": {
+          "label": "codeChallenge",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "codeChallenge",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "playground": {
+        "edit": {
+          "label": "playground",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "playground",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "useNewCodeContext",
+        "codeChallenge",
+        "playground"
+      ],
+      "edit": [
+        [
+          {
+            "name": "useNewCodeContext",
+            "size": 4
+          },
+          {
+            "name": "codeChallenge",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "playground",
+            "size": 6
+          }
+        ]
+      ],
+      "editRelations": []
+    },
+    "isComponent": true
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

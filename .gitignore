@@ -82,6 +82,7 @@ ssl
 nbproject
 public/uploads/*
 !public/uploads/.gitkeep
+.vscode/
 
 ############################
 # Node.js
@@ -103,6 +104,13 @@ testApp
 coverage
 
 ############################
+# Meta Tests
+############################
+
+src/api/code-challenge/content-types/code-challenge/*.js
+!src/api/code-challenge/content-types/code-challenge/lifecycles.js
+
+############################
 # Strapi
 ############################
 
@@ -112,3 +120,4 @@ exports
 *.cache
 build
 .strapi-updater.json
+

@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_content_steps",
+  "info": {
+    "displayName": "steps",
+    "icon": "bacon",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "codeChallenge": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::code-challenge.code-challenge"
+    },
+    "multipleChoiceChallenge": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::multiple-choice-challenge.multiple-choice-challenge"
+    },
+    "playground": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::playground.playground"
+    }
+  }
+}

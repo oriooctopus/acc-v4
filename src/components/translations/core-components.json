@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_translations_core_components",
+  "info": {
+    "displayName": "coreComponents",
+    "icon": "angry",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "backButton": {
+      "type": "string"
+    },
+    "nextButton": {
+      "type": "string"
+    },
+    "wefwe": {
+      "displayName": "withinComponent",
+      "type": "component",
+      "repeatable": false,
+      "component": "translations.within-component"
+    }
+  }
+}

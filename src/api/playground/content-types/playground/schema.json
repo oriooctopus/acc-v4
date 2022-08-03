@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "playgrounds",
+  "info": {
+    "singularName": "playground",
+    "pluralName": "playgrounds",
+    "displayName": "Playground",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "internalNotes": {
+      "type": "text"
+    },
+    "prompt": {
+      "type": "richtext",
+      "required": true
+    },
+    "editorMeta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "misc.editor-meta"
+    },
+    "challengeMeta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "challenge.challenge-meta"
+    }
+  }
+}

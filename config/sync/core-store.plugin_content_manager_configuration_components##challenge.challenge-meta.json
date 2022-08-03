@@ -1,0 +1,118 @@
+{
+  "key": "plugin_content_manager_configuration_components::challenge.challenge-meta",
+  "value": {
+    "uid": "challenge.challenge-meta",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "id",
+      "defaultSortBy": "id",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "Id",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "isDebuggingChallenge": {
+        "edit": {
+          "label": "IsDebuggingChallenge",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "IsDebuggingChallenge",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "lesson": {
+        "edit": {
+          "label": "Lesson",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "slug"
+        },
+        "list": {
+          "label": "Lesson",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "difficulty": {
+        "edit": {
+          "label": "difficulty",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "difficulty",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "sublesson": {
+        "edit": {
+          "label": "sublesson",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "internalLabel"
+        },
+        "list": {
+          "label": "sublesson",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "isDebuggingChallenge",
+        "lesson",
+        "difficulty"
+      ],
+      "edit": [
+        [
+          {
+            "name": "isDebuggingChallenge",
+            "size": 4
+          },
+          {
+            "name": "lesson",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "difficulty",
+            "size": 6
+          },
+          {
+            "name": "sublesson",
+            "size": 6
+          }
+        ]
+      ],
+      "editRelations": []
+    },
+    "isComponent": true
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

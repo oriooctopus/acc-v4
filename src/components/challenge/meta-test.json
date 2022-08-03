@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_challenge_meta_tests",
+  "info": {
+    "displayName": "MetaTest",
+    "icon": "balance-scale",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "caseCode": {
+      "type": "richtext"
+    },
+    "label": {
+      "type": "string"
+    },
+    "passes": {
+      "type": "boolean"
+    }
+  }
+}

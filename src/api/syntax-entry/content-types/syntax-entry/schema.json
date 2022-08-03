@@ -30,7 +30,7 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::sublesson.sublesson",
-      "inversedBy": "syntaxEntry"
+      "mappedBy": "syntaxEntry"
     },
     "lesson": {
       "type": "relation",

@@ -1,7 +1,7 @@
 const sublessonLessonLinkFields = ["lesson_id", "sublesson_id"];
 // had trouble with serializing these so removing them for now
-const temporaryIgnore = ["created_at", "updated_at", "published_at"];
-const fieldsToIgnore = ["id", ...sublessonLessonLinkFields, ...temporaryIgnore];
+const temporaryDataFix = ["created_at", "updated_at", "published_at"];
+const fieldsToIgnore = ["id", ...sublessonLessonLinkFields];
 
 const getLastInsertedRowId = async (tableName) => {
   const result = await strapi.db.connection.raw(`
@@ -18,8 +18,10 @@ const createNewChildEntity = async (row, entityTableName) => {
   const valuesString = fieldsToRetain
     .map((field) => {
       const value = row[field];
-      if (typeof value === "string") {
-        return `'${value.replace(/'/g, "''")}'`;
+      if (value instanceof Date || temporaryDataFix.includes(field)) {
+        return "now()::timestamp";
+      } else if (typeof value === "string") {
+        return `'${value.replace(/'/g, "''").replace(/\?/, "\\?")}'`;
       } else if (value === undefined || value === null) {
         return "null";
       }
@@ -49,6 +51,10 @@ module.exports = async ({
   // Array of the new 'sort' order for the child relations
   orderedEntityIds,
 }) => {
+  if (!orderedEntityIds || !orderedEntityIds.length) {
+    return;
+  }
+
   const { rows: orderedChildEntities } = await strapi.db.connection.raw(`
     SELECT *
     FROM ${entityTableName} child

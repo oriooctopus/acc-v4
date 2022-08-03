@@ -2,7 +2,8 @@
   "collectionName": "components_content_challenges",
   "info": {
     "displayName": "Challenges",
-    "icon": "atlas"
+    "icon": "atlas",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -15,6 +16,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::multiple-choice-challenge.multiple-choice-challenge"
+    },
+    "playground": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::playground.playground"
     }
   }
 }

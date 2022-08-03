@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_misc_editor_metas",
+  "info": {
+    "displayName": "editorMeta",
+    "icon": "anchor",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "context": {
+      "type": "richtext"
+    },
+    "startingCode": {
+      "type": "richtext"
+    }
+  }
+}

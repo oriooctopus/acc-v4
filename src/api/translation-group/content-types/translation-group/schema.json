@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "translation_groups",
+  "info": {
+    "singularName": "translation-group",
+    "pluralName": "translation-groups",
+    "displayName": "translationGroup",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "aboutPage": {
+      "type": "component",
+      "repeatable": false,
+      "component": "translations.about-page"
+    },
+    "coreComponents": {
+      "type": "component",
+      "repeatable": false,
+      "component": "translations.core-components"
+    }
+  }
+}
